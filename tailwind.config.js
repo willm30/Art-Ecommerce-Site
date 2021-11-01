@@ -18,7 +18,14 @@ module.exports = {
       "header-btn": "1 1 15%",
       "header-h1": "1 1 85%",
     },
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        feature: "0.5fr 0.25fr repeat(3, 1fr) 0.25fr",
+      },
+      gridTemplateColumns: {
+        feature: "0.1fr 1fr",
+      },
+    },
   },
   variants: {
     extend: {},
