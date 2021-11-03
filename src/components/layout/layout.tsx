@@ -6,7 +6,7 @@ export default function Layout({
   children,
   title,
 }: {
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
   title: string;
 }) {
   return (

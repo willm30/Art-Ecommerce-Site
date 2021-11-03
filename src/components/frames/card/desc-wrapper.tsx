@@ -13,7 +13,7 @@ export default function DescWrapper({
   flexBasis: string;
   headingSize: string;
   Button: JSX.Element;
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 }) {
   return (
     <div className={`flex flex-col ${flexBasis} text-center font-poppins`}>

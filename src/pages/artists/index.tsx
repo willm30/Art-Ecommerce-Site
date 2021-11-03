@@ -3,7 +3,7 @@ import Layout from "../../components/layout/layout";
 
 export default function Artists() {
   return (
-    <Layout>
+    <Layout title="Artists">
       <div>What should we do with this page?</div>
     </Layout>
   );

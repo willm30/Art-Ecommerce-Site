@@ -6,24 +6,22 @@ import ImageWrapper from "./card/image-wrapper";
 
 export default function GroupFeature({ image, des, alt, name, to }) {
   return (
-    <div>
-      <CardWrapper>
-        <ImageWrapper
-          image={image}
-          alt={alt}
-          flexBasis="flex-30"
-          to={`/art/${to}`}
-        ></ImageWrapper>
-        <DescWrapper
-          name={name}
-          flexBasis="flex-70"
-          headingSize="text-lg"
-          des={des}
-          Button={<DescBtn path={`/art/${to}`} text="Learn More" />}
-        >
-          {null}
-        </DescWrapper>
-      </CardWrapper>
-    </div>
+    <CardWrapper>
+      <ImageWrapper
+        image={image}
+        alt={alt}
+        flexBasis="flex-30"
+        to={`/art/${to}`}
+      ></ImageWrapper>
+      <DescWrapper
+        name={name}
+        flexBasis="flex-70"
+        headingSize="text-lg"
+        des={des}
+        Button={<DescBtn path={`/art/${to}`} text="Learn More" />}
+      >
+        {null}
+      </DescWrapper>
+    </CardWrapper>
   );
 }

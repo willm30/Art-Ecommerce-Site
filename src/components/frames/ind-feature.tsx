@@ -6,27 +6,25 @@ import ImageWrapper from "./card/image-wrapper";
 
 export default function IndFeature({ image, des, alt, name, media, canvas }) {
   return (
-    <div>
-      <CardWrapper>
-        <ImageWrapper
-          image={image}
-          alt={alt}
-          flexBasis="flex-50"
-          to={null}
-        ></ImageWrapper>
-        <DescWrapper
-          name={name}
-          flexBasis="flex-50"
-          headingSize="text-2xl"
-          des={des}
-          Button={<AddCartBtn text="Add to Cart" />}
-        >
-          <div>
-            <p>Media Type: {media}</p>
-            <p>Canvas Type: {canvas}</p>
-          </div>
-        </DescWrapper>
-      </CardWrapper>
-    </div>
+    <CardWrapper>
+      <ImageWrapper
+        image={image}
+        alt={alt}
+        flexBasis="flex-50"
+        to={null}
+      ></ImageWrapper>
+      <DescWrapper
+        name={name}
+        flexBasis="flex-50"
+        headingSize="text-2xl"
+        des={des}
+        Button={<AddCartBtn text="Add to Cart" />}
+      >
+        <div>
+          <p>Media Type: {media}</p>
+          <p>Canvas Type: {canvas}</p>
+        </div>
+      </DescWrapper>
+    </CardWrapper>
   );
 }
