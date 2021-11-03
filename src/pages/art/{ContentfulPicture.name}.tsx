@@ -15,7 +15,8 @@ export default function Art({ data }) {
         des={picture.image.description}
         alt={picture.alternativeText}
         name={picture.name}
-        to="/"
+        media={picture.mediaType}
+        canvas={picture.canvasType}
       ></IndFeature>
     </Layout>
   );

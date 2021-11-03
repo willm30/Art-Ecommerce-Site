@@ -12,13 +12,14 @@ export default function GroupFeature({ image, des, alt, name, to }) {
           image={image}
           alt={alt}
           flexBasis="flex-30"
+          to={`/art/${to}`}
         ></ImageWrapper>
         <DescWrapper
           name={name}
           flexBasis="flex-70"
           headingSize="text-lg"
           des={des}
-          Button={<DescBtn path={`/art/${to}`} text="Read More" />}
+          Button={<DescBtn path={`/art/${to}`} text="Learn More" />}
         />
       </CardWrapper>
     </div>
