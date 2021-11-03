@@ -21,8 +21,10 @@ export default function IndFeature({ image, des, alt, name, media, canvas }) {
           des={des}
           Button={<AddCartBtn text="Add to Cart" />}
         >
-          <p>Media Type: {media}</p>
-          <p>Canvas Type: {canvas}</p>
+          <div>
+            <p>Media Type: {media}</p>
+            <p>Canvas Type: {canvas}</p>
+          </div>
         </DescWrapper>
       </CardWrapper>
     </div>

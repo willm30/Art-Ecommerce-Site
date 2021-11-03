@@ -20,7 +20,9 @@ export default function GroupFeature({ image, des, alt, name, to }) {
           headingSize="text-lg"
           des={des}
           Button={<DescBtn path={`/art/${to}`} text="Learn More" />}
-        />
+        >
+          {null}
+        </DescWrapper>
       </CardWrapper>
     </div>
   );
