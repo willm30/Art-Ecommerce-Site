@@ -1,9 +1,17 @@
 import React from "react";
 import { Link } from "gatsby";
 
-export default function ListItem({ text, to }: { text: string; to: string }) {
+export default function ListItem({
+  text,
+  to,
+  hover,
+}: {
+  text: string;
+  to: string;
+  hover: string;
+}) {
   return (
-    <li>
+    <li className={`${hover}`}>
       <Link to={`/${to}`}>{text}</Link>
     </li>
   );
