@@ -20,15 +20,15 @@ export default function NavMenu({ flexBasis }: { flexBasis: string }) {
   const pages = data.allFile.edges;
   return (
     <ul
-      className={`flex ${flexBasis} flex-row justify-evenly items-center text-center`}
+      className={`flex ${flexBasis} flex-row items-center justify-evenly text-center`}
     >
       {getDirectories(pages).map((dir) => {
         const pageName = pathNameToPageName(dir);
         return <ListItem text={pageName} to={dir} hover="hover:text-white" />;
       })}
-      <button className="">
+      <div>
         <ShoppingCart />
-      </button>
+      </div>
     </ul>
   );
 }
