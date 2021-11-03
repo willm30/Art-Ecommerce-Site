@@ -3,8 +3,10 @@ import Layout from "../components/layout/layout";
 
 export default function Index() {
   return (
-    <Layout>
-      <div>What should we do with the home page?</div>
-    </Layout>
+    <div>
+      <Layout>
+        <div>What should we do with the home page?</div>
+      </Layout>
+    </div>
   );
 }

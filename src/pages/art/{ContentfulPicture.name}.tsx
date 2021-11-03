@@ -9,13 +9,12 @@ export default function Art({ data }) {
   const image = getImage(picture.image);
 
   return (
-    <Layout>
+    <Layout title={picture.name}>
       <IndFeature
         image={image}
         des={picture.image.description}
         alt={picture.alternativeText}
         name={picture.name}
-        id={picture.id}
         to="/"
       ></IndFeature>
     </Layout>

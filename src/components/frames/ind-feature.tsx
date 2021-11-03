@@ -1,13 +1,13 @@
 import React from "react";
-import AddCartBtn from "./buttons/add-cart";
+import AddCartBtn from "./buttons/add-cart-btn";
 import CardWrapper from "./card/card-wrapper";
 import DescWrapper from "./card/desc-wrapper";
 import ImageWrapper from "./card/image-wrapper";
 
-export default function IndFeature({ image, des, alt, name, id, to }) {
+export default function IndFeature({ image, des, alt, name }) {
   return (
     <div>
-      <CardWrapper id={id}>
+      <CardWrapper>
         <ImageWrapper
           image={image}
           alt={alt}
@@ -18,7 +18,7 @@ export default function IndFeature({ image, des, alt, name, id, to }) {
           flexBasis="flex-50"
           headingSize="text-2xl"
           des={des}
-          Button={<AddCartBtn path={to}></AddCartBtn>}
+          Button={<AddCartBtn text="Add to Cart" />}
         />
       </CardWrapper>
     </div>

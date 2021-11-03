@@ -1,13 +1,13 @@
 import React from "react";
-import ReadMoreBtn from "./buttons/read-more";
+import DescBtn from "./buttons/desc-btn";
 import CardWrapper from "./card/card-wrapper";
 import DescWrapper from "./card/desc-wrapper";
 import ImageWrapper from "./card/image-wrapper";
 
-export default function GroupFeature({ image, des, alt, name, id, to }) {
+export default function GroupFeature({ image, des, alt, name, to }) {
   return (
     <div>
-      <CardWrapper id={id}>
+      <CardWrapper>
         <ImageWrapper
           image={image}
           alt={alt}
@@ -18,7 +18,7 @@ export default function GroupFeature({ image, des, alt, name, id, to }) {
           flexBasis="flex-70"
           headingSize="text-lg"
           des={des}
-          Button={<ReadMoreBtn path={to}></ReadMoreBtn>}
+          Button={<DescBtn path={`/art/${to}`} text="Read More" />}
         />
       </CardWrapper>
     </div>

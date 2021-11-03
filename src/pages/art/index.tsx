@@ -7,7 +7,7 @@ import Layout from "../../components/layout/layout";
 export default function ArtPage({ data }) {
   const pictures = data.allContentfulPicture.edges;
   return (
-    <Layout>
+    <Layout title="Art">
       <div className="flex flex-col">
         {pictures.map((picture) => {
           const data = picture.node;
@@ -19,7 +19,7 @@ export default function ArtPage({ data }) {
               des={data.image.description}
               alt={data.alternativeText}
               name={data.name}
-              id={data.id}
+              key={data.id}
               to={data.slug}
             ></GroupFeature>
           );

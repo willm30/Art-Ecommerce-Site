@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "gatsby";
 
-export default function ReadMoreBtn({ path }) {
+export default function DescBtn({ path, text }) {
   return (
-    <Link to={`/art/${path}`}>
+    <Link to={path}>
       <button className="bg-gray-200 border-black border filter drop-shadow-md rounded-md p-2 hover:bg-white">
-        Read more
+        {text}
       </button>
     </Link>
   );

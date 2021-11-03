@@ -24,7 +24,14 @@ export default function NavMenu({ flexBasis }: { flexBasis: string }) {
     >
       {getDirectories(pages).map((dir) => {
         const pageName = pathNameToPageName(dir);
-        return <ListItem text={pageName} to={dir} hover="hover:text-white" />;
+        return (
+          <ListItem
+            key={dir}
+            text={pageName}
+            to={dir}
+            hover="hover:text-white"
+          />
+        );
       })}
       <div>
         <ShoppingCart />
