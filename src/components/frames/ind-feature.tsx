@@ -1,10 +1,26 @@
+import { IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
 import AddCartBtn from "./buttons/add-cart-btn";
 import CardWrapper from "./card/card-wrapper";
 import DescWrapper from "./card/desc-wrapper";
 import ImageWrapper from "./card/image-wrapper";
 
-export default function IndFeature({ image, des, alt, name, media, canvas }) {
+export default function IndFeature({
+  image,
+  des,
+  alt,
+  name,
+  media,
+  canvas,
+}: {
+  image: IGatsbyImageData;
+  des: string;
+  alt: string;
+  name: string;
+  to: string;
+  media: string;
+  canvas: string;
+}) {
   return (
     <CardWrapper>
       <ImageWrapper

@@ -1,10 +1,23 @@
+import { IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
 import DescBtn from "./buttons/desc-btn";
 import CardWrapper from "./card/card-wrapper";
 import DescWrapper from "./card/desc-wrapper";
 import ImageWrapper from "./card/image-wrapper";
 
-export default function GroupFeature({ image, des, alt, name, to }) {
+export default function GroupFeature({
+  image,
+  des,
+  alt,
+  name,
+  to,
+}: {
+  image: IGatsbyImageData;
+  des: string;
+  alt: string;
+  name: string;
+  to: string;
+}) {
   return (
     <CardWrapper>
       <ImageWrapper
