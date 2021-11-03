@@ -12,23 +12,42 @@ module.exports = {
       32: "8rem",
     },
     flex: {
-      logo: "1 1 20%",
-      nav: "1 1 80%",
-      header: "1 1 100%",
-      "header-btn": "1 1 15%",
-      "header-h1": "1 1 85%",
+      10: "1 1 10%",
+      15: "1 1 15%",
+      20: "1 1 20%",
+      30: "1 1 30%",
+      40: "1 1 40%",
+      50: "1 1 50%",
+      60: "1 1 60%",
+      70: "1 1 70%",
+      80: "1 1 80%",
+      85: "1 1 85%",
+      90: "1 1 90%",
+      100: "1 1 100%",
     },
     extend: {
       gridTemplateRows: {
-        feature: "0.5fr 0.25fr repeat(3, 1fr) 0.25fr",
+        feature: "0.2fr 1fr",
       },
       gridTemplateColumns: {
         feature: "0.1fr 1fr",
       },
+      animation: {
+        nav: "grow 10s linear forwards",
+      },
+      keyframes: {
+        grow: {
+          "0%": { borderRadius: "0px" },
+          "100%": { borderRadius: "9999px" },
+        },
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      animation: ["hover"],
+      backgroundColor: ["hover"],
+    },
   },
   plugins: [],
 };
