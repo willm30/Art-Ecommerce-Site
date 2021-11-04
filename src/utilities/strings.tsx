@@ -17,3 +17,7 @@ export function pathNameToPageName(string: string) {
 
   return capitalized.join(" ");
 }
+
+export function getParentFromXLPath(path: string) {
+  return path.replace("/xl", "");
+}

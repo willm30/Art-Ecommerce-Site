@@ -6,18 +6,26 @@ export default function ImageWrapper({
   image,
   alt,
   flexBasis,
+  maxWidth,
   to,
+  xl,
 }: {
   image: IGatsbyImageData;
   alt: string;
   flexBasis: string;
+  maxWidth: string;
   to: string;
+  xl: boolean;
 }) {
   return (
-    <div className={`${flexBasis} filter drop-shadow-md border-8 border-white`}>
-      <Link to={to}>
+    <div className={`${flexBasis} ${maxWidth} border-8 border-white`}>
+      {xl ? (
         <GatsbyImage image={image} alt={alt}></GatsbyImage>
-      </Link>
+      ) : (
+        <Link to={to}>
+          <GatsbyImage image={image} alt={alt}></GatsbyImage>
+        </Link>
+      )}
     </div>
   );
 }

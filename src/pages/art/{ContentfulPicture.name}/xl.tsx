@@ -1,15 +1,21 @@
-import React from "react";
-import IndFeature from "../../components/frames/ind-feature";
-import Layout from "../../components/layout/layout";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
+import React from "react";
+import LayoutXL from "../../../components/layout/layoutXL";
+import IndFeature from "../../../components/frames/ind-feature";
 
-export default function Art({ data }) {
+export default function XLArt({ data, location }) {
   const picture = data.contentfulPicture;
   const image = getImage(picture.image);
+  const orientation = image.height > image.width ? "Portrait" : "Landscape";
+  const path = location.pathname;
 
   return (
-    <Layout title={picture.name}>
+    <LayoutXL
+      title={`${picture.name} XL`}
+      location={location}
+      orientation={orientation}
+    >
       <IndFeature
         image={image}
         des={picture.image.description}
@@ -17,13 +23,16 @@ export default function Art({ data }) {
         name={picture.name}
         media={picture.mediaType}
         canvas={picture.canvasType}
-      ></IndFeature>
-    </Layout>
+        orientation={orientation}
+        xl={true}
+        path={path}
+      />
+    </LayoutXL>
   );
 }
 
 export const query = graphql`
-  query IndividualPicture($id: String!) {
+  query EnlargedPicture($id: String!) {
     contentfulPicture(id: { eq: $id }) {
       id
       name
@@ -35,7 +44,7 @@ export const query = graphql`
         gatsbyImageData(
           layout: CONSTRAINED
           placeholder: DOMINANT_COLOR
-          width: 600
+          width: 1200
         )
         description
       }
