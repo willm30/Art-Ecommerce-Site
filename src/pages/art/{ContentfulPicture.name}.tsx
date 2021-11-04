@@ -32,7 +32,11 @@ export const query = graphql`
       canvasType
       mediaType
       image {
-        gatsbyImageData
+        gatsbyImageData(
+          layout: CONSTRAINED
+          placeholder: DOMINANT_COLOR
+          width: 600
+        )
         description
       }
     }

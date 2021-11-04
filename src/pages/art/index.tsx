@@ -37,7 +37,11 @@ export const query = graphql`
           id
           name
           image {
-            gatsbyImageData
+            gatsbyImageData(
+              layout: CONSTRAINED
+              placeholder: DOMINANT_COLOR
+              width: 300
+            )
             description
           }
           alternativeText

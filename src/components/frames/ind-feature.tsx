@@ -17,7 +17,6 @@ export default function IndFeature({
   des: string;
   alt: string;
   name: string;
-  to: string;
   media: string;
   canvas: string;
 }) {
