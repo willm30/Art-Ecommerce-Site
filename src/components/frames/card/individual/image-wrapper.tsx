@@ -14,15 +14,12 @@ export default function IndImg({
   orientation: string;
 }) {
   const orientationStyles = orientation == "Landscape" ? "flex-60" : "flex-40";
+  const innerWidth = typeof window != undefined && window.innerWidth;
   return (
     <div className={`${orientationStyles} border-8 border-white`}>
       <Link
         to={
-          window?.innerWidth > 767
-            ? path.includes("/xl")
-              ? null
-              : `${path}/xl`
-            : null
+          innerWidth > 767 ? (path.includes("/xl") ? null : `${path}/xl`) : null
         }
       >
         <GatsbyImage image={image} alt={alt}></GatsbyImage>
