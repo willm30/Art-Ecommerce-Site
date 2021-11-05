@@ -18,7 +18,7 @@ export default function IndImg({
     <div className={`${orientationStyles} border-8 border-white`}>
       <Link
         to={
-          window.innerWidth > 767
+          window?.innerWidth > 767
             ? path.includes("/xl")
               ? null
               : `${path}/xl`
