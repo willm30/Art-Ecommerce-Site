@@ -1,29 +1,43 @@
 import { Link } from "gatsby";
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
+import { Component } from "react";
 
-export default function IndImg({
-  image,
-  alt,
-  path,
-  orientation,
-}: {
-  image: IGatsbyImageData;
-  alt: string;
-  path: string;
-  orientation: string;
-}) {
-  const orientationStyles = orientation == "Landscape" ? "flex-60" : "flex-40";
-  const innerWidth = typeof window != undefined && window.innerWidth;
-  return (
-    <div className={`${orientationStyles} border-8 border-white`}>
-      <Link
-        to={
-          innerWidth > 767 ? (path.includes("/xl") ? null : `${path}/xl`) : null
-        }
-      >
-        <GatsbyImage image={image} alt={alt}></GatsbyImage>
-      </Link>
-    </div>
-  );
+class IndImg extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { innerWidth: undefined };
+  }
+
+  componentDidMount() {
+    this.setState({
+      innerWidth: typeof window != undefined && window.innerWidth,
+    });
+  }
+
+  render() {
+    const orientationStyles =
+      this.props.orientation == "Landscape" ? "flex-60" : "flex-40";
+
+    return (
+      <div className={`${orientationStyles} border-8 border-white`}>
+        <Link
+          to={
+            this.state.innerWidth > 767
+              ? this.props.path.includes("/xl")
+                ? null
+                : `${this.props.path}/xl`
+              : null
+          }
+        >
+          <GatsbyImage
+            image={this.props.image}
+            alt={this.props.alt}
+          ></GatsbyImage>
+        </Link>
+      </div>
+    );
+  }
 }
+
+export default IndImg;
