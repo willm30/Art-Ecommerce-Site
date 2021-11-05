@@ -7,6 +7,5 @@ export function getDirectories(edges) {
       directories.add(relDir);
     }
   });
-  console.log(directories);
-  return [...directories];
+  return [...directories].sort();
 }

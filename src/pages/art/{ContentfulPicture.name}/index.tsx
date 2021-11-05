@@ -1,8 +1,8 @@
 import React from "react";
-import IndFeature from "../../../components/frames/ind-feature";
 import Layout from "../../../components/layout/layout";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
+import IndFeature from "../../../components/frames/ind-feature";
 
 export default function Art({ data, location }) {
   const picture = data.contentfulPicture;
@@ -19,9 +19,8 @@ export default function Art({ data, location }) {
         name={picture.name}
         media={picture.mediaType}
         canvas={picture.canvasType}
-        orientation={orientation}
-        xl={false}
         path={path}
+        orientation={orientation}
       ></IndFeature>
     </Layout>
   );
@@ -40,7 +39,7 @@ export const query = graphql`
         gatsbyImageData(
           layout: CONSTRAINED
           placeholder: DOMINANT_COLOR
-          width: 700
+          width: 1200
         )
         description
       }

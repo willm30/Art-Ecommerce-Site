@@ -6,12 +6,18 @@ import Layout from "../../components/layout/layout";
 
 export default function ArtPage({ data }) {
   const pictures = data.allContentfulPicture.edges;
+  const title = "Art";
   return (
-    <Layout title="Art">
-      <div className="flex flex-col">
+    <Layout title={title}>
+      <div>
+        <h1 className="text-center text-2xl font-secular my-4 md:my-0 md:mb-8 md:text-4xl">
+          {title}
+        </h1>
         {pictures.map((picture) => {
           const data = picture.node;
           const image = getImage(data.image);
+          const orientation =
+            image.height > image.width ? "Portrait" : "Landscape";
 
           return (
             <GroupFeature
@@ -21,6 +27,7 @@ export default function ArtPage({ data }) {
               name={data.name}
               key={data.id}
               to={data.slug}
+              orientation={orientation}
             ></GroupFeature>
           );
         })}
@@ -40,7 +47,7 @@ export const query = graphql`
             gatsbyImageData(
               layout: CONSTRAINED
               placeholder: DOMINANT_COLOR
-              width: 300
+              width: 700
             )
             description
           }

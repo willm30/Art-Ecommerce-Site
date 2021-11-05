@@ -1,15 +1,14 @@
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import React from "react";
-import LayoutXL from "../../../components/layout/layoutXL";
 import IndFeature from "../../../components/frames/ind-feature";
+import LayoutXL from "../../../components/layout/layoutXL";
 
 export default function XLArt({ data, location }) {
   const picture = data.contentfulPicture;
   const image = getImage(picture.image);
   const orientation = image.height > image.width ? "Portrait" : "Landscape";
   const path = location.pathname;
-
   return (
     <LayoutXL
       title={`${picture.name} XL`}
@@ -23,9 +22,8 @@ export default function XLArt({ data, location }) {
         name={picture.name}
         media={picture.mediaType}
         canvas={picture.canvasType}
-        orientation={orientation}
-        xl={true}
         path={path}
+        orientation={orientation}
       />
     </LayoutXL>
   );

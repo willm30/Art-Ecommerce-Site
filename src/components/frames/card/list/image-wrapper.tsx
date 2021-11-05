@@ -5,27 +5,20 @@ import React from "react";
 export default function ImageWrapper({
   image,
   alt,
-  flexBasis,
-  maxWidth,
   to,
-  xl,
+  orientation,
 }: {
   image: IGatsbyImageData;
   alt: string;
-  flexBasis: string;
-  maxWidth: string;
   to: string;
-  xl: boolean;
+  orientation: "Portrait" | "Landscape";
 }) {
+  const orientationStyles = orientation == "Landscape" ? "flex-50" : "flex-40";
   return (
-    <div className={`${flexBasis} ${maxWidth} border-8 border-white`}>
-      {xl ? (
+    <div className={`${orientationStyles} md:flex-10 border-8 border-white`}>
+      <Link to={to}>
         <GatsbyImage image={image} alt={alt}></GatsbyImage>
-      ) : (
-        <Link to={to}>
-          <GatsbyImage image={image} alt={alt}></GatsbyImage>
-        </Link>
-      )}
+      </Link>
     </div>
   );
 }

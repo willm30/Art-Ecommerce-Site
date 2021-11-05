@@ -13,6 +13,7 @@ export default function LayoutXL({
   children: React.ReactElement | React.ReactElement[];
   title: string;
   orientation: "Portrait" | "Landscape";
+  location: { pathname: string };
 }) {
   const landscapeContainerMargin = "my-24";
   const portraitContainerMargin = "my-6";

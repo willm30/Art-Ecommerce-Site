@@ -10,10 +10,12 @@ export default function Layout({
   title: string;
 }) {
   return (
-    <div className="grid gap-8 grid-cols-6 grid-rows-feature max-h-screen">
+    <div className="grid sm:gap-4 md:gap-8 sm:grid-cols-10 md:grid-cols-6 grid-rows-feature max-h-screen">
       <Seo title={title} />
       <Header></Header>
-      <div className="col-start-2 col-end-6 max-w-screen-md">{children}</div>
+      <div className="col-span-full sm:col-start-2 sm:col-end-10 md:col-start-2 md:col-end-6 max-w-screen-md">
+        {children}
+      </div>
     </div>
   );
 }
