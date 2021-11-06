@@ -15,7 +15,9 @@ export default function IndFeature({
   path,
   orientation,
   title,
-  url,
+  children,
+  handleMouseMove,
+  handleMagnify, // gets passed in from Magnifier
 }: {
   image: IGatsbyImageData;
   des: string;
@@ -26,18 +28,25 @@ export default function IndFeature({
   path: string;
   orientation: "Portrait" | "Landscape";
   title: string;
-  url: string;
+  children: React.ReactElement;
+  handleMouseMove: (e) => void | null;
+  handleMagnify: () => void | null;
 }) {
+  const orientationStyles = orientation == "Landscape" ? "flex-60" : "flex-40";
   return (
     <CardWrapper>
-      <IndImg
-        image={image}
-        alt={alt}
-        path={path}
-        orientation={orientation}
-        title={title}
-        url={url}
-      ></IndImg>
+      <div className={`flex flex-col ${orientationStyles}`}>
+        {children}
+        <IndImg
+          image={image}
+          alt={alt}
+          path={path}
+          orientation={orientation}
+          title={title}
+          handleMagnify={handleMagnify}
+          handleMouseMove={handleMouseMove}
+        />
+      </div>
       <IndDesc name={name} des={des} Button={<AddCartBtn text="Add to Cart" />}>
         <div>
           <p>Media Type: {media}</p>

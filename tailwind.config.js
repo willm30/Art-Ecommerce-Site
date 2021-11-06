@@ -47,6 +47,7 @@ module.exports = {
     extend: {
       animation: ["hover"],
       backgroundColor: ["hover"],
+      cursor: ["hover"],
     },
   },
   plugins: [],

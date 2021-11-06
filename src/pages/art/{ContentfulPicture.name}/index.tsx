@@ -3,19 +3,18 @@ import Layout from "../../../components/layout/layout";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import IndFeature from "../../../components/frames/ind-feature";
-import { getResizedImgUrl } from "../../../utilities/graphQL";
-import { getCursorPosition } from "../../../utilities/cursor";
+import { getCursorPosition } from "../../../utilities/magnify";
 
 export default function Art({ data, location }) {
   const picture = data.contentfulPicture;
   const image = getImage(picture.image);
   const path = location.pathname;
   const orientation = image.height > image.width ? "Portrait" : "Landscape";
-  const resizedUrl = getResizedImgUrl(
-    picture.image.file.url,
-    1200,
-    picture.image.resize.aspectRatio
-  );
+
+  function handleMouseMove(e) {
+    const cursor = getCursorPosition(e);
+    window.sessionStorage.setItem("cursorPosition", JSON.stringify(cursor));
+  }
 
   return (
     <Layout title={picture.name}>
@@ -28,9 +27,12 @@ export default function Art({ data, location }) {
         canvas={picture.canvasType}
         path={path}
         orientation={orientation}
-        url={resizedUrl}
         title={picture.name}
-      ></IndFeature>
+        handleMouseMove={handleMouseMove}
+        handleMagnify={null}
+      >
+        {null}
+      </IndFeature>
     </Layout>
   );
 }

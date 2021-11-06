@@ -35,6 +35,7 @@ export default function LayoutXL({
       <Link
         to={path}
         className="bg-gray-400 w-full h-full row-span-full col-span-full bg-opacity-75"
+        id="GreyZone"
       ></Link>
       <div
         className={`col-start-2 ${

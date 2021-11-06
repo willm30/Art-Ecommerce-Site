@@ -2,7 +2,59 @@ export function getCursorPosition(e) {
   return { x: e.clientX, y: e.clientY };
 }
 
+export function getMagnifierLeftPosition(
+  magnifierWidth: number,
+  cursorX: number
+) {
+  const halfMagnifierWidth = magnifierWidth / 2;
+
+  return cursorX - halfMagnifierWidth;
+}
+
+export function getMagnifierTopPosition(
+  magnifierHeight: number,
+  cursorY: number
+) {
+  const halfMagnifierHeight = magnifierHeight / 2;
+
+  return cursorY - halfMagnifierHeight;
+}
+
+export function getBackgroundSize(container: HTMLElement, zoom: number) {
+  const backgroundSizeX = container?.clientWidth * zoom;
+  const backgroundSizeY = container?.clientHeight * zoom;
+  return `${backgroundSizeX}px ${backgroundSizeY}px`;
+}
+
 export function getBackgroundPosition(
+  magnifierDiameter: number, // magnifier width
+  container: HTMLElement,
+  cursorX: number,
+  cursorY: number,
+  zoom: number
+) {
+  const containerOffsetX =
+    getMagnifierPositionFromCursor(cursorX, magnifierDiameter) -
+    getContainerLeftPosition(container);
+
+  const containerOffsetY =
+    getMagnifierPositionFromCursor(cursorY, magnifierDiameter) -
+    getContainerTopPosition(container);
+
+  const backgroundPositionX = getBackgroundDimension(
+    containerOffsetX,
+    magnifierDiameter / 2,
+    zoom
+  );
+  const backgroundPositionY = getBackgroundDimension(
+    containerOffsetY,
+    magnifierDiameter / 2,
+    zoom
+  );
+  return { x: backgroundPositionX, y: backgroundPositionY };
+}
+
+function getBackgroundDimension(
   containerOffset: number,
   cursorOffset: number,
   zoom: number
@@ -10,73 +62,19 @@ export function getBackgroundPosition(
   return containerOffset * zoom + cursorOffset;
 }
 
-export function getXOffset(
-  element: HTMLDivElement | number,
-  container: HTMLDivElement
+function getContainerLeftPosition(container: HTMLElement) {
+  return container.getBoundingClientRect().left;
+}
+
+function getContainerTopPosition(container: HTMLElement) {
+  return container.getBoundingClientRect().top;
+}
+
+function getMagnifierPositionFromCursor(
+  cursorPosition: number,
+  magnifierDiameter: number
 ) {
-  if (typeof element == "number")
-    return element - container.getBoundingClientRect().left;
-
-  return (
-    element.getBoundingClientRect().left -
-    container.getBoundingClientRect().left
-  );
-}
-
-export function getYOffset(
-  element: HTMLDivElement | number,
-  container: HTMLDivElement
-) {
-  if (typeof element == "number")
-    return element - container.getBoundingClientRect().top;
-
-  return (
-    element.getBoundingClientRect().top - container.getBoundingClientRect().top
-  );
-}
-
-export function getLeftPosition(
-  magnifier: HTMLDivElement,
-  container: HTMLDivElement,
-  cursorX: number
-) {
-  const halfMagnifierWidth = magnifier.getBoundingClientRect().width / 2;
-  const leftPosition = isXWithinBounds(cursorX, halfMagnifierWidth, container)
-    ? cursorX - halfMagnifierWidth
-    : magnifier.getBoundingClientRect().left;
-
-  return leftPosition;
-}
-
-export function getTopPosition(
-  magnifier: HTMLDivElement,
-  container: HTMLDivElement,
-  cursorY: number
-) {
-  const halfMagnifierHeight = magnifier.getBoundingClientRect().height / 2;
-  const topPosition = isYWithinBounds(cursorY, halfMagnifierHeight, container)
-    ? cursorY - halfMagnifierHeight
-    : magnifier.getBoundingClientRect().top;
-
-  return topPosition;
-}
-
-function isXWithinBounds(cursorX: number, offset: number, container) {
-  if (
-    cursorX + offset <= container.getBoundingClientRect().right &&
-    cursorX - offset >= container.getBoundingClientRect().left
-  )
-    return true;
-
-  return false;
-}
-
-function isYWithinBounds(cursorY: number, offset: number, container) {
-  if (
-    cursorY + offset <= container.getBoundingClientRect().bottom &&
-    cursorY - offset >= container.getBoundingClientRect().top
-  )
-    return true;
-
-  return false;
+  /* Returns the left or top position of the magnifier, depending on whether you give it
+  the x or y value of the cursor */
+  return cursorPosition - magnifierDiameter / 2;
 }
