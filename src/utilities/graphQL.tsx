@@ -9,3 +9,11 @@ export function getDirectories(edges) {
   });
   return [...directories].sort();
 }
+
+export function getResizedImgUrl(
+  url: string,
+  width: number,
+  aspectRatio: number
+) {
+  return url + `?w=${width}&h=${width / aspectRatio}&q=50`;
+}

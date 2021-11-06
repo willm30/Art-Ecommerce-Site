@@ -3,12 +3,18 @@ import { getImage } from "gatsby-plugin-image";
 import React from "react";
 import IndFeature from "../../../components/frames/ind-feature";
 import LayoutXL from "../../../components/layout/layoutXL";
+import { getResizedImgUrl } from "../../../utilities/graphQL";
 
 export default function XLArt({ data, location }) {
   const picture = data.contentfulPicture;
   const image = getImage(picture.image);
   const orientation = image.height > image.width ? "Portrait" : "Landscape";
   const path = location.pathname;
+  const resizedUrl = getResizedImgUrl(
+    picture.image.file.url,
+    1200,
+    picture.image.resize.aspectRatio
+  );
   return (
     <LayoutXL
       title={`${picture.name} XL`}
@@ -24,6 +30,8 @@ export default function XLArt({ data, location }) {
         canvas={picture.canvasType}
         path={path}
         orientation={orientation}
+        url={resizedUrl}
+        title={picture.name}
       />
     </LayoutXL>
   );
@@ -45,6 +53,12 @@ export const query = graphql`
           width: 1200
         )
         description
+        file {
+          url
+        }
+        resize {
+          aspectRatio
+        }
       }
     }
   }

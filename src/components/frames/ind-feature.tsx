@@ -14,6 +14,8 @@ export default function IndFeature({
   canvas,
   path,
   orientation,
+  title,
+  url,
 }: {
   image: IGatsbyImageData;
   des: string;
@@ -23,6 +25,8 @@ export default function IndFeature({
   canvas: string;
   path: string;
   orientation: "Portrait" | "Landscape";
+  title: string;
+  url: string;
 }) {
   return (
     <CardWrapper>
@@ -31,6 +35,8 @@ export default function IndFeature({
         alt={alt}
         path={path}
         orientation={orientation}
+        title={title}
+        url={url}
       ></IndImg>
       <IndDesc name={name} des={des} Button={<AddCartBtn text="Add to Cart" />}>
         <div>
