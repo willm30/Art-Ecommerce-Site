@@ -24,6 +24,7 @@ export default function Magnifier({
   const magnifierWidth = 192;
   const magnifierHeight = 192;
   const backgroundSize = getBackgroundSize(imageContainer, zoom);
+  const [bodyHeight, setBodyHeight] = useState(undefined);
 
   useEffect(() => {
     setCardContainer(getElementById("CardWrapper"));
@@ -31,6 +32,7 @@ export default function Magnifier({
     setCursor(JSON.parse(window.sessionStorage.getItem("cursorPosition")));
 
     document.body.addEventListener("mouseleave", hideMagnifier);
+    setBodyHeight(document.body.clientHeight);
     const greyZone = getElementById("GreyZone");
     greyZone.addEventListener("mouseenter", hideMagnifier);
     const pictureDescription = getElementById("PictureDescription");
@@ -70,7 +72,7 @@ export default function Magnifier({
 
   function handleMouseMoveCard(e) {
     setCursor({ x: getCursorPosition(e).x, y: getCursorPosition(e).y });
-    handleMagnifierPosition();
+    setMagnifierPosition();
   }
 
   function handleMouseMoveMagnifier() {
@@ -81,9 +83,11 @@ export default function Magnifier({
       cursor?.y,
       zoom
     );
-    handleMagnifierPosition();
+    setMagnifierPosition();
     if (hasMouseExitedImage()) {
       hideMagnifier();
+    }
+    if (isMagnifierAtBottom()) {
     }
   }
 
@@ -106,6 +110,11 @@ export default function Magnifier({
     );
   }
 
+  function isMagnifierAtBottom() {
+    const magnifierBottom = cursor.y + magnifierHeight / 2;
+    return bodyHeight - magnifierBottom < 5;
+  }
+
   function handleBackgroundPosition(
     magnifierDiameter: number,
     imageContainer: HTMLElement,
@@ -126,9 +135,16 @@ export default function Magnifier({
     );
   }
 
-  function handleMagnifierPosition() {
+  function setMagnifierPosition() {
     setLeft(`${getMagnifierLeftPosition(magnifierWidth, cursor?.x)}px`);
-    setTop(`${getMagnifierTopPosition(magnifierHeight, cursor?.y)}px`);
+
+    const topPosition = getMagnifierTopPosition(magnifierHeight, cursor?.y);
+    const bottomPosition = topPosition + magnifierHeight;
+    if (bodyHeight - bottomPosition > 5) {
+      setTop(`${topPosition}px`);
+    } else {
+      setTop(`${bodyHeight - 5 - magnifierHeight}px`);
+    }
   }
 
   function hideMagnifier() {
