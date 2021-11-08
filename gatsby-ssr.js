@@ -1,3 +1,3 @@
-export function wrapRootElement({ element }) {
+exports.wrapRootElement = ({ element }) => {
   return <CartProvider>{element}</CartProvider>;
-}
+};
