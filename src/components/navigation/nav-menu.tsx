@@ -3,7 +3,7 @@ import ListItem from "./list-item";
 import { graphql, useStaticQuery } from "gatsby";
 import { pathNameToPageName } from "../../utilities/strings";
 import { getDirectories } from "../../utilities/graphQL";
-import ShoppingCart from "../../icons/cart";
+import ShoppingCartButton from "../../icons/cart";
 
 export default function NavMenu({ flexBasis }: { flexBasis: string }) {
   const data = useStaticQuery(graphql`
@@ -33,9 +33,7 @@ export default function NavMenu({ flexBasis }: { flexBasis: string }) {
           />
         );
       })}
-      <div>
-        <ShoppingCart />
-      </div>
+      <ShoppingCartButton />
     </ul>
   );
 }

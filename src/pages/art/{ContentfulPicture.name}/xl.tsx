@@ -40,6 +40,10 @@ export default function XLArt({ data, location }) {
           title={picture.name}
           handleMouseMove={null}
           handleMagnify={null}
+          type={null}
+          price={null}
+          cart={null}
+          setCart={null}
         >
           <p>Click image to magnify</p>
         </IndFeature>
