@@ -1,6 +1,3 @@
-/*
 export function wrapRootElement({ element }) {
-  <CartProvider>{element}</CartProvider>;
+  return <CartProvider>{element}</CartProvider>;
 }
-
-*/
