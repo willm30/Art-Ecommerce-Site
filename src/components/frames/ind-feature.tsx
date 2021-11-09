@@ -7,7 +7,6 @@ import CardWrapper from "./card/card-wrapper";
 import { CartItemShape } from "../cart/cartItem";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import _ from "lodash";
 import { incrementQuantity } from "../../utilities/cart";
 
 export default function IndFeature({
@@ -22,6 +21,7 @@ export default function IndFeature({
   title,
   type,
   price,
+  slug,
   children,
   handleMouseMove,
   handleMagnify, // gets passed in from Magnifier
@@ -37,43 +37,29 @@ export default function IndFeature({
   title: string;
   type: string;
   price: number;
+  slug: string;
   children: React.ReactElement;
   handleMouseMove: (e) => void | null;
   handleMagnify: () => void | null;
 }) {
   const [cart, setCart]: [any[], (newCart) => void] = useContext(CartContext);
-  const [selectedProduct, setSelectedProduct] = useState({
-    productName: "Poster",
-    price: 19.99,
-  });
+  const [selectedProduct, setSelectedProduct] = useState({});
   const quantity = 1;
 
   const products = [
-    { productName: "Poster", price: 19.99, title, image, alt, quantity },
-    { productName: "Frame", price: 79.99, title, image, alt, quantity },
+    { productName: "Poster", price: 19.99, title, image, alt, quantity, slug },
+    { productName: "Frame", price: 79.99, title, image, alt, quantity, slug },
   ]; // TODO: Extract from static query
-  const item: CartItemShape = {
-    image,
-    alt,
-    title,
-    quantity,
-    type,
-    price,
-  };
 
-  function addToCart(item: { productName: string; price: number }) {
-    //TODO update to CardItemShape
+  function addToCart(item: CartItemShape) {
     const duplicateEntry = cart.find(
       (cartItem) =>
         item.title == cartItem.title && item.productName == cartItem.productName
     );
-    if (!duplicateEntry) {
-      setCart([...cart, item]);
-      console.log(`setting new obj in state`, [...cart, item]);
-    } else {
+    if (!duplicateEntry) setCart([...cart, item]);
+    else {
       const newCart = incrementQuantity(cart, duplicateEntry);
       setCart(newCart);
-      console.log(`DUPLICATE: increasing quantity in state`, cart);
     }
   }
 

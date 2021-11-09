@@ -7,10 +7,8 @@ export default function AddCartBtn({
   item,
 }: {
   text: string;
-  handleAddToCart: (
-    item: { productName: string; price: number } /*TODO CartItemShape*/
-  ) => void;
-  item: { productName: string; price: number }; // TODO: CartItemShape;
+  handleAddToCart: (item: CartItemShape) => void;
+  item: CartItemShape;
 }) {
   return (
     <button

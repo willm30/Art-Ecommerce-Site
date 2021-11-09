@@ -5,7 +5,7 @@ import QuantityIncrementer from "./quantityIncrementer";
 export interface CartItemShape {
   title: string;
   quantity: number;
-  type: string;
+  productName: string;
   image: IGatsbyImageData;
   alt: string;
   price: number;

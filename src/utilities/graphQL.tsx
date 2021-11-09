@@ -3,7 +3,7 @@ export function getDirectories(edges) {
   edges.forEach((node) => {
     const relDir: string = node.node.relativeDirectory;
     const dynamic: boolean = relDir.includes("{");
-    const cart: boolean = relDir.includes("cart");
+    const cart: boolean = relDir.includes("collection");
     if (relDir && !dynamic && !cart) {
       directories.add(relDir);
     }

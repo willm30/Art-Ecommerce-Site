@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "../../../components/layout/layout";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
@@ -28,6 +28,7 @@ export default function Art({ data, location }) {
         path={path}
         orientation={orientation}
         title={picture.name}
+        slug={picture.slug}
         type={null} // TODO: Pull in from product shape
         price={null} // TODO: Pull in from product shape
         handleMouseMove={handleMouseMove}
