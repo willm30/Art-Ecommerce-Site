@@ -52,6 +52,8 @@ export default function IndFeature({
   ]; // TODO: Extract from static query
 
   function addToCart(item: CartItemShape) {
+    console.log(item);
+    if (!Object.entries(item).length) return;
     const duplicateEntry = cart.find(
       (cartItem) =>
         item.title == cartItem.title && item.productName == cartItem.productName

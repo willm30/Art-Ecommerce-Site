@@ -13,7 +13,7 @@ export default function AddCartBtn({
   return (
     <button
       onClick={() => handleAddToCart(item)}
-      className="bg-gray-200 border-black border rounded-md p-2 hover:bg-white"
+      className="bg-gray-200 border-black border rounded-md p-2 w-60 hover:bg-gray-300 active:bg-gray-400 active:text-white"
     >
       {text}
     </button>
