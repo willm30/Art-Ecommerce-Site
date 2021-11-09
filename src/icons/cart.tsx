@@ -25,7 +25,7 @@ export default function ShoppingCartButton() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative mt-1.5">
       <Link
         to="/collection"
         onMouseEnter={handleMouseEnter}
