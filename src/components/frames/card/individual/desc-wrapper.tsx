@@ -1,23 +1,19 @@
 import React from "react";
+import { CartItemShape } from "../../../cart/cartItem";
 import ProductInput from "../../productList/productList";
 
 export default function IndDesc({
   name,
   des,
-  Button,
   products,
   children,
-  handleSelectProduct,
+  addToCart,
 }: {
   name: string;
   des: string;
   products: any[]; // TODO describe shape of product as interface
-  Button: JSX.Element;
   children: React.ReactElement | React.ReactElement[];
-  handleSelectProduct: (product: {
-    productName: string;
-    price: number;
-  }) => void;
+  addToCart: (item: CartItemShape) => void;
 }) {
   return (
     <div className="flex flex-col flex-40 text-center font-poppins">
@@ -28,11 +24,7 @@ export default function IndDesc({
         <p id="PictureDescription">{des ? des : "No description available."}</p>
       </div>
       <div className="my-2 sm:hidden md:block md:my-4 flex-30">{children}</div>
-      <ProductInput
-        handleSelectProduct={handleSelectProduct}
-        products={products}
-      />
-      <div className="my-4 flex-10">{Button}</div>
+      <ProductInput products={products} addToCart={addToCart} />
     </div>
   );
 }

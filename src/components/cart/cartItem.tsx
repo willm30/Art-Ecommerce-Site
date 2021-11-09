@@ -9,6 +9,7 @@ export interface CartItemShape {
   image: IGatsbyImageData;
   alt: string;
   price: number;
+  slug: string;
 }
 
 export default function CartItem({ title, quantity, type, image, alt, price }) {

@@ -1,6 +1,5 @@
 import { IGatsbyImageData } from "gatsby-plugin-image";
-import React, { useState } from "react";
-import AddCartBtn from "./buttons/add-cart-btn";
+import React from "react";
 import IndImg from "./card/individual/image-wrapper";
 import IndDesc from "./card/individual/desc-wrapper";
 import CardWrapper from "./card/card-wrapper";
@@ -43,7 +42,6 @@ export default function IndFeature({
   handleMagnify: () => void | null;
 }) {
   const [cart, setCart]: [any[], (newCart) => void] = useContext(CartContext);
-  const [selectedProduct, setSelectedProduct] = useState({});
   const quantity = 1;
 
   const products = [
@@ -52,7 +50,6 @@ export default function IndFeature({
   ]; // TODO: Extract from static query
 
   function addToCart(item: CartItemShape) {
-    console.log(item);
     if (!Object.entries(item).length) return;
     const duplicateEntry = cart.find(
       (cartItem) =>
@@ -65,15 +62,7 @@ export default function IndFeature({
     }
   }
 
-  function handleSelectProduct(product: {
-    productName: string;
-    price: number;
-  }) {
-    setSelectedProduct(product);
-  }
-
   const orientationStyles = orientation == "Landscape" ? "flex-60" : "flex-40";
-
   return (
     <CardWrapper>
       <div className={`flex flex-col ${orientationStyles}`}>
@@ -88,19 +77,7 @@ export default function IndFeature({
           handleMouseMove={handleMouseMove}
         />
       </div>
-      <IndDesc
-        name={name}
-        des={des}
-        Button={
-          <AddCartBtn
-            text="Add to Cart"
-            handleAddToCart={addToCart}
-            item={selectedProduct}
-          />
-        }
-        products={products}
-        handleSelectProduct={handleSelectProduct}
-      >
+      <IndDesc name={name} des={des} products={products} addToCart={addToCart}>
         <div>
           <p>Media Type: {media}</p>
           <p>Canvas Type: {canvas}</p>

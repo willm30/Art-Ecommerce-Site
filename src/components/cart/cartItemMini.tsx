@@ -1,15 +1,6 @@
 import { Link } from "gatsby";
-import { IGatsbyImageData, GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
-
-export interface CartItemShape {
-  title: string;
-  quantity: number;
-  type: string;
-  image: IGatsbyImageData;
-  alt: string;
-  price: number;
-}
 
 export default function CartItemMini({
   title,
