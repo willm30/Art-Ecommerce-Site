@@ -39,6 +39,9 @@ module.exports = {
       gridTemplateColumns: {
         feature: "0.1fr 1fr",
       },
+      outline: {
+        mini: "4px solid black",
+      },
       animation: {
         nav: "grow 10s linear forwards",
       },
