@@ -41,10 +41,11 @@ export default function IndFeature({
   handleMouseMove: (e) => void | null;
   handleMagnify: () => void | null;
 }) {
-  const [cart, setCart]: [any[], (newCart) => void] = useContext(CartContext);
+  const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
+    useContext(CartContext);
   const quantity = 1;
 
-  const products = [
+  const products: CartItemShape[] = [
     { productName: "Poster", price: 19.99, title, image, alt, quantity, slug },
     { productName: "Frame", price: 79.99, title, image, alt, quantity, slug },
   ]; // TODO: Extract from static query

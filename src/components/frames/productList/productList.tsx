@@ -11,11 +11,10 @@ export default function ProductInput({
   addToCart: (item: CartItemShape) => void;
 }) {
   const [spanVis, setSpanVis] = useState("hidden");
-  const [selectedProduct, setSelectedProduct] = useState({});
-  function handleSelectProduct(product: {
-    productName: string;
-    price: number;
-  }) {
+  const [selectedProduct, setSelectedProduct] = useState<CartItemShape | null>(
+    null
+  );
+  function handleSelectProduct(product: CartItemShape) {
     setSelectedProduct(product);
     setSpanVis("hidden");
   }

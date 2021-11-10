@@ -3,14 +3,16 @@ import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import Cart from "../components/cart/cart";
+import { CartItemShape } from "../components/cart/cartItem";
 import { CartContext } from "../context/CartContext";
 
 export default function ShoppingCartButton() {
-  const [cart]: any[] = useContext(CartContext);
+  const [cart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
+    useContext(CartContext);
   const [hover, setHover] = useState(false);
   const [isCardVisible, setIsCardVisible] = useState(false);
 
-  function reduceCartQuantity(cart: any[]): number {
+  function reduceCartQuantity(cart: CartItemShape[]): number {
     return cart.reduce((prev, current) => prev + current.quantity, 0);
   }
 

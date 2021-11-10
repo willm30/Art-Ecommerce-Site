@@ -4,6 +4,7 @@ import React from "react";
 import IndFeature from "../../../components/frames/ind-feature";
 import Magnifier from "../../../components/frames/magnifier";
 import LayoutXL from "../../../components/layout/layoutXL";
+import MagnifyingGlass from "../../../icons/magnifyingGlass";
 import { getResizedImgUrl } from "../../../utilities/graphQL";
 
 export default function XLArt({ data, location }) {
@@ -38,14 +39,16 @@ export default function XLArt({ data, location }) {
           path={path}
           orientation={orientation}
           title={picture.name}
-          handleMouseMove={null}
-          handleMagnify={null}
+          slug={picture.slug}
           type={null}
           price={null}
-          cart={null}
-          setCart={null}
+          handleMouseMove={null}
+          handleMagnify={null}
         >
-          <p>Click image to magnify</p>
+          <p className="flex font-poppins justify-center mb-1">
+            <MagnifyingGlass />
+            Click image to magnify
+          </p>
         </IndFeature>
       </Magnifier>
     </LayoutXL>

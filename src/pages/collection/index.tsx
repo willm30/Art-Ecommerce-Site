@@ -8,6 +8,7 @@ export default function ShoppingCart() {
 
   return (
     <Layout title="Cart">
+      <h1>Your collection</h1>
       <Cart cart={cart} isMini={false} handleMouseEnter={false}></Cart>
     </Layout>
   );

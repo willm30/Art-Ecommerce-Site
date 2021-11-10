@@ -16,13 +16,16 @@ export default function ArtPage({ data }) {
         {pictures.map((picture) => {
           const data = picture.node;
           const image = getImage(data.image);
-          const orientation =
-            image.height > image.width ? "Portrait" : "Landscape";
+          const orientation = image
+            ? image.height > image.width
+              ? "Portrait"
+              : "Landscape"
+            : undefined;
 
           return (
             <GroupFeature
               image={image}
-              des={data.image.description}
+              des={data.image?.description}
               alt={data.alternativeText}
               name={data.name}
               key={data.id}

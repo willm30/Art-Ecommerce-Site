@@ -11,7 +11,7 @@ export default function IndDesc({
 }: {
   name: string;
   des: string;
-  products: any[]; // TODO describe shape of product as interface
+  products: CartItemShape[]; // TODO describe shape of product as interface
   children: React.ReactElement | React.ReactElement[];
   addToCart: (item: CartItemShape) => void;
 }) {

@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { decrementQuantity, incrementQuantity } from "../../utilities/cart";
+import { CartItemShape } from "./cartItem";
 
 export default function QuantityIncrementer({ quantity, title, type }) {
-  const [cart, setCart]: [any[], (newCart) => void] = useContext(CartContext);
+  const [cart, setCart]: [
+    CartItemShape[],
+    Dispatch<SetStateAction<CartItemShape[]>>
+  ] = useContext(CartContext);
 
   function handleIncrement() {
     const item = cart.find(

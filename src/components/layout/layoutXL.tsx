@@ -31,7 +31,7 @@ export default function LayoutXL({
       } grid-rows-feature h-screen`}
     >
       <Seo title={title} />
-      <Header cart={null}></Header>
+      <Header></Header>
       <Link
         to={path}
         className="bg-gray-400 w-full h-full row-span-full col-span-full bg-opacity-75"

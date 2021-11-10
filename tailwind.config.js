@@ -7,15 +7,21 @@ module.exports = {
       poppins:
         'Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
       secular:
-        'Secular One, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        '"Secular One", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      ogirema:
+        'Ogirema, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      copperplate:
+        'CopperplateRegular, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
     },
     maxWidth: {
       32: "8rem",
     },
     flex: {
+      5: "1 1 5%",
       10: "1 1 10%",
       15: "1 1 15%",
       20: "1 1 20%",
+      25: "1 1 25%",
       30: "1 1 30%",
       40: "1 1 40%",
       50: "1 1 50%",
@@ -41,6 +47,10 @@ module.exports = {
           "0%": { borderRadius: "0px" },
           "100%": { borderRadius: "9999px" },
         },
+      },
+      transitionProperty: {
+        left: "left",
+        w: "width",
       },
     },
   },

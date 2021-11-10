@@ -4,3 +4,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+  font-family: 'Ogirema';
+  src:url('../../fonts/Ogirema/Ogirema.ttf.woff') format('woff'),
+      url('../../fonts/Ogirema/Ogirema.ttf.svg#Ogirema') format('svg'),
+      url('../../fonts/Ogirema/Ogirema.ttf.eot'),
+      url('../../fonts/Ogirema/Ogirema.ttf.eot?#iefix') format('embedded-opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CopperplateRegular';
+  src:url('../../fonts/CopperplateRegular/CopperplateRegular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}

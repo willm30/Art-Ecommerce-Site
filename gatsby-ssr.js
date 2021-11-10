@@ -1,5 +1,5 @@
-const React = require("react");
-const CartProvider = require("./src/context/CartContext");
+const React = require("react"); // eslint-disable-line 
+const CartProvider = require("./src/context/CartContext");  // eslint-disable-line 
 
 const CartContextProvider = CartProvider.CartProvider;
 

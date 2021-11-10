@@ -8,8 +8,8 @@ export default function AddCartBtn({
   spanVis,
   setSpanVis,
 }: {
-  addToCart: (item: CartItemShape) => void;
-  item: CartItemShape;
+  addToCart: (item: CartItemShape | null) => void;
+  item: CartItemShape | null;
   spanVis: string;
   setSpanVis: (vis: string) => void;
 }) {
