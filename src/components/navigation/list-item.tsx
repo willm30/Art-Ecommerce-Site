@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "gatsby";
 import { toRem } from "../../utilities/tailwind";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
 
@@ -11,20 +10,24 @@ export default function ListItem({ text, to }: { text: string; to: string }) {
   const underlinePadding = "pl-6";
   const underlineStyles = isHovered
     ? {
-        transitionProperty: "width, margin-left, border-color",
+        transitionProperty:
+          "width, margin-left, border-color, background-color",
         transitionDuration: "700ms",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         width: `calc(${underlineWidth}px - ${toRem(underlinePadding)}`,
         marginLeft: "2.5rem",
         borderColor: "white",
+        backgroundColor: "white",
       }
     : {
-        transitionProperty: "width, margin-left, border-color",
+        transitionProperty:
+          "width, margin-left, border-color, background-color",
         transitionDuration: "700ms",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         width: `0px`,
         marginLeft: `${toRem(underlinePadding)}`,
         borderColor: "black",
+        backgroundColor: "black",
       };
 
   const backgroundStyles = isHovered
@@ -49,8 +52,8 @@ export default function ListItem({ text, to }: { text: string; to: string }) {
 
   return (
     <AniLink
-      cover
-      duration={1.3}
+      paintDrip
+      duration={0.8}
       direction="right"
       bg="#4c1d95"
       to={`/${to}`}
@@ -61,7 +64,7 @@ export default function ListItem({ text, to }: { text: string; to: string }) {
     >
       <li className="relative flex flex-col justify-center items-start h-full w-full font-ogirema text-3xl">
         <div
-          className="absolute h-full bg-purple-900 z-0"
+          className="absolute -left-2 h-full bg-indigo-900 z-0"
           style={backgroundStyles}
         ></div>
         <p
@@ -70,7 +73,10 @@ export default function ListItem({ text, to }: { text: string; to: string }) {
         >
           {text}
         </p>
-        <div className="border-2 h-0 w-0 z-10" style={underlineStyles}></div>
+        <div
+          className="border-2 h-0 w-0 z-10 bg-black group-hover:bg-white"
+          style={underlineStyles}
+        ></div>
       </li>
     </AniLink>
   );

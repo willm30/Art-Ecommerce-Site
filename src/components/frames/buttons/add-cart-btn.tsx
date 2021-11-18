@@ -14,24 +14,29 @@ export default function AddCartBtn({
   setSpanVis: (vis: string) => void;
 }) {
   const [buttonText, setButtonText] = useState("Add to collection");
+  const [clicked, setClicked] = useState(false);
 
   function handleClick() {
-    if (!Object.entries(item).length) {
+    if (!item) {
       setSpanVis("");
     } else {
       addToCart(item);
       setButtonText("Picture added!");
+      setClicked(true);
     }
   }
 
+  const bg = clicked
+    ? "bg-indigo-900 text-white hover:bg-indigo-900"
+    : "bg-white hover:bg-black";
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center font-poppins">
       <span className={`${spanVis} text-red-500 mb-2`}>
         Please select a product.
       </span>
       <button
         onClick={handleClick}
-        className="bg-gray-200 border-black border rounded-md p-2 w-48 hover:bg-gray-300 active:bg-gray-400 active:text-white"
+        className={`${bg} border-black border p-2 w-48  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900`}
       >
         {buttonText}
       </button>

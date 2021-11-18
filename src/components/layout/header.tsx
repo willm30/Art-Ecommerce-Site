@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cross from "../../icons/cross";
 import Hamburger from "../../icons/hamburger";
 import NavMenu from "../navigation/nav-menu";
@@ -10,14 +10,32 @@ export default function Header() {
   const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [allowMouseEnter, setAllowMouseEnter] = useState(true);
+  const [descOpen, setDescOpen] = useState(false);
+  const [headerStyle, setHeaderStyle] = useState({});
+  const url = typeof window !== "undefined" ? window.location.href : "";
+  const path = url.match(/\/\w*$/) ? url.match(/\/\w*$/)[0] : "";
+  const translateY = path == "/" ? "-translate-y-20" : "";
 
-  function handleNavMenuOpen() {
-    return navMenuOpen ? "left-0" : "-left-1/2";
+  function handleScroll() {
+    const scrollTop = document.querySelector(".tl-edges").scrollTop;
+    if (scrollTop > 150) {
+      setHeaderStyle({
+        transform: "translateY(0px)",
+        transitionProperty: "transform",
+        transitionDuration: "700ms",
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        willChange: "transform",
+      });
+    }
   }
 
-  function handleCartOpen() {
-    return cartOpen ? "right-0" : "-right-1/2";
-  }
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, true);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, []);
 
   function handleClick() {
     setNavMenuOpen(!navMenuOpen);
@@ -31,8 +49,17 @@ export default function Header() {
     }
   }
 
+  function handleCartOpen() {
+    setCartOpen(!cartOpen);
+    if (descOpen) setDescOpen(false);
+  }
+
   return (
-    <header className="relative flex flex-100 row-start-1 col-span-full h-[10vh] justify-evenly">
+    <header
+      id="header"
+      className={`fixed ${translateY} flex flex-100 row-start-1 w-screen h-[10vh] justify-evenly z-20 bg-white`}
+      style={headerStyle}
+    >
       <button
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
@@ -46,20 +73,19 @@ export default function Header() {
       >
         <h1>Purple Orchard</h1>
       </Link>
-      <NavMenu
-        handleMenuOpen={handleNavMenuOpen}
-        handleLeave={setNavMenuOpen}
-      />
+      <NavMenu navMenuOpen={navMenuOpen} handleLeave={setNavMenuOpen} />
       <button
         className="flex justify-center items-center flex-5"
-        onMouseEnter={() => setCartOpen(!cartOpen)}
-        onClick={() => setCartOpen(!cartOpen)}
+        onMouseEnter={handleCartOpen}
+        onClick={handleCartOpen}
       >
         <ShoppingCartIcon />
       </button>
       <ShoppingCartMini
-        handleCartOpen={handleCartOpen}
+        cartOpen={cartOpen}
         setCartOpen={setCartOpen}
+        descOpen={descOpen}
+        setDescOpen={setDescOpen}
       />
     </header>
   );

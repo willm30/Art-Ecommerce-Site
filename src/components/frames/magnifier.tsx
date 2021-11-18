@@ -13,6 +13,7 @@ export default function Magnifier({
   children,
   backgroundImage,
   imageContainerId,
+  scrollPosition,
 }) {
   const [cursor, setCursor] = useState({ x: undefined, y: undefined });
   const [display, setDisplay] = useState("none");
@@ -27,20 +28,25 @@ export default function Magnifier({
   const [bodyHeight, setBodyHeight] = useState(undefined);
 
   useEffect(() => {
-    setCardContainer(getElementById("CardWrapper"));
+    setCardContainer(getElementById(imageContainerId));
     setImageContainer(getElementById(imageContainerId));
     setCursor(JSON.parse(window.sessionStorage.getItem("cursorPosition")));
 
     document.body.addEventListener("mouseleave", hideMagnifier);
     setBodyHeight(document.body.clientHeight);
-    const greyZone = getElementById("GreyZone");
-    greyZone.addEventListener("mouseenter", hideMagnifier);
-    const pictureDescription = getElementById("PictureDescription");
-    pictureDescription.addEventListener("mouseenter", hideMagnifier);
+
+    const left = getElementById("left");
+    left.addEventListener("mouseenter", hideMagnifier);
+    const right = getElementById("right");
+    right.addEventListener("mouseenter", hideMagnifier);
+    const header = getElementById("header");
+    header.addEventListener("mouseenter", hideMagnifier);
+
     return () => {
       document.body.removeEventListener("mouseleave", hideMagnifier);
-      greyZone.removeEventListener("mouseenter", hideMagnifier);
-      pictureDescription.removeEventListener("mouseenter", hideMagnifier);
+      left.removeEventListener("mouseenter", hideMagnifier);
+      right.removeEventListener("mouseenter", hideMagnifier);
+      header.removeEventListener("mouseenter", hideMagnifier);
     };
   }, []);
 
@@ -137,14 +143,16 @@ export default function Magnifier({
 
   function setMagnifierPosition() {
     setLeft(`${getMagnifierLeftPosition(magnifierWidth, cursor?.x)}px`);
-
-    const topPosition = getMagnifierTopPosition(magnifierHeight, cursor?.y);
+    const scrollTop = scrollPosition || 0;
+    const topPosition =
+      getMagnifierTopPosition(magnifierHeight, cursor?.y) + scrollTop;
     const bottomPosition = topPosition + magnifierHeight;
+    setTop(`calc(${topPosition}px - 5rem)`);
+    /*
     if (bodyHeight - bottomPosition > 5) {
-      setTop(`${topPosition}px`);
     } else {
       setTop(`${bodyHeight - 5 - magnifierHeight}px`);
-    }
+    }*/
   }
 
   function hideMagnifier() {

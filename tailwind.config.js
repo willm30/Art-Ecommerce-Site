@@ -23,6 +23,7 @@ module.exports = {
       20: "1 1 20%",
       25: "1 1 25%",
       30: "1 1 30%",
+      33: "1 1 33.33%",
       40: "1 1 40%",
       50: "1 1 50%",
       60: "1 1 60%",
@@ -34,21 +35,30 @@ module.exports = {
     },
     extend: {
       gridTemplateRows: {
-        feature: "0.2fr 1fr",
+        feature: "10vh 1fr",
+        all: "10vh, 1fr, 10vh",
       },
       gridTemplateColumns: {
         feature: "0.1fr 1fr",
+        ind: "0.75fr 1fr 0.5fr",
+        all: "1fr",
       },
       outline: {
         mini: "4px solid black",
+        ind: "12px solid black",
       },
       animation: {
         nav: "grow 10s linear forwards",
+        cartItemMini: "slideIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards",
       },
       keyframes: {
         grow: {
           "0%": { borderRadius: "0px" },
           "100%": { borderRadius: "9999px" },
+        },
+        slideIn: {
+          "0%": { right: "-15rem" },
+          "100%": { right: "5rem" },
         },
       },
       transitionProperty: {

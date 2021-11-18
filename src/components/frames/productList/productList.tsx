@@ -5,10 +5,12 @@ import AddCartBtn from "../buttons/add-cart-btn";
 
 export default function ProductInput({
   products,
+  productStyles,
   addToCart,
 }: {
   products: CartItemShape[]; // TODO update with interface
   addToCart: (item: CartItemShape) => void;
+  productStyles: any;
 }) {
   const [spanVis, setSpanVis] = useState("hidden");
   const [selectedProduct, setSelectedProduct] = useState<CartItemShape | null>(
@@ -19,19 +21,20 @@ export default function ProductInput({
     setSpanVis("hidden");
   }
   return (
-    <div>
+    <div style={productStyles} className="my-16 z-10">
       <form className="flex justify-center">
         {products.map((product) => {
           return (
             <label
               key={product.productName}
-              className="bg-white hover:bg-gray-50 border-2 border-gray-400 p-4 mx-4"
+              className="bg-white hover:bg-gray-50 border border-black p-4 mx-4 flex flex-col justify-center items-center font-poppins"
             >
               {product.productName} <br />£{product.price} <br />
               <input
                 name="product"
                 type="radio"
                 onChange={() => handleSelectProduct(product)}
+                className="mt-2"
               />
             </label>
           );

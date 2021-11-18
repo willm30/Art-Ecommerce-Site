@@ -13,12 +13,5 @@ export default function ImageWrapper({
   to: string;
   orientation: "Portrait" | "Landscape";
 }) {
-  const orientationStyles = orientation == "Landscape" ? "flex-50" : "flex-40";
-  return (
-    <div className={`${orientationStyles} md:flex-10 border-8 border-white`}>
-      <Link to={to}>
-        <GatsbyImage image={image} alt={alt}></GatsbyImage>
-      </Link>
-    </div>
-  );
+  return;
 }

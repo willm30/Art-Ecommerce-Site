@@ -6,6 +6,13 @@ function getWords(string: string): string[] {
   return string.split(" ");
 }
 
+export function slugify(string: string) {
+  return replaceSpacesWithDashes(string.toLowerCase());
+}
+
+function replaceSpacesWithDashes(string: string) {
+  return string.replace(/ /g, "-");
+}
 export function replaceDashesWithSpaces(string: string) {
   return string.replace(/-/g, " ");
 }

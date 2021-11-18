@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
+import { useState } from "react";
 
 export default function CartItemMini({
   title,
@@ -11,22 +12,30 @@ export default function CartItemMini({
   price,
   slug,
   setCartOpen,
+  setDescOpen,
+  descOpen,
 }) {
   const subtotal = price * quantity;
+
+  function handleImageHover() {
+    setCartOpen(true);
+    setDescOpen(true);
+  }
   return (
-    <Link to={`/art/${slug}`} className="font-poppins ">
+    <Link to={`/art/${slug}`} className="font-poppins hover:bg-gray-50">
       <hr />
-      <li className="relative group transition-all duration-700 px-44 hover:pl-4 my-4">
+      <li
+        className="group flex justify-around items-center pl-4 my-4"
+        onMouseEnter={() => setDescOpen(true)}
+      >
         <GatsbyImage
           image={image}
           alt={alt}
-          className="w-32 shadow-2xl border-8 border-white outline-mini"
-          onMouseEnter={() => setCartOpen(true)}
-        ></GatsbyImage>
-        <span className="absolute transition-all duration-700 top-4 -right-52 group-hover:right-20 flex flex-col items-center justify-center text-lg">
-          <span className="text-xl">
-            <strong>{title}</strong>
-          </span>
+          className="w-32 flex-30 flex justify-center items-center shadow-2xl border-8 border-white outline-mini"
+          onMouseEnter={handleImageHover}
+        />
+        <span className="top-4 right-12 flex-70 flex flex-col items-center justify-center text-lg">
+          <span className="text-xl font-bold text-center">{title}</span>
           <span>Quantity: {quantity}</span>
           <span>{type}</span>
           <span>£{price}</span>

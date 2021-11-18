@@ -8,7 +8,16 @@ export function getDirectories(edges) {
       directories.add(relDir);
     }
   });
-  return [...directories].sort();
+  return [...directories, "art"].sort();
+}
+
+export function getUnique(edges, param: string) {
+  const uniqueEntries: Set<string> = new Set();
+  edges.forEach((node) => {
+    const data: string = node.node[param];
+    if (data) uniqueEntries.add(data.trim());
+  });
+  return [...uniqueEntries].sort();
 }
 
 export function getResizedImgUrl(

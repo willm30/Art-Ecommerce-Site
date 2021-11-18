@@ -1,15 +1,10 @@
-import { IGatsbyImageData } from "gatsby-plugin-image";
+import { Link } from "gatsby";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
-import DescBtn from "./buttons/desc-btn";
-import CardWrapper from "./card/card-wrapper";
-import DescWrapper from "./card/list/desc-wrapper";
-import ImageWrapper from "./card/list/image-wrapper";
 
 export default function GroupFeature({
   image,
-  des,
   alt,
-  name,
   to,
   orientation,
 }: {
@@ -20,8 +15,19 @@ export default function GroupFeature({
   to: string;
   orientation: "Portrait" | "Landscape";
 }) {
+  const orientationStyles = orientation == "Landscape" ? "flex-50" : "flex-40";
+
   return (
-    <CardWrapper>
+    <div className="flex-60">
+      <Link to={to}>
+        <GatsbyImage image={image} alt={alt}></GatsbyImage>
+      </Link>
+    </div>
+  );
+}
+
+/*
+<CardWrapper>
       <ImageWrapper
         image={image}
         alt={alt}
@@ -34,5 +40,4 @@ export default function GroupFeature({
         Button={<DescBtn path={`/art/${to}`} text="Learn More" />}
       />
     </CardWrapper>
-  );
-}
+*/

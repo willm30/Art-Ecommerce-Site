@@ -87,5 +87,3 @@ export default function IndFeature({
     </CardWrapper>
   );
 }
-
-// INSERT PAGE QUERY FOR PRODUCTS

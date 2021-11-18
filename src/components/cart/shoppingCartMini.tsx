@@ -4,16 +4,40 @@ import { CartContext } from "../../context/CartContext";
 import { CartItemShape } from "./cartItem";
 import CartItemMini from "./cartItemMini";
 
-export default function ShoppingCartMini({ handleCartOpen, setCartOpen }) {
+export default function ShoppingCartMini({
+  cartOpen,
+  setCartOpen,
+  descOpen,
+  setDescOpen,
+}) {
   const [cart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
 
-  const menuRightPosition = handleCartOpen();
+  const menuRightPosition = cartOpen
+    ? {
+        transform: "translateX(100%)",
+        transitionProperty: "transform",
+        transitionDuration: "700ms",
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        willChange: "transform",
+      }
+    : {
+        transform: "translateX(200%)",
+        transitionProperty: "transform",
+        transitionDuration: "700ms",
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        willChange: "transform",
+      };
 
+  function handleLeave() {
+    setCartOpen(false);
+    setDescOpen(false);
+  }
   return (
     <div
-      className={`absolute top-20 transition-right ${menuRightPosition} duration-1000 border-4 border-transparent border-t-gray-100 w-1/3 h-[90vh] bg-white z-50`}
-      onMouseLeave={() => setCartOpen(false)}
+      className={`absolute top-[4.7rem] border-4 border-transparent border-t-gray-100 w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]`}
+      onMouseLeave={handleLeave}
+      style={menuRightPosition}
     >
       <Link
         to="/collection"
@@ -34,6 +58,8 @@ export default function ShoppingCartMini({ handleCartOpen, setCartOpen }) {
               alt={item.alt}
               key={`${item.title}${i}`}
               setCartOpen={setCartOpen}
+              setDescOpen={setDescOpen}
+              descOpen={descOpen}
             />
           ))}
         </ul>

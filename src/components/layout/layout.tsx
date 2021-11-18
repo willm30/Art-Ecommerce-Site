@@ -4,18 +4,18 @@ import Header from "./header";
 
 export default function Layout({
   children,
+  childStyles,
   title,
 }: {
   children: React.ReactElement | React.ReactElement[];
+  childStyles: string;
   title: string;
 }) {
   return (
-    <div className="grid sm:gap-4 md:gap-8 sm:grid-cols-10 md:grid-cols-6 grid-rows-feature h-screen">
+    <div className="grid sm:grid-cols-10 md:grid-cols-6 grid-rows-feature h-screen">
       <Seo title={title} />
       <Header></Header>
-      <div className="col-span-full sm:col-start-2 sm:col-end-10 md:col-start-2 md:col-end-6 max-w-screen-md">
-        {children}
-      </div>
+      <div className={`${childStyles}`}>{children}</div>
     </div>
   );
 }
