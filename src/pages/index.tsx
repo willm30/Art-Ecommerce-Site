@@ -12,7 +12,7 @@ export default function ArtPage({ data }) {
   const title = "Art";
   return (
     <Layout title={title} childStyles="relative col-span-full">
-      {/*<Carousel pictures={carouselPictures} />*/}
+      <Carousel pictures={carouselPictures} />
 
       <div
         id="gallery"
