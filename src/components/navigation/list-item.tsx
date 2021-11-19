@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toRem } from "../../utilities/tailwind";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
+import { Link } from "gatsby";
 
 export default function ListItem({ text, to }: { text: string; to: string }) {
   const [underlineWidth, setUnderlineWidth] = useState(0);
@@ -51,11 +52,7 @@ export default function ListItem({ text, to }: { text: string; to: string }) {
   }, []);
 
   return (
-    <AniLink
-      paintDrip
-      duration={0.8}
-      direction="right"
-      bg="#4c1d95"
+    <Link
       to={`/${to}`}
       className="flex-20 flex flex-col justify-center items-start group"
       onMouseEnter={() => setIsHovered(true)}
@@ -78,6 +75,6 @@ export default function ListItem({ text, to }: { text: string; to: string }) {
           style={underlineStyles}
         ></div>
       </li>
-    </AniLink>
+    </Link>
   );
 }

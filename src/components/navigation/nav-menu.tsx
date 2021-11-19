@@ -35,7 +35,6 @@ export default function NavMenu({ navMenuOpen, handleLeave }) {
   return (
     <ul
       className={`absolute top-[4.7rem] border-t-4 border-t-gray-100 flex flex-col justify-around items-stretch w-1/3 h-[90vh] bg-white z-50`}
-      onMouseLeave={() => handleLeave(false)}
       style={menuLeftPosition}
     >
       {getDirectories(pages).map((dir) => {

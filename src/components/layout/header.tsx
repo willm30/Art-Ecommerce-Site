@@ -60,7 +60,6 @@ export default function Header({ location }) {
     >
       <button
         onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
         className="flex-5 flex justify-center items-center"
       >
         {navMenuOpen ? <Cross /> : <Hamburger />}
@@ -74,7 +73,6 @@ export default function Header({ location }) {
       <NavMenu navMenuOpen={navMenuOpen} handleLeave={setNavMenuOpen} />
       <button
         className="flex justify-center items-center flex-5"
-        onMouseEnter={handleCartOpen}
         onClick={handleCartOpen}
       >
         <ShoppingCartIcon />

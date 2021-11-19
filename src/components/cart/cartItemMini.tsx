@@ -34,7 +34,7 @@ export default function CartItemMini({
           className="w-32 flex-30 flex justify-center items-center shadow-2xl border-8 border-white outline-mini"
           onMouseEnter={handleImageHover}
         />
-        <span className="top-4 right-12 flex-70 flex flex-col items-center justify-center text-lg">
+        <span className="top-4 right-12 flex-70 flex flex-col items-center justify-center text-lg px-4">
           <span className="text-xl font-bold text-center">{title}</span>
           <span>Quantity: {quantity}</span>
           <span>{type}</span>

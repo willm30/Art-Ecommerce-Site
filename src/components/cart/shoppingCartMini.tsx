@@ -35,8 +35,7 @@ export default function ShoppingCartMini({
   }
   return (
     <div
-      className={`absolute top-[4.7rem] border-4 border-transparent border-t-gray-100 w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]`}
-      onMouseLeave={handleLeave}
+      className={`absolute top-[4.7rem] overflow-y-auto border-4 border-transparent border-t-gray-100 w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]`}
       style={menuRightPosition}
     >
       <Link
