@@ -17,7 +17,7 @@ export default function Carousel({ pictures }) {
   const [cancelAuto, setCancelAuto] = useState(false);
   const [slides, setSlides] = useState<HTMLElement[]>(undefined);
 
-  function handleScroll() {
+  /*  function handleScroll() {
     if (typeof document != "undefined") {
       const scrollTop = document.querySelector(".tl-edges").scrollTop;
       if (scrollTop > 150) {
@@ -52,7 +52,7 @@ export default function Carousel({ pictures }) {
       return () => clearInterval(timer);
     }
   });
-
+*/
   const transformTransition = {
     transform: getTransfromProperty(cardWidth, oddPictures.length),
     transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
