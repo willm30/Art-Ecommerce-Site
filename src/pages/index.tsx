@@ -6,11 +6,8 @@ import BetterIndImg from "../components/frames/card/individual/image-wrapper-imp
 import Layout from "../components/layout/layout";
 
 export default function ArtPage({ data }) {
-  const pictures = data.allContentfulPicture.edges;
-  const carouselPictures = pictures.filter((pic) => pic.node.carouselImage);
-  const featuredPictures = pictures
-    .filter((pic) => pic.node.featuredImage)
-    .slice(0, 8);
+  const carouselPictures = data.carousel.edges;
+  const featuredPictures = data.featured.edges.slice(0, 8);
 
   const title = "Art";
   return (
@@ -90,9 +87,7 @@ export default function ArtPage({ data }) {
 
 export const query = graphql`
   query PicturesList {
-    allContentfulPicture(
-      filter: { carouselImage: { eq: true }, featuredImage: { eq: true } }
-    ) {
+    carousel: allContentfulPicture(filter: { carouselImage: { eq: true } }) {
       edges {
         node {
           id
@@ -105,8 +100,23 @@ export const query = graphql`
           }
           alternativeText
           slug
-          carouselImage
-          featuredImage
+          name
+        }
+      }
+    }
+    featured: allContentfulPicture(filter: { featuredImage: { eq: true } }) {
+      edges {
+        node {
+          id
+          image {
+            gatsbyImageData(
+              layout: CONSTRAINED
+              placeholder: DOMINANT_COLOR
+              width: 700
+            )
+          }
+          alternativeText
+          slug
           name
         }
       }
