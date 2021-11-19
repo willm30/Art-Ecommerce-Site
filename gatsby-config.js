@@ -4,8 +4,8 @@ require("dotenv").config({ //eslint-disable-line
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "art.site",
+    siteUrl: "https://www.purpleorchard.co.uk",
+    title: "Purple Orchard",
   },
   plugins: [
     "gatsby-plugin-gatsby-cloud",

@@ -12,7 +12,7 @@ export default function Header() {
   const [allowMouseEnter, setAllowMouseEnter] = useState(true);
   const [descOpen, setDescOpen] = useState(false);
   const [headerStyle, setHeaderStyle] = useState({});
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const [url, setUrl] = useState(undefined);
   const path = url.match(/\/\w*$/) ? url.match(/\/\w*$/)[0] : "";
   const translateY = path == "" ? "-translate-y-20" : "";
   function handleScroll() {
@@ -29,6 +29,8 @@ export default function Header() {
   }
 
   useEffect(() => {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    setUrl(url);
     window.addEventListener("scroll", handleScroll, true);
 
     return () => {
