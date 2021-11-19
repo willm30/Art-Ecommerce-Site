@@ -14,8 +14,7 @@ export default function Header() {
   const [headerStyle, setHeaderStyle] = useState({});
   const url = typeof window !== "undefined" ? window.location.href : "";
   const path = url.match(/\/\w*$/) ? url.match(/\/\w*$/)[0] : "";
-  const translateY = path == "/" ? "-translate-y-20" : "";
-
+  const translateY = path == "" ? "-translate-y-20" : "";
   function handleScroll() {
     const scrollTop = document.querySelector(".tl-edges").scrollTop;
     if (scrollTop > 150) {
