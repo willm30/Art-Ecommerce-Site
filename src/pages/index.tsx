@@ -7,7 +7,6 @@ import Layout from "../components/layout/layout";
 
 export default function ArtPage({ data }) {
   const carouselPictures = data.carousel.edges;
-  console.log(carouselPictures, "carousel");
   const featuredPictures = data.featured.edges.slice(0, 8);
 
   const title = "Art";

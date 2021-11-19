@@ -98,7 +98,9 @@ function getCardZeroPosition(cardWidth: number) {
 }
 
 export function getOddPictures(pictures) {
-  return pictures.length % 2 == 0 ? pictures.slice(0, length - 1) : pictures;
+  return pictures.length % 2 == 0
+    ? pictures.slice(0, pictures.length - 1)
+    : pictures;
 }
 
 export function getTransfromProperty(cardWidth, length) {

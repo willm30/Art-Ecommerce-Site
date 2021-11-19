@@ -11,7 +11,7 @@ import ScrollTo from "gatsby-plugin-smoothscroll";
 
 export default function Carousel({ pictures }) {
   const cardWidth = 40;
-  const oddPictures: any[] = [1, 2, 3]; // getOddPictures(pictures); // must be an odd length for this to work.
+  const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
   const [allowNextPicture, setAllowNextPicture] = useState(false);
   const [arrowStyle, setArrowStyle] = useState({});
   const [cancelAuto, setCancelAuto] = useState(false);
@@ -79,7 +79,7 @@ export default function Carousel({ pictures }) {
         </button>
       </div>
       <div className="flex max-h-screen overflow-hidden">
-        {pictures.map((picture, i) => {
+        {oddPictures.map((picture, i) => {
           const data = picture.node;
           const image = getImage(data.image);
           return (
