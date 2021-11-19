@@ -18,15 +18,17 @@ export default function Carousel({ pictures }) {
   const [slides, setSlides] = useState<HTMLElement[]>(undefined);
 
   function handleScroll() {
-    const scrollTop = document.querySelector(".tl-edges").scrollTop;
-    if (scrollTop > 150) {
-      setArrowStyle({
-        opacity: "0",
-        transitionProperty: "opacity",
-        transitionDuration: "700ms",
-        transitionTimingFunction: "linear",
-        willChange: "opacity",
-      });
+    if (typeof document) {
+      const scrollTop = document.querySelector(".tl-edges").scrollTop;
+      if (scrollTop > 150) {
+        setArrowStyle({
+          opacity: "0",
+          transitionProperty: "opacity",
+          transitionDuration: "700ms",
+          transitionTimingFunction: "linear",
+          willChange: "opacity",
+        });
+      }
     }
   }
 
@@ -115,10 +117,3 @@ export default function Carousel({ pictures }) {
     </div>
   );
 }
-
-/*
-style={appendTransitionInformation(
-                slideStyles[i],
-                transformTransition
-              )}
-*/
