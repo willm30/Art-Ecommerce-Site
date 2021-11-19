@@ -6,14 +6,14 @@ import NavMenu from "../navigation/nav-menu";
 import ShoppingCartIcon from "../../icons/cartIcon";
 import ShoppingCartMini from "../cart/shoppingCartMini";
 
-export default function Header() {
+export default function Header({ location }) {
   const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [allowMouseEnter, setAllowMouseEnter] = useState(true);
   const [descOpen, setDescOpen] = useState(false);
   const [headerStyle, setHeaderStyle] = useState({});
-  const [path, setPath] = useState(undefined);
-  const translateY = path == "" ? "-translate-y-20" : "";
+  const translateY = location.pathname == "" ? "-translate-y-20" : "";
+
   function handleScroll() {
     const scrollTop = document.querySelector(".tl-edges").scrollTop;
     if (scrollTop > 150) {
@@ -28,9 +28,6 @@ export default function Header() {
   }
 
   useEffect(() => {
-    const url = typeof window !== "undefined" ? window.location.href : "";
-    const path = url.match(/\/\w*$/) ? url.match(/\/\w*$/)[0] : "";
-    setPath(path);
     window.addEventListener("scroll", handleScroll, true);
 
     return () => {

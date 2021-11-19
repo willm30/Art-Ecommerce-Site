@@ -5,13 +5,17 @@ import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import Layout from "../components/layout/layout";
 
-export default function ArtPage({ data }) {
+export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
   const featuredPictures = data.featured.edges.slice(0, 8);
 
   const title = "Art";
   return (
-    <Layout title={title} childStyles="relative col-span-full">
+    <Layout
+      title={title}
+      childStyles="relative col-span-full"
+      location={location}
+    >
       <Carousel pictures={carouselPictures} />
 
       <div

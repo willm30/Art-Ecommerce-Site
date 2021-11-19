@@ -6,7 +6,7 @@ import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
 
-export default function ArtAll({ data, pageContext }) {
+export default function ArtAll({ data, pageContext, location }) {
   console.log(data);
   const pictures = data.allContentfulPicture.edges;
   const { currentPage, numPages } = pageContext;
@@ -22,6 +22,7 @@ export default function ArtAll({ data, pageContext }) {
     <Layout
       title="Art"
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
+      location={location}
     >
       <div className="row-span-1 flex justify-center items-center text-xl font-ogirema my-8">
         <Filter />

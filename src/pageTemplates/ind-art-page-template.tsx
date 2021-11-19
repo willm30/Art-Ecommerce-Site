@@ -12,7 +12,7 @@ import { CartContext } from "../context/CartContext";
 import MagnifyingGlass from "../icons/magnifyingGlass";
 import { incrementQuantity } from "../utilities/cart";
 
-export default function ArtInd({ data }) {
+export default function ArtInd({ data, location }) {
   const picture = data.contentfulPicture;
   const image = getImage(picture.image);
   const title = picture.name;
@@ -78,6 +78,7 @@ export default function ArtInd({ data }) {
     <Layout
       title={picture.name}
       childStyles="col-span-full row-start-2 grid grid-cols-ind relative top-20"
+      location={location}
     >
       <div
         id="left"
