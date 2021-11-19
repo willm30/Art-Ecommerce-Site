@@ -61,7 +61,7 @@ export default function ArtAll({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query AllPicture($skip: Int!, $limit: Int!, $series: String!) {
+  query SeriesPicture($skip: Int!, $limit: Int!, $series: String!) {
     allContentfulPicture(
       limit: $limit
       skip: $skip
