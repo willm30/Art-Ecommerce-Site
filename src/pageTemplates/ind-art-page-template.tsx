@@ -21,7 +21,7 @@ export default function ArtInd({ data }) {
   const des = documentToReactComponents(JSON.parse(picture.description.raw));
   const series = picture.seriesImages;
   const orientation =
-    picture.image.fixed.width > picture.image.fixed.height
+    picture.image.gatsbyImageData.width > picture.image.gatsbyImageData.height
       ? "Landscape"
       : "Portrait";
   const seeAlsoDefault = data.allContentfulPicture.edges;
@@ -183,13 +183,6 @@ export const query = graphql`
         )
         file {
           url
-        }
-        fixed {
-          width
-          height
-        }
-        resize {
-          aspectRatio
         }
       }
       description {
