@@ -7,12 +7,13 @@ import ShoppingCartIcon from "../../icons/cartIcon";
 import ShoppingCartMini from "../cart/shoppingCartMini";
 
 export default function Header({ location }) {
+  console.log(location);
   const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [allowMouseEnter, setAllowMouseEnter] = useState(true);
   const [descOpen, setDescOpen] = useState(false);
   const [headerStyle, setHeaderStyle] = useState({});
-  const translateY = location.pathname == "" ? "-translate-y-20" : "";
+  const translateY = location.pathname == "/" ? "-translate-y-20" : "";
 
   function handleScroll() {
     const scrollTop = document.querySelector(".tl-edges").scrollTop;

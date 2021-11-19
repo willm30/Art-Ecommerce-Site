@@ -7,7 +7,7 @@ import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wra
 import Layout from "../components/layout/layout";
 import { slugify } from "../utilities/strings";
 
-export default function ArtOil({ data, pageContext }) {
+export default function ArtOil({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
   const { currentPage, numPages, media } = pageContext;
   const isFirst = currentPage === 1;
@@ -21,6 +21,7 @@ export default function ArtOil({ data, pageContext }) {
     <Layout
       title="Art"
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all relative top-20"
+      location={location}
     >
       <div className="row-span-1 flex justify-center items-center text-xl font-ogirema mb-8">
         <Filter />
