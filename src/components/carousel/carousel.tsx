@@ -11,13 +11,13 @@ import ScrollTo from "gatsby-plugin-smoothscroll";
 
 export default function Carousel({ pictures }) {
   const cardWidth = 40;
-  const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
+  const oddPictures: any[] = [1, 2, 3]; // getOddPictures(pictures); // must be an odd length for this to work.
   const [allowNextPicture, setAllowNextPicture] = useState(false);
   const [arrowStyle, setArrowStyle] = useState({});
   const [cancelAuto, setCancelAuto] = useState(false);
   const [slides, setSlides] = useState<HTMLElement[]>(undefined);
 
-  /*  function handleScroll() {
+  function handleScroll() {
     if (typeof document != "undefined") {
       const scrollTop = document.querySelector(".tl-edges").scrollTop;
       if (scrollTop > 150) {
@@ -52,7 +52,7 @@ export default function Carousel({ pictures }) {
       return () => clearInterval(timer);
     }
   });
-*/
+
   const transformTransition = {
     transform: getTransfromProperty(cardWidth, oddPictures.length),
     transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
@@ -79,7 +79,7 @@ export default function Carousel({ pictures }) {
         </button>
       </div>
       <div className="flex max-h-screen overflow-hidden">
-        {oddPictures.map((picture, i) => {
+        {/*oddPictures.map((picture, i) => {
           const data = picture.node;
           const image = getImage(data.image);
           return (
@@ -94,7 +94,7 @@ export default function Carousel({ pictures }) {
               <BetterIndImg data={data} image={image} className="" />
             </div>
           );
-        })}
+        })*/}
       </div>
       <div className="absolute top-0 right-0 w-2/12 h-full z-10 group">
         <button
