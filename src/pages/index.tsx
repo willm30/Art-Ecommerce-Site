@@ -102,7 +102,6 @@ export const query = graphql`
               placeholder: DOMINANT_COLOR
               width: 700
             )
-            description
           }
           alternativeText
           slug
