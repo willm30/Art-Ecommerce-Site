@@ -18,7 +18,7 @@ export default function Carousel({ pictures }) {
   const [slides, setSlides] = useState<HTMLElement[]>(undefined);
 
   function handleScroll() {
-    if (typeof document) {
+    if (typeof document != "undefined") {
       const scrollTop = document.querySelector(".tl-edges").scrollTop;
       if (scrollTop > 150) {
         setArrowStyle({
