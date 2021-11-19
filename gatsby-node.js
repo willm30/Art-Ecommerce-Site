@@ -121,7 +121,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           i === 0
             ? `/art/series/${slugify(series)}`
             : `/art/series/${slugify(series)}/${i + 1}`,
-        component: path.resolve("./src/pageTemplates/art-page-template.tsx"),
+        component: path.resolve(
+          "./src/pageTemplates/art-page-series-template.tsx"
+        ),
         context: {
           limit: postsPerPage,
           skip: i * postsPerPage,
