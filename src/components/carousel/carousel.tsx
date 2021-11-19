@@ -79,7 +79,7 @@ export default function Carousel({ pictures }) {
         </button>
       </div>
       <div className="flex max-h-screen overflow-hidden">
-        {/*oddPictures.map((picture, i) => {
+        {pictures.map((picture, i) => {
           const data = picture.node;
           const image = getImage(data.image);
           return (
@@ -94,7 +94,7 @@ export default function Carousel({ pictures }) {
               <BetterIndImg data={data} image={image} className="" />
             </div>
           );
-        })*/}
+        })}
       </div>
       <div className="absolute top-0 right-0 w-2/12 h-full z-10 group">
         <button
