@@ -130,7 +130,7 @@ export default function ArtInd({ data, location }) {
         </h2>
         <div className="mt-6 col-span-full flex justify-center items-center">
           {series
-            ? series.map((img, i) => {
+            ? series.slice(0, 3).map((img, i) => {
                 const thumbnail = getImage(img.image);
                 return (
                   <ThumbnailWrapper
