@@ -85,7 +85,7 @@ export default function Carousel({ pictures }) {
           return (
             <div
               id={`slide${i}`}
-              className="min-w-[40%]"
+              className="min-w-[40%] shadow-inner"
               key={data.id}
               style={transformTransition}
               data-ref="slide"

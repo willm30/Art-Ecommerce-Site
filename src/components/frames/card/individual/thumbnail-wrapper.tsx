@@ -23,7 +23,7 @@ export default function ThumbnailWrapper({
         className="shadow-2xl border-[16px] border-white outline-ind"
       />
       <div className="mt-8 flex flex-col justify-center items-center">
-        <h3 className="font-ogirema text-2xl">{title}</h3>
+        <h3 className="font-ogirema text-2xl text-center">{title}</h3>
         <h3 className="font-poppins">{artist}</h3>
       </div>
     </Link>

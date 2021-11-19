@@ -11,6 +11,7 @@ import Layout from "../components/layout/layout";
 import { CartContext } from "../context/CartContext";
 import MagnifyingGlass from "../icons/magnifyingGlass";
 import { incrementQuantity } from "../utilities/cart";
+import { getRandomImages } from "../utilities/images";
 
 export default function ArtInd({ data, location }) {
   const picture = data.contentfulPicture;
@@ -24,9 +25,10 @@ export default function ArtInd({ data, location }) {
     picture.image.gatsbyImageData.width > picture.image.gatsbyImageData.height
       ? "Landscape"
       : "Portrait";
-  const seeAlsoDefault = data.allContentfulPicture.edges;
+  const [seeAlsoDefault, setSeeAlsoDefault] = useState(undefined);
   const [productStyles, setProductStyles] = useState({});
   const [scrollTop, setScrollTop] = useState(undefined);
+  const [scrollLimit, setScrollLimit] = useState(undefined);
 
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
@@ -52,7 +54,8 @@ export default function ArtInd({ data, location }) {
 
   function handleScroll() {
     const scrollTop = document.querySelector(".tl-edges").scrollTop;
-    const scrollLimit = orientation == "Landscape" ? 390 : 750;
+    const scrollLimit =
+      document.getElementById("right").getBoundingClientRect().height - 200;
     setProductStyles({
       transform: `translateY(${
         scrollTop < scrollLimit ? scrollTop : scrollLimit
@@ -67,8 +70,8 @@ export default function ArtInd({ data, location }) {
 
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
+    setSeeAlsoDefault(getRandomImages(data.allContentfulPicture.edges, 3));
     window.addEventListener("scroll", handleScroll, true);
-
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
     };
@@ -125,7 +128,10 @@ export default function ArtInd({ data, location }) {
         id="footer"
         className="my-8 col-span-full grid grid-cols-ind grid-rows-feature"
       >
-        <h2 className="col-span-2 row-span-1 font-ogirema text-4xl flex justify-start items-center ml-8 py-4">
+        <h2
+          id="see-more"
+          className="col-span-2 row-span-1 font-ogirema text-4xl flex justify-start items-center ml-8 py-4"
+        >
           {series ? "More from this series:" : "You might also like:"}
         </h2>
         <div className="mt-6 col-span-full flex justify-center items-center">
@@ -145,7 +151,7 @@ export default function ArtInd({ data, location }) {
                   />
                 );
               })
-            : seeAlsoDefault.map((defaultImg, i) => {
+            : seeAlsoDefault?.map((defaultImg, i) => {
                 const data = defaultImg.node;
                 const img = getImage(data.image);
                 return (
@@ -203,7 +209,7 @@ export const query = graphql`
         slug
       }
     }
-    allContentfulPicture(filter: { mediaType: { eq: $media } }, limit: 3) {
+    allContentfulPicture(filter: { mediaType: { eq: $media } }) {
       edges {
         node {
           id

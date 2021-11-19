@@ -1,54 +1,79 @@
-import * as React from "react";
-import { Link } from "gatsby";
+import { graphql } from "gatsby";
+import { getImage } from "gatsby-plugin-image";
+import React, { useEffect, useState } from "react";
+import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
+import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
+import Layout from "../components/layout/layout";
+import { getRandomImages } from "../utilities/images";
 
-// styles
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-};
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-};
+export default function PageMissing({ location, data }) {
+  const featured = data.allContentfulPicture.edges;
+  const [seeMore, setSeeMore] = useState(undefined);
 
-const paragraphStyles = {
-  marginBottom: 48,
-};
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-};
-
-// markup
-const NotFoundPage = () => {
+  useEffect(() => {
+    setSeeMore(getRandomImages(featured, 3));
+  }, []);
   return (
-    <main style={pageStyles}>
-      <title>Not found</title>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry{" "}
-        <span role="img" aria-label="Pensive emoji">
-          😔
-        </span>{" "}
-        we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
-  );
-};
+    <Layout
+      title="Missing Page"
+      childStyles="col-start-2 col-end-6 row-start-2"
+      location={location}
+    >
+      <div className="font-ogirema my-4">
+        <h1 className="text-6xl">We couldn't find that page!</h1>
+        <p className="font-poppins my-4 text-4xl">
+          It's possible the page has moved or the url is incorrect.
+        </p>
+      </div>
+      <br />
+      <div>
+        <div>
+          <h2 className="font-poppins my-4 text-4xl">
+            In the meantime, here's some artwork you might like:
+          </h2>
 
-export default NotFoundPage;
+          <div className="flex flex-wrap">
+            {seeMore?.map((i) => {
+              const data = i.node;
+              const image = getImage(data.image);
+              return (
+                <ThumbnailWrapper
+                  to={`/art/${data.slug}`}
+                  alt={data.alternativeText}
+                  img={image}
+                  title={data.name}
+                  artist={data.artist}
+                  id={null}
+                  width="flex-20 m-8"
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+export const query = graphql`
+  query Featured {
+    allContentfulPicture(filter: { featuredImage: { eq: true } }) {
+      edges {
+        node {
+          id
+          image {
+            gatsbyImageData(
+              layout: CONSTRAINED
+              placeholder: DOMINANT_COLOR
+              width: 700
+            )
+          }
+          alternativeText
+          slug
+          name
+          artist
+        }
+      }
+    }
+  }
+`;

@@ -8,7 +8,6 @@ import Layout from "../components/layout/layout";
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
   const featuredPictures = data.featured.edges.slice(0, 8);
-
   const title = "Art";
   return (
     <Layout
