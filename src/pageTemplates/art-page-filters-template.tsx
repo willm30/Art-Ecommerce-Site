@@ -7,7 +7,7 @@ import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wra
 import Layout from "../components/layout/layout";
 import { slugify } from "../utilities/strings";
 
-export default function ArtOil({ data, pageContext, location }) {
+export default function ArtType({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
   const { currentPage, numPages, media } = pageContext;
   const isFirst = currentPage === 1;
@@ -66,6 +66,7 @@ export const query = graphql`
       filter: { mediaType: { eq: $media } }
       limit: $limit
       skip: $skip
+      sort: { fields: name, order: ASC }
     ) {
       edges {
         node {

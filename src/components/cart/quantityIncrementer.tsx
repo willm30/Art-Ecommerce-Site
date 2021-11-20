@@ -35,16 +35,16 @@ export default function QuantityIncrementer({ quantity, title, type }) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-row items-center flex-20 text-lg">
+      <div className="flex flex-row items-center flex-20 text-3xl font-poppins">
         <button
-          className="flex justify-center items-center border-4 w-12 h-12 hover:bg-gray-50"
+          className="flex justify-center rounded-full items-center border border-black w-12 h-12 hover:bg-gray-50"
           onClick={handleDecrement}
         >
           <span>-</span>
         </button>
         <span className="mx-4">{quantity}</span>
         <button
-          className="border-4 flex justify-center items-center w-12 h-12 hover:bg-gray-50"
+          className="border rounded-full border-black flex justify-center items-center w-12 h-12 hover:bg-gray-50"
           onClick={handleIncrement}
         >
           <span>+</span>

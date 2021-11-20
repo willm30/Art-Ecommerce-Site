@@ -7,7 +7,6 @@ import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wra
 import Layout from "../components/layout/layout";
 
 export default function ArtAll({ data, pageContext, location }) {
-  console.log(data);
   const pictures = data.allContentfulPicture.edges;
   const { currentPage, numPages } = pageContext;
   const isFirst = currentPage === 1;
@@ -17,7 +16,7 @@ export default function ArtAll({ data, pageContext, location }) {
 
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
-  });
+  }, []);
   return (
     <Layout
       title="Art"
@@ -63,7 +62,11 @@ export default function ArtAll({ data, pageContext, location }) {
 
 export const query = graphql`
   query AllPicture($skip: Int!, $limit: Int!) {
-    allContentfulPicture(limit: $limit, skip: $skip) {
+    allContentfulPicture(
+      limit: $limit
+      skip: $skip
+      sort: { fields: name, order: ASC }
+    ) {
       edges {
         node {
           id

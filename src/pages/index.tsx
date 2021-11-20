@@ -1,21 +1,144 @@
 import { graphql, Link } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import Layout from "../components/layout/layout";
+import {
+  getInitialTransform,
+  getMaxX,
+  getMinX,
+  isFirstOffLeft,
+  isFirstOffRight,
+  isInViewport,
+} from "../utilities/carousel";
+import gsap from "gsap";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
   const featuredPictures = data.featured.edges.slice(0, 8);
   const title = "Art";
+  const animateRight = useRef(null);
+  const animateLeft = useRef(null);
+  const timer = useRef(null);
+  const [slides, setSlides] = useState<HTMLElement[]>(undefined);
+  const cardWidth = 40;
+
+  function moveRight() {
+    const { active, unactive } = animateRight.current;
+    if (!active.isActive()) {
+      active.invalidate();
+      active.restart();
+      unactive.invalidate();
+      unactive.restart();
+    }
+  }
+
+  function moveLeft() {
+    const { active, unactive } = animateLeft.current;
+    if (!active.isActive()) {
+      active.invalidate();
+      active.restart();
+      unactive.invalidate();
+      unactive.restart();
+    }
+  }
+
+  useEffect(() => {
+    const slides = document.querySelectorAll("[data-ref=slide]");
+    gsap.set(slides, {
+      xPercent: getInitialTransform(cardWidth, slides.length),
+    });
+    setSlides([...slides]);
+    animateRight.current = {
+      active: gsap.to(slides, {
+        xPercent: function (i, t, all) {
+          const activeSlides = all.filter((s) => {
+            const rect = s.getBoundingClientRect();
+            return (
+              isInViewport(s, rect.width / 4) ||
+              isFirstOffRight(s, rect.width / 4)
+            );
+          });
+          if (activeSlides.some((acs) => acs == t)) return "-=100";
+        },
+        paused: true,
+        duration: 1.2,
+      }),
+      unactive: gsap.set(slides, {
+        xPercent: function (i, t, all) {
+          const unactiveSlides = all.filter((s) => {
+            const rect = s.getBoundingClientRect();
+            return (
+              !isInViewport(s, rect.width / 4) &&
+              !isFirstOffRight(s, rect.width / 4)
+            );
+          });
+
+          if (unactiveSlides.some((nas) => nas == t)) {
+            const minX = getMinX(all);
+            if (minX.i == i) return `+=${(slides.length - 1) * 100}`;
+            return "-=100";
+          }
+        },
+        paused: true,
+      }),
+    };
+    animateLeft.current = {
+      active: gsap.to(slides, {
+        xPercent: function (i, t, all) {
+          const activeSlides = all.filter((s) => {
+            const rect = s.getBoundingClientRect();
+            return (
+              isInViewport(s, rect.width / 4) ||
+              isFirstOffLeft(s, rect.width / 4)
+            );
+          });
+          console.log(activeSlides, "act");
+          if (activeSlides.some((acs) => acs == t)) return "+=100";
+        },
+        paused: true,
+        duration: 1.2,
+      }),
+      unactive: gsap.set(slides, {
+        xPercent: function (i, t, all) {
+          const unactiveSlides = all.filter((s) => {
+            const rect = s.getBoundingClientRect();
+            return (
+              !isInViewport(s, rect.width / 4) &&
+              !isFirstOffLeft(s, rect.width / 4)
+            );
+          });
+
+          if (unactiveSlides.some((nas) => nas == t)) {
+            const maxX = getMaxX(all);
+            if (maxX.i == i) return `-=${(slides.length - 1) * 100}`;
+            return "+=100";
+          }
+        },
+        paused: true,
+      }),
+    };
+    timer.current = setInterval(moveRight, 2500);
+
+    return () => clearTimer(timer.current);
+  }, []);
+
+  function clearTimer(timer) {
+    clearInterval(timer);
+  }
   return (
     <Layout
       title={title}
       childStyles="relative col-span-full"
       location={location}
     >
-      <Carousel pictures={carouselPictures} />
+      <Carousel
+        pictures={carouselPictures}
+        left={moveLeft}
+        right={moveRight}
+        clearTimer={() => clearTimer(timer.current)}
+      />
 
       <div
         id="gallery"

@@ -27,7 +27,6 @@ export default function Filter() {
     data.allContentfulPicture.edges,
     "seriesTitle"
   );
-  console.log(seriesTitles, "seriesTitles");
   function handleSelectType(e) {
     e.preventDefault();
     const path = e.target.value;

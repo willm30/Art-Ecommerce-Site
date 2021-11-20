@@ -21,22 +21,36 @@ export default function ArtInd({ data, location }) {
   const { slug, canvasType, mediaType } = picture;
   const des = documentToReactComponents(JSON.parse(picture.description.raw));
   const series = picture.seriesImages;
-  const orientation =
-    picture.image.gatsbyImageData.width > picture.image.gatsbyImageData.height
-      ? "Landscape"
-      : "Portrait";
+  const artist = picture.artist;
   const [seeAlsoDefault, setSeeAlsoDefault] = useState(undefined);
   const [productStyles, setProductStyles] = useState({});
   const [scrollTop, setScrollTop] = useState(undefined);
-  const [scrollLimit, setScrollLimit] = useState(undefined);
 
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
   const quantity = 1;
 
   const products: CartItemShape[] = [
-    { productName: "Poster", price: 19.99, title, image, alt, quantity, slug },
-    { productName: "Frame", price: 79.99, title, image, alt, quantity, slug },
+    {
+      productName: "Poster",
+      price: 19.99,
+      title,
+      image,
+      alt,
+      quantity,
+      slug,
+      artist,
+    },
+    {
+      productName: "Frame",
+      price: 79.99,
+      title,
+      image,
+      alt,
+      quantity,
+      slug,
+      artist,
+    },
   ]; // TODO: Extract from static query
 
   function addToCart(item: CartItemShape) {
@@ -182,6 +196,7 @@ export const query = graphql`
       alternativeText
       canvasType
       mediaType
+      artist
       image {
         gatsbyImageData(
           layout: CONSTRAINED

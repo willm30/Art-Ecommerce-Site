@@ -1,21 +1,26 @@
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  getInitialTransform,
+  getMaxX,
+  getMinX,
   getOddPictures,
+  getPositionFarthestLeft,
   getTransfromProperty,
+  isFirstOffLeft,
+  isFirstOffRight,
+  isInViewport,
   slideCarouselLeft,
   slideCarouselRight,
 } from "../../utilities/carousel";
 import BetterIndImg from "../frames/card/individual/image-wrapper-improved";
 import ScrollTo from "gatsby-plugin-smoothscroll";
 
-export default function Carousel({ pictures }) {
-  const cardWidth = 40;
+export default function Carousel({ pictures, left, right, clearTimer }) {
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
-  const [allowNextPicture, setAllowNextPicture] = useState(false);
   const [arrowStyle, setArrowStyle] = useState({});
   const [cancelAuto, setCancelAuto] = useState(false);
-  const [slides, setSlides] = useState<HTMLElement[]>(undefined);
+  const [visibleSlides, setVisibleSlides] = useState(undefined);
 
   function handleScroll() {
     if (typeof document != "undefined") {
@@ -33,47 +38,19 @@ export default function Carousel({ pictures }) {
   }
 
   useEffect(() => {
-    const slides = document.querySelectorAll("[data-ref=slide]");
-    setSlides(slides);
     window.addEventListener("scroll", handleScroll, true);
-    setAllowNextPicture(true);
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
     };
   }, []);
 
-  useEffect(() => {
-    if (!cancelAuto) {
-      const timer = setInterval(() => {
-        move("Right");
-      }, 2000);
-      // clearing interval
-
-      return () => clearInterval(timer);
-    }
-  });
-
-  const transformTransition = {
-    transform: getTransfromProperty(cardWidth, oddPictures.length),
-    transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
-  };
-
-  function move(direction: "Left" | "Right") {
-    if (allowNextPicture) {
-      setAllowNextPicture(false);
-      direction == "Right"
-        ? slideCarouselRight(slides)
-        : slideCarouselLeft(slides);
-    }
-  }
-
   return (
     <div className="relative w-screen h-screen">
       <div className="absolute w-2/12 h-full z-10 group">
         <button
-          onMouseEnter={() => setCancelAuto(true)}
-          onClick={() => move("Left")}
-          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 -left-20 group-hover:left-0"
+          onMouseEnter={clearTimer}
+          onClick={left}
+          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 left-0"
         >
           <span className="rotate-180">&#10146;</span>
         </button>
@@ -87,9 +64,7 @@ export default function Carousel({ pictures }) {
               id={`slide${i}`}
               className="min-w-[40%] shadow-inner"
               key={data.id}
-              style={transformTransition}
               data-ref="slide"
-              onTransitionEnd={() => setAllowNextPicture(true)}
             >
               <BetterIndImg data={data} image={image} className="" />
             </div>
@@ -98,9 +73,9 @@ export default function Carousel({ pictures }) {
       </div>
       <div className="absolute top-0 right-0 w-2/12 h-full z-10 group">
         <button
-          onMouseEnter={() => setCancelAuto(true)}
-          onClick={() => move("Right")}
-          className="absolute text-white transition-all duration-700 -right-20 group-hover:right-3 z-10 h-full text-7xl flex justify-center items-center"
+          onMouseEnter={clearTimer}
+          onClick={right}
+          className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
         >
           &#10146;
         </button>

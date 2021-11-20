@@ -8,7 +8,6 @@ function getCurrentPosition(style) {
 
 function getNextTranslationX(style, amount: number) {
   const newPosition: number = getCurrentPosition(style.transform) + amount;
-  console.log(newPosition, "left");
 
   return newPosition;
 }
@@ -24,14 +23,12 @@ function translateX(slide, amount) {
 function getPositionFarthestRight(style, length: number) {
   const currentPosition = getCurrentPosition(style.transform);
   const farthestRightPosition = currentPosition + (length - 1) * 100;
-  console.log(farthestRightPosition, "far right");
   return farthestRightPosition;
 }
 
-function getPositionFarthestLeft(style, length: number) {
+export function getPositionFarthestLeft(style, length: number) {
   const currentPosition = getCurrentPosition(style.transform);
   const farthestLeftPosition = currentPosition - (length - 1) * 100;
-  console.log(farthestLeftPosition, "far left");
 
   return farthestLeftPosition;
 }
@@ -52,6 +49,29 @@ function movePositionFarthestRight(slide: HTMLElement, length) {
   )}%)`;
 }
 
+export function isInViewport(element, offset) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left + offset >= 0 &&
+    Math.floor(rect.right - offset) <=
+      (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+export function isFirstOffRight(element, offset) {
+  const rect = element.getBoundingClientRect();
+  return (
+    Math.ceil(rect.left - offset) ==
+    (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+export function isFirstOffLeft(element, offset) {
+  const rect = element.getBoundingClientRect();
+  return Math.floor(rect.right + offset) == 0;
+}
+
 export function slideCarouselRight(slides) {
   const minX = getMinX(slides);
   slides.forEach((slide, i) => {
@@ -68,7 +88,7 @@ export function slideCarouselLeft(slides) {
   });
 }
 
-function getMinX(slides) {
+export function getMinX(slides) {
   let min;
   slides.forEach((slide, i) => {
     const x = slide.getBoundingClientRect().x;
@@ -77,7 +97,7 @@ function getMinX(slides) {
   return min;
 }
 
-function getMaxX(slides) {
+export function getMaxX(slides) {
   let max;
   slides.forEach((slide, i) => {
     const x = slide.getBoundingClientRect().x;
@@ -111,6 +131,14 @@ export function getTransfromProperty(cardWidth, length) {
   return `translateX(${
     offsetAsPercentageOfWidth - 100 * noOffScreenCardsLeft
   }%)`;
+}
+
+export function getInitialTransform(cardWidth, length) {
+  const cardZeroPosition = getCardZeroPosition(cardWidth);
+  const noOfVisibleCards = getNoOfVisibleCards(cardWidth);
+  const offsetAsPercentageOfWidth = (cardZeroPosition / cardWidth) * 100;
+  const noOffScreenCardsLeft = (length - noOfVisibleCards) / 2;
+  return offsetAsPercentageOfWidth - 100 * noOffScreenCardsLeft;
 }
 
 export function sortImages(images) {

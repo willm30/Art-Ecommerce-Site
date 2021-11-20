@@ -6,8 +6,7 @@ import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
 
-export default function ArtAll({ data, pageContext, location }) {
-  console.log(data);
+export default function ArtSeries({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
   const { currentPage, numPages } = pageContext;
   const isFirst = currentPage === 1;
@@ -67,6 +66,7 @@ export const query = graphql`
       limit: $limit
       skip: $skip
       filter: { seriesTitle: { eq: $series } }
+      sort: { fields: name, order: ASC }
     ) {
       edges {
         node {
