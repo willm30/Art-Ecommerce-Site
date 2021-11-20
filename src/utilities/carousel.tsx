@@ -52,7 +52,6 @@ function movePositionFarthestRight(slide: HTMLElement, length) {
 export function isInViewport(element, offset) {
   const rect = element.getBoundingClientRect();
   return (
-    rect.top >= 0 &&
     rect.left + offset >= 0 &&
     Math.floor(rect.right - offset) <=
       (window.innerWidth || document.documentElement.clientWidth)
