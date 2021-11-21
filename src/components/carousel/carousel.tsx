@@ -83,7 +83,7 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
       </div>
       <div
         id="to-gallery"
-        className="absolute bottom-4  text-5xl flex justify-center items-center w-screen z-20"
+        className="absolute bottom-0 text-5xl flex justify-center items-center w-screen z-20"
       >
         <button
           data-ref="arrow"
