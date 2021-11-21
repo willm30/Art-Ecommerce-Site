@@ -6,10 +6,7 @@ import ScrollTo from "gatsby-plugin-smoothscroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Chevron } from "../../icons/chevron";
-import {
-  getArrowFadeIn,
-  getDownArrowScrollAnimation,
-} from "../../animations/carousel";
+import { getDownArrowScrollAnimation } from "../../animations/carousel";
 
 export default function Carousel({ pictures, left, right, clearTimer }) {
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
@@ -32,8 +29,6 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
     window.addEventListener("scroll", handleScroll, true);
     const toGallery = document.getElementById("to-gallery");
     arrowAnimation.current = getDownArrowScrollAnimation(toGallery);
-    const arrows = document.querySelectorAll("[data-ref=arrow]");
-    arrows.forEach((arrow) => getArrowFadeIn(arrow).play());
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
     };
@@ -46,7 +41,7 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
           data-ref="arrow"
           onMouseEnter={clearTimer}
           onClick={left}
-          className="opacity-0 absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 left-0"
+          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 left-0"
         >
           <span className="rotate-90">
             <Chevron />
@@ -74,7 +69,7 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
           data-ref="arrow"
           onMouseEnter={clearTimer}
           onClick={right}
-          className="opacity-0 absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
+          className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
         >
           <span className="-rotate-90">
             <Chevron />
@@ -87,7 +82,7 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
       >
         <button
           data-ref="arrow"
-          className="opacity-0 text-black w-12 h-12 rounded-full flex justify-center items-center"
+          className="text-black w-12 h-12 rounded-full flex justify-center items-center"
           onClick={() => ScrollTo("#gallery", "end")}
         >
           <Chevron />

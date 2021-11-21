@@ -10,18 +10,8 @@ import {
 export function getDownArrowScrollAnimation(arrow) {
   return gsap.to(arrow, {
     opacity: "0",
-    duration: 0.7,
+    duration: 0.33,
     ease: "linear",
-    paused: true,
-  });
-}
-
-export function getArrowFadeIn(arrow) {
-  return gsap.to(arrow, {
-    opacity: "1",
-    duration: 2,
-    ease: "linear",
-    delay: 4,
     paused: true,
   });
 }
