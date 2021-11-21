@@ -8,7 +8,7 @@ export function getDirectories(edges) {
       directories.add(relDir);
     }
   });
-  return [...directories, "art"].sort();
+  return [...directories, "art", "series"].sort();
 }
 
 export function getUnique(edges, param: string) {

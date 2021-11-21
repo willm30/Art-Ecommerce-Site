@@ -40,6 +40,8 @@ export default function ArtType({ data, pageContext, location }) {
               artist={data.artist}
               id={`img${i + 1}`}
               width="flex-33 mb-8"
+              canvasType={data.canvasType}
+              mediaType={data.mediaType}
             />
           );
         })}
@@ -82,6 +84,8 @@ export const query = graphql`
           name
           alternativeText
           slug
+          canvasType
+          mediaType
         }
       }
     }

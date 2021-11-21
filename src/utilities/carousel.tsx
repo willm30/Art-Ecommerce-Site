@@ -1,8 +1,8 @@
 export function isInViewport(element, offset) {
   const rect = element.getBoundingClientRect();
   return (
-    rect.left + offset >= 0 &&
-    Math.floor(rect.right - offset) <=
+    Math.floor(rect.left - offset) >= 0 &&
+    Math.floor(rect.right + offset) <=
       (window.innerWidth || document.documentElement.clientWidth)
   );
 }
@@ -10,14 +10,14 @@ export function isInViewport(element, offset) {
 export function isFirstOffRight(element, offset) {
   const rect = element.getBoundingClientRect();
   return (
-    Math.ceil(rect.left - offset) ==
+    Math.floor(rect.left) + Math.ceil(offset) ==
     (window.innerWidth || document.documentElement.clientWidth)
   );
 }
 
 export function isFirstOffLeft(element, offset) {
   const rect = element.getBoundingClientRect();
-  return Math.floor(rect.right + offset) == 0;
+  return Math.floor(rect.right - offset) == 0;
 }
 
 export function getMinX(slides) {
@@ -49,6 +49,11 @@ function getCardZeroPosition(cardWidth: number) {
   return 0 - overhang;
 }
 
+export function getoffsetAsPercentageOfWidth(cardWidth: number) {
+  const cardZeroPosition = getCardZeroPosition(cardWidth);
+  return (cardZeroPosition / cardWidth) * 100;
+}
+
 export function getOddPictures(pictures) {
   return pictures.length % 2 == 0
     ? pictures.slice(0, pictures.length - 1)
@@ -56,9 +61,8 @@ export function getOddPictures(pictures) {
 }
 
 export function getInitialTransform(cardWidth, length) {
-  const cardZeroPosition = getCardZeroPosition(cardWidth);
   const noOfVisibleCards = getNoOfVisibleCards(cardWidth);
-  const offsetAsPercentageOfWidth = (cardZeroPosition / cardWidth) * 100;
+  const offsetAsPercentageOfWidth = getoffsetAsPercentageOfWidth(cardWidth);
   const noOffScreenCardsLeft = (length - noOfVisibleCards) / 2;
   return offsetAsPercentageOfWidth - 100 * noOffScreenCardsLeft;
 }

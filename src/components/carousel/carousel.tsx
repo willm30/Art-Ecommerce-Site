@@ -3,8 +3,6 @@ import React, { useEffect, useRef } from "react";
 import { getOddPictures } from "../../utilities/carousel";
 import BetterIndImg from "../frames/card/individual/image-wrapper-improved";
 import ScrollTo from "gatsby-plugin-smoothscroll";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Chevron } from "../../icons/chevron";
 import { getDownArrowScrollAnimation } from "../../animations/carousel";
 
@@ -25,7 +23,6 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
   }
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
     window.addEventListener("scroll", handleScroll, true);
     const toGallery = document.getElementById("to-gallery");
     arrowAnimation.current = getDownArrowScrollAnimation(toGallery);
@@ -41,7 +38,7 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
           data-ref="arrow"
           onMouseEnter={clearTimer}
           onClick={left}
-          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 left-0"
+          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center left-0"
         >
           <span className="rotate-90">
             <Chevron />

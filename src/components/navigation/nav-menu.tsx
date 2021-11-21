@@ -38,8 +38,10 @@ export default function NavMenu({ navMenuOpen, handleLeave }) {
       style={menuLeftPosition}
     >
       {getDirectories(pages).map((dir) => {
+        let to = dir;
+        if (dir == "series") to = `art/series`;
         const pageName = pathNameToPageName(dir);
-        return <ListItem key={dir} text={pageName} to={dir} />;
+        return <ListItem key={dir} text={pageName} to={to} />;
       })}
     </ul>
   );

@@ -7,10 +7,14 @@ import ShoppingCartIcon from "../../icons/cartIcon";
 import ShoppingCartMini from "../cart/shoppingCartMini";
 import { getHeaderAnimation } from "../../animations/header";
 
-export default function Header({ location }) {
+export default function Header({ location, isMobile }) {
   const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const translateY = location.pathname == "/" ? "-translate-y-20" : "";
+  const translateY = isMobile
+    ? ""
+    : location.pathname == "/"
+    ? "-translate-y-20"
+    : "";
   const headerTranslation = useRef(null);
 
   useEffect(() => {
@@ -32,14 +36,23 @@ export default function Header({ location }) {
     }
   }
 
+  const styles = {
+    desktop: {
+      header: `fixed ${translateY} flex flex-100 row-start-1 w-screen h-[10vh] justify-evenly z-20 bg-white`,
+      hamburger: "flex-5 flex justify-center items-center md:pl-0",
+      cart: "flex justify-center items-center flex-5 md:pr-0",
+    },
+    mobile: {
+      hamburger: "pl-2",
+      cart: "pr-4",
+    },
+  };
+
   return (
-    <header
-      id="header"
-      className={`fixed ${translateY} flex flex-100 row-start-1 w-screen h-[10vh] justify-evenly z-20 bg-white`}
-    >
+    <header id="header" className={styles.desktop.header}>
       <button
         onClick={() => setNavMenuOpen(!navMenuOpen)}
-        className="flex-5 flex justify-center items-center"
+        className={`${styles.desktop.hamburger} ${styles.mobile.hamburger}`}
       >
         {navMenuOpen ? <Cross /> : <Hamburger />}
       </button>
@@ -51,7 +64,7 @@ export default function Header({ location }) {
       </Link>
       <NavMenu navMenuOpen={navMenuOpen} handleLeave={setNavMenuOpen} />
       <button
-        className="flex justify-center items-center flex-5"
+        className={`${styles.desktop.cart} ${styles.mobile.cart}`}
         onClick={() => setCartOpen(!cartOpen)}
       >
         <ShoppingCartIcon />
