@@ -4,12 +4,7 @@ import { CartContext } from "../../context/CartContext";
 import { CartItemShape } from "./cartItem";
 import CartItemMini from "./cartItemMini";
 
-export default function ShoppingCartMini({
-  cartOpen,
-  setCartOpen,
-  descOpen,
-  setDescOpen,
-}) {
+export default function ShoppingCartMini({ cartOpen }) {
   const [cart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
 
@@ -29,10 +24,6 @@ export default function ShoppingCartMini({
         willChange: "transform",
       };
 
-  function handleLeave() {
-    setCartOpen(false);
-    setDescOpen(false);
-  }
   return (
     <div
       className={`absolute top-[4.7rem] overflow-y-auto border-4 border-transparent border-t-gray-100 w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]`}
@@ -56,9 +47,6 @@ export default function ShoppingCartMini({
               slug={item.slug}
               alt={item.alt}
               key={`${item.title}${i}`}
-              setCartOpen={setCartOpen}
-              setDescOpen={setDescOpen}
-              descOpen={descOpen}
             />
           ))}
         </ul>

@@ -1,18 +1,16 @@
 import { graphql, Link } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import Layout from "../components/layout/layout";
-import {
-  getInitialTransform,
-  getMaxX,
-  getMinX,
-  isFirstOffLeft,
-  isFirstOffRight,
-  isInViewport,
-} from "../utilities/carousel";
+import { getInitialTransform } from "../utilities/carousel";
 import gsap from "gsap";
+import {
+  invalidateAndRestart,
+  getRightAnimation,
+  getLeftAnimation,
+} from "../animations/carousel";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
@@ -21,26 +19,19 @@ export default function IndexPage({ data, location }) {
   const animateRight = useRef(null);
   const animateLeft = useRef(null);
   const timer = useRef(null);
-  const [slides, setSlides] = useState<HTMLElement[]>(undefined);
   const cardWidth = 40;
 
   function moveRight() {
     const { active, unactive } = animateRight.current;
     if (!active.isActive()) {
-      active.invalidate();
-      active.restart();
-      unactive.invalidate();
-      unactive.restart();
+      invalidateAndRestart([active, unactive]);
     }
   }
 
   function moveLeft() {
     const { active, unactive } = animateLeft.current;
     if (!active.isActive()) {
-      active.invalidate();
-      active.restart();
-      unactive.invalidate();
-      unactive.restart();
+      invalidateAndRestart([active, unactive]);
     }
   }
 
@@ -49,76 +40,8 @@ export default function IndexPage({ data, location }) {
     gsap.set(slides, {
       xPercent: getInitialTransform(cardWidth, slides.length),
     });
-    setSlides([...slides]);
-    animateRight.current = {
-      active: gsap.to(slides, {
-        xPercent: function (i, t, all) {
-          const activeSlides = all.filter((s) => {
-            const rect = s.getBoundingClientRect();
-            return (
-              isInViewport(s, rect.width / 4) ||
-              isFirstOffRight(s, rect.width / 4)
-            );
-          });
-          if (activeSlides.some((acs) => acs == t)) return "-=100";
-        },
-        paused: true,
-        duration: 1.2,
-      }),
-      unactive: gsap.set(slides, {
-        xPercent: function (i, t, all) {
-          const unactiveSlides = all.filter((s) => {
-            const rect = s.getBoundingClientRect();
-            return (
-              !isInViewport(s, rect.width / 4) &&
-              !isFirstOffRight(s, rect.width / 4)
-            );
-          });
-
-          if (unactiveSlides.some((nas) => nas == t)) {
-            const minX = getMinX(all);
-            if (minX.i == i) return `+=${(slides.length - 1) * 100}`;
-            return "-=100";
-          }
-        },
-        paused: true,
-      }),
-    };
-    animateLeft.current = {
-      active: gsap.to(slides, {
-        xPercent: function (i, t, all) {
-          const activeSlides = all.filter((s) => {
-            const rect = s.getBoundingClientRect();
-            return (
-              isInViewport(s, rect.width / 4) ||
-              isFirstOffLeft(s, rect.width / 4)
-            );
-          });
-          console.log(activeSlides, "act");
-          if (activeSlides.some((acs) => acs == t)) return "+=100";
-        },
-        paused: true,
-        duration: 1.2,
-      }),
-      unactive: gsap.set(slides, {
-        xPercent: function (i, t, all) {
-          const unactiveSlides = all.filter((s) => {
-            const rect = s.getBoundingClientRect();
-            return (
-              !isInViewport(s, rect.width / 4) &&
-              !isFirstOffLeft(s, rect.width / 4)
-            );
-          });
-
-          if (unactiveSlides.some((nas) => nas == t)) {
-            const maxX = getMaxX(all);
-            if (maxX.i == i) return `-=${(slides.length - 1) * 100}`;
-            return "+=100";
-          }
-        },
-        paused: true,
-      }),
-    };
+    animateRight.current = getRightAnimation(slides);
+    animateLeft.current = getLeftAnimation(slides);
     timer.current = setInterval(moveRight, 2500);
 
     return () => clearTimer(timer.current);

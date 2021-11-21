@@ -1,44 +1,39 @@
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  getInitialTransform,
-  getMaxX,
-  getMinX,
-  getOddPictures,
-  getPositionFarthestLeft,
-  getTransfromProperty,
-  isFirstOffLeft,
-  isFirstOffRight,
-  isInViewport,
-  slideCarouselLeft,
-  slideCarouselRight,
-} from "../../utilities/carousel";
+import React, { useEffect, useRef } from "react";
+import { getOddPictures } from "../../utilities/carousel";
 import BetterIndImg from "../frames/card/individual/image-wrapper-improved";
 import ScrollTo from "gatsby-plugin-smoothscroll";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Chevron } from "../../icons/chevron";
+import {
+  getArrowFadeIn,
+  getDownArrowScrollAnimation,
+} from "../../animations/carousel";
 
 export default function Carousel({ pictures, left, right, clearTimer }) {
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
-  const [arrowStyle, setArrowStyle] = useState({});
-  const [cancelAuto, setCancelAuto] = useState(false);
-  const [visibleSlides, setVisibleSlides] = useState(undefined);
+  const arrowAnimation = useRef(null);
 
   function handleScroll() {
     if (typeof document != "undefined") {
       const scrollTop = document.querySelector(".tl-edges").scrollTop;
+      const fade = arrowAnimation.current;
       if (scrollTop > 150) {
-        setArrowStyle({
-          opacity: "0",
-          transitionProperty: "opacity",
-          transitionDuration: "700ms",
-          transitionTimingFunction: "linear",
-          willChange: "opacity",
-        });
+        fade.play();
+      } else {
+        fade.reverse();
       }
     }
   }
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     window.addEventListener("scroll", handleScroll, true);
+    const toGallery = document.getElementById("to-gallery");
+    arrowAnimation.current = getDownArrowScrollAnimation(toGallery);
+    const arrows = document.querySelectorAll("[data-ref=arrow]");
+    arrows.forEach((arrow) => getArrowFadeIn(arrow).play());
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
     };
@@ -48,11 +43,14 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
     <div className="relative w-screen h-screen">
       <div className="absolute w-2/12 h-full z-10 group">
         <button
+          data-ref="arrow"
           onMouseEnter={clearTimer}
           onClick={left}
-          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 left-0"
+          className="opacity-0 absolute z-10 h-full text-white text-7xl flex justify-center items-center transition-all duration-700 left-0"
         >
-          <span className="rotate-180">&#10146;</span>
+          <span className="rotate-90">
+            <Chevron />
+          </span>
         </button>
       </div>
       <div className="flex max-h-screen overflow-hidden">
@@ -73,22 +71,28 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
       </div>
       <div className="absolute top-0 right-0 w-2/12 h-full z-10 group">
         <button
+          data-ref="arrow"
           onMouseEnter={clearTimer}
           onClick={right}
-          className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
+          className="opacity-0 absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
         >
-          &#10146;
+          <span className="-rotate-90">
+            <Chevron />
+          </span>
         </button>
       </div>
-      <button
-        className="absolute bottom-4 text-4xl flex justify-center items-center w-screen text-white z-20"
-        style={arrowStyle}
-        onClick={() => ScrollTo("#gallery", "end")}
+      <div
+        id="to-gallery"
+        className="absolute bottom-4  text-5xl flex justify-center items-center w-screen z-20"
       >
-        <span className="border-2 border-white w-12 h-12 rounded-full flex justify-center items-center pb-1">
-          &darr;
-        </span>
-      </button>
+        <button
+          data-ref="arrow"
+          className="opacity-0 text-black w-12 h-12 rounded-full flex justify-center items-center"
+          onClick={() => ScrollTo("#gallery", "end")}
+        >
+          <Chevron />
+        </button>
+      </div>
     </div>
   );
 }

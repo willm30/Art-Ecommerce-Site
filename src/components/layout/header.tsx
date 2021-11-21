@@ -1,65 +1,44 @@
 import { Link } from "gatsby";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Cross from "../../icons/cross";
 import Hamburger from "../../icons/hamburger";
 import NavMenu from "../navigation/nav-menu";
 import ShoppingCartIcon from "../../icons/cartIcon";
 import ShoppingCartMini from "../cart/shoppingCartMini";
+import { getHeaderAnimation } from "../../animations/header";
 
 export default function Header({ location }) {
   const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [allowMouseEnter, setAllowMouseEnter] = useState(true);
-  const [descOpen, setDescOpen] = useState(false);
-  const [headerStyle, setHeaderStyle] = useState({});
   const translateY = location.pathname == "/" ? "-translate-y-20" : "";
-
-  function handleScroll() {
-    const scrollTop = document.querySelector(".tl-edges").scrollTop;
-    if (scrollTop > 150) {
-      setHeaderStyle({
-        transform: "translateY(0px)",
-        transitionProperty: "transform",
-        transitionDuration: "700ms",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        willChange: "transform",
-      });
-    }
-  }
+  const headerTranslation = useRef(null);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, true);
-
+    const header = document.getElementById("header");
+    headerTranslation.current = getHeaderAnimation(header);
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
     };
   }, []);
 
-  function handleClick() {
-    setNavMenuOpen(!navMenuOpen);
-    setAllowMouseEnter(false);
-    setTimeout(() => setAllowMouseEnter(true), 0);
-  }
-
-  function handleMouseEnter() {
-    if (allowMouseEnter) {
-      setNavMenuOpen(!navMenuOpen);
+  function handleScroll() {
+    const scrollTop = document.querySelector(".tl-edges").scrollTop;
+    const headerY = headerTranslation.current;
+    if (scrollTop > 150) {
+      headerY.play();
+    } else {
+      headerY.reverse();
     }
-  }
-
-  function handleCartOpen() {
-    setCartOpen(!cartOpen);
-    if (descOpen) setDescOpen(false);
   }
 
   return (
     <header
       id="header"
       className={`fixed ${translateY} flex flex-100 row-start-1 w-screen h-[10vh] justify-evenly z-20 bg-white`}
-      style={headerStyle}
     >
       <button
-        onClick={handleClick}
+        onClick={() => setNavMenuOpen(!navMenuOpen)}
         className="flex-5 flex justify-center items-center"
       >
         {navMenuOpen ? <Cross /> : <Hamburger />}
@@ -73,16 +52,11 @@ export default function Header({ location }) {
       <NavMenu navMenuOpen={navMenuOpen} handleLeave={setNavMenuOpen} />
       <button
         className="flex justify-center items-center flex-5"
-        onClick={handleCartOpen}
+        onClick={() => setCartOpen(!cartOpen)}
       >
         <ShoppingCartIcon />
       </button>
-      <ShoppingCartMini
-        cartOpen={cartOpen}
-        setCartOpen={setCartOpen}
-        descOpen={descOpen}
-        setDescOpen={setDescOpen}
-      />
+      <ShoppingCartMini cartOpen={cartOpen} />
     </header>
   );
 }

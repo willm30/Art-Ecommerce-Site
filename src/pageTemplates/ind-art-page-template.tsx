@@ -94,7 +94,7 @@ export default function ArtInd({ data, location }) {
   return (
     <Layout
       title={picture.name}
-      childStyles="col-span-full row-start-2 grid grid-cols-ind relative top-20"
+      childStyles="col-span-full row-start-2 grid grid-cols-ind"
       location={location}
     >
       <div
@@ -102,11 +102,11 @@ export default function ArtInd({ data, location }) {
         className="col-span-1 flex flex-col justify-start items-center mt-8 px-8 text-center"
       >
         <h1 className="font-ogirema text-5xl mb-8">{title}</h1>
+        <h2 className="font-poppins text-lg mb-4 -mt-2">
+          {mediaType} on {canvasType}
+        </h2>
         <div className="font-poppins text-justify text-lg">{des}</div>
-        <div className="font-poppins text-lg mt-8">
-          <p>Canvas Type: {canvasType}</p>
-          <p>Media Type: {mediaType}</p>
-        </div>
+        <div className=" "></div>
       </div>
       <Magnifier
         zoom={2}
@@ -160,6 +160,8 @@ export default function ArtInd({ data, location }) {
                     img={thumbnail}
                     title={img.name}
                     artist={img.artist}
+                    canvasType={img.canvasType}
+                    mediaType={img.mediaType}
                     id={`thumbnail${i + 1}`}
                     width="flex-33"
                   />
@@ -176,6 +178,8 @@ export default function ArtInd({ data, location }) {
                     img={img}
                     title={data.name}
                     artist={data.artist}
+                    canvasType={data.canvasType}
+                    mediaType={data.mediaType}
                     id={`thumbnail${i + 1}`}
                     width="flex-33"
                   />
@@ -222,6 +226,8 @@ export const query = graphql`
         artist
         name
         slug
+        canvasType
+        mediaType
       }
     }
     allContentfulPicture(filter: { mediaType: { eq: $media } }) {
@@ -239,6 +245,8 @@ export const query = graphql`
           name
           alternativeText
           slug
+          canvasType
+          mediaType
         }
       }
     }

@@ -147,7 +147,7 @@ export default function Magnifier({
     const topPosition =
       getMagnifierTopPosition(magnifierHeight, cursor?.y) + scrollTop;
     const bottomPosition = topPosition + magnifierHeight;
-    setTop(`calc(${topPosition}px - 5rem)`);
+    setTop(`calc(${topPosition}px)`);
     /*
     if (bodyHeight - bottomPosition > 5) {
     } else {

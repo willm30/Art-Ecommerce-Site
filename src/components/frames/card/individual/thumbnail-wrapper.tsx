@@ -10,6 +10,8 @@ export default function ThumbnailWrapper({
   artist,
   id,
   width,
+  canvasType,
+  mediaType,
 }) {
   return (
     <Link
@@ -24,7 +26,10 @@ export default function ThumbnailWrapper({
       />
       <div className="mt-8 flex flex-col justify-center items-center">
         <h3 className="font-ogirema text-2xl text-center">{title}</h3>
-        <h3 className="font-poppins">{artist}</h3>
+        <h4 className="font-poppins">{artist}</h4>
+        <h5 className="font-poppins">
+          {canvasType} | {mediaType}
+        </h5>
       </div>
     </Link>
   );

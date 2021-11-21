@@ -1,54 +1,3 @@
-function getNumberFromPositionString(positionString: string) {
-  return Number(positionString.match(/-?[0-9]*\.?[0-9]+/)[0]);
-}
-
-function getCurrentPosition(style) {
-  return getNumberFromPositionString(style);
-}
-
-function getNextTranslationX(style, amount: number) {
-  const newPosition: number = getCurrentPosition(style.transform) + amount;
-
-  return newPosition;
-}
-
-function translateX(slide, amount) {
-  slide.style.transition = "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)";
-  slide.style.transform = `translateX(${getNextTranslationX(
-    slide.style,
-    amount
-  )}%)`;
-}
-
-function getPositionFarthestRight(style, length: number) {
-  const currentPosition = getCurrentPosition(style.transform);
-  const farthestRightPosition = currentPosition + (length - 1) * 100;
-  return farthestRightPosition;
-}
-
-export function getPositionFarthestLeft(style, length: number) {
-  const currentPosition = getCurrentPosition(style.transform);
-  const farthestLeftPosition = currentPosition - (length - 1) * 100;
-
-  return farthestLeftPosition;
-}
-
-function movePositionFarthestLeft(slide: HTMLElement, length) {
-  slide.style.transition = "";
-  slide.style.transform = `translateX(${getPositionFarthestLeft(
-    slide.style,
-    length
-  )}%)`;
-}
-
-function movePositionFarthestRight(slide: HTMLElement, length) {
-  slide.style.transition = "";
-  slide.style.transform = `translateX(${getPositionFarthestRight(
-    slide.style,
-    length
-  )}%)`;
-}
-
 export function isInViewport(element, offset) {
   const rect = element.getBoundingClientRect();
   return (
@@ -69,22 +18,6 @@ export function isFirstOffRight(element, offset) {
 export function isFirstOffLeft(element, offset) {
   const rect = element.getBoundingClientRect();
   return Math.floor(rect.right + offset) == 0;
-}
-
-export function slideCarouselRight(slides) {
-  const minX = getMinX(slides);
-  slides.forEach((slide, i) => {
-    if (i == minX.i) movePositionFarthestRight(slide, slides.length);
-    else translateX(slide, -100);
-  });
-}
-
-export function slideCarouselLeft(slides) {
-  const maxX = getMaxX(slides);
-  slides.forEach((slide, i) => {
-    if (i == maxX.i) movePositionFarthestLeft(slide, slides.length);
-    else translateX(slide, 100);
-  });
 }
 
 export function getMinX(slides) {
@@ -120,16 +53,6 @@ export function getOddPictures(pictures) {
   return pictures.length % 2 == 0
     ? pictures.slice(0, pictures.length - 1)
     : pictures;
-}
-
-export function getTransfromProperty(cardWidth, length) {
-  const cardZeroPosition = getCardZeroPosition(cardWidth);
-  const noOfVisibleCards = getNoOfVisibleCards(cardWidth);
-  const offsetAsPercentageOfWidth = (cardZeroPosition / cardWidth) * 100;
-  const noOffScreenCardsLeft = (length - noOfVisibleCards) / 2;
-  return `translateX(${
-    offsetAsPercentageOfWidth - 100 * noOffScreenCardsLeft
-  }%)`;
 }
 
 export function getInitialTransform(cardWidth, length) {
