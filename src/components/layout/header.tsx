@@ -80,6 +80,7 @@ export default function Header({ location, isMobile }) {
     },
   };
 
+  console.log(navMenuOpen, "nav menu", cartOpen, "cart open");
   return (
     <header id="header" className={styles.desktop.header}>
       <button

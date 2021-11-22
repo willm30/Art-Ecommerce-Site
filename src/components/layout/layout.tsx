@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { TouchContext } from "../../context/TouchContext";
-import { touchRegisterService } from "../../services/touchRegister";
 import Seo from "../seo/seo";
 import Header from "./header";
 
@@ -25,7 +24,6 @@ export default function Layout({
   }, []);
 
   function handleTouch() {
-    console.log("touch");
     setIsTouch(true);
   }
   return (

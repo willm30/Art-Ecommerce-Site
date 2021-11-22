@@ -26,6 +26,7 @@ export function getNavLiTextAnimation(navLiText) {
       color: "black",
       paddingLeft: "1.5rem",
       duration: 0.7,
+      ease: "power3.out",
       paused: true,
     }),
     set: gsap.set(navLiText, {
@@ -51,6 +52,7 @@ export function getNavLiUnderlineAnimation(navLiUnderline, width) {
       borderColor: "black",
       backgroundColor: "black",
       duration: 0.7,
+      ease: "power3.out",
       paused: true,
     }),
     set: gsap.set(navLiUnderline, {
@@ -72,6 +74,7 @@ export function getNavLiBgAnimation(navLiBg, width) {
     backward: gsap.to(navLiBg, {
       width: "0px",
       duration: 0.7,
+      ease: "power3.out",
       paused: true,
     }),
     set: gsap.set(navLiBg, {
