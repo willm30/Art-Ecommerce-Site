@@ -20,8 +20,22 @@ export default function ProductInput({
     setSelectedProduct(product);
     setSpanVis("hidden");
   }
+
+  const styles = {
+    desktop: {
+      cont: "md:mt-8 z-10",
+      button: "md:my-4",
+    },
+    mobile: {
+      cont: "",
+      button: "mt-4",
+    },
+  };
   return (
-    <div style={productStyles} className="my-16 z-10">
+    <div
+      style={productStyles}
+      className={`${styles.desktop.cont} ${styles.mobile.cont}`}
+    >
       <form className="flex justify-center">
         {products.map((product) => {
           return (
@@ -40,7 +54,7 @@ export default function ProductInput({
           );
         })}
       </form>
-      <div className="my-4">
+      <div className={`${styles.desktop.button} ${styles.mobile.button}`}>
         <AddCartBtn
           addToCart={addToCart}
           item={selectedProduct}

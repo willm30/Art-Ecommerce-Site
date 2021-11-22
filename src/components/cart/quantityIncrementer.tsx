@@ -34,7 +34,7 @@ export default function QuantityIncrementer({ quantity, title, type }) {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center md:my-0 my-4">
       <div className="flex flex-row items-center flex-20 text-3xl font-poppins">
         <button
           className="flex justify-center rounded-full items-center border border-black w-12 h-12 hover:bg-gray-50"
@@ -50,7 +50,7 @@ export default function QuantityIncrementer({ quantity, title, type }) {
           <span>+</span>
         </button>
       </div>
-      <button onClick={handleRemove} className="hover:underline">
+      <button onClick={handleRemove} className="hover:underline md:my-0 my-4">
         Remove from collection
       </button>
     </div>

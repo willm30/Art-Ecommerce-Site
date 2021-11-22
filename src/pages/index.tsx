@@ -6,13 +6,8 @@ import BetterIndImg from "../components/frames/card/individual/image-wrapper-imp
 import Layout from "../components/layout/layout";
 import { getInitialTransform } from "../utilities/carousel";
 import gsap from "gsap";
-import {
-  invalidateAndRestart,
-  translateCard,
-  getLeftAnimation,
-} from "../animations/carousel";
+import { invalidateAndRestart, translateCard } from "../animations/carousel";
 import MobileCarousel from "../components/carousel/mobile/mobileCarousel";
-import { TextSection } from "../components/index/TextSection";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
@@ -26,21 +21,30 @@ export default function IndexPage({ data, location }) {
 
   function moveRight() {
     const { active, unactive } = animateRight.current;
-    if (!active.isActive()) {
+    const activeLeft = animateLeft.current.active;
+
+    if (!active.isActive() && !activeLeft.isActive()) {
       invalidateAndRestart([active, unactive]);
     }
   }
 
   function moveLeft() {
     const { active, unactive } = animateLeft.current;
-    if (!active.isActive()) {
+    const activeRight = animateRight.current.active;
+
+    if (!active.isActive() && !activeRight.isActive()) {
       invalidateAndRestart([active, unactive]);
     }
   }
 
+  function handleChevronClick(direction: "Left" | "Right") {
+    clearTimer(timer.current);
+    direction == "Left" ? moveLeft() : moveRight();
+  }
+
   useEffect(() => {
     timer.current = setInterval(moveRight, 2500);
-    if (window.innerWidth < 376) {
+    if (window.innerWidth < 668) {
       setIsMobile(true);
     }
     return () => clearTimer(timer.current);
@@ -103,16 +107,14 @@ export default function IndexPage({ data, location }) {
       {isMobile ? (
         <MobileCarousel
           pictures={carouselPictures}
-          left={moveLeft}
-          right={moveRight}
-          clearTimer={() => clearTimer(timer.current)}
+          left={() => handleChevronClick("Left")}
+          right={() => handleChevronClick("Right")}
         />
       ) : (
         <Carousel
           pictures={carouselPictures}
-          left={moveLeft}
-          right={moveRight}
-          clearTimer={() => clearTimer(timer.current)}
+          left={() => handleChevronClick("Left")}
+          right={() => handleChevronClick("Right")}
         />
       )}
       <section

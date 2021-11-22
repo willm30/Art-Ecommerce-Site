@@ -4,22 +4,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import { pathNameToPageName } from "../../utilities/strings";
 import { getDirectories } from "../../utilities/graphQL";
 
-export default function NavMenu({ navMenuOpen, handleLeave }) {
-  const menuLeftPosition = navMenuOpen
-    ? {
-        transform: "translateX(-100%)",
-        transitionProperty: "transform",
-        transitionDuration: "700ms",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        willChange: "transform",
-      }
-    : {
-        transform: "translateX(-200%)",
-        transitionProperty: "transform",
-        transitionDuration: "700ms",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        willChange: "transform",
-      };
+export default function NavMenu() {
   const data = useStaticQuery(graphql`
     query RootPages {
       allFile {
@@ -32,11 +17,13 @@ export default function NavMenu({ navMenuOpen, handleLeave }) {
     }
   `);
   const pages = data.allFile.edges;
+  const styles = {
+    desktop:
+      "absolute left-0 md:top-[4.7rem] border-t-4 border-t-gray-100 flex flex-col justify-around items-stretch md:w-1/3 h-[90vh] bg-white z-50",
+    mobile: "top-[4.1rem] w-screen",
+  };
   return (
-    <ul
-      className={`absolute top-[4.7rem] border-t-4 border-t-gray-100 flex flex-col justify-around items-stretch w-1/3 h-[90vh] bg-white z-50`}
-      style={menuLeftPosition}
-    >
+    <ul id="nav" className={`${styles.desktop} ${styles.mobile}`}>
       {getDirectories(pages).map((dir) => {
         let to = dir;
         if (dir == "series") to = `art/series`;

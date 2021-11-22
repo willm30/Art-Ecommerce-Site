@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
@@ -17,13 +17,25 @@ export default function ArtAll({ data, pageContext, location }) {
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
   }, []);
+
+  const styles = {
+    desktop: {
+      filter:
+        "row-span-1 flex justify-center items-center md:text-xl font-ogirema my-8",
+      frame: "md:flex-33 mb-8",
+    },
+    mobile: {
+      filter: "text-md",
+      frame: "flex-100",
+    },
+  };
   return (
     <Layout
       title="Art"
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
       location={location}
     >
-      <div className="row-span-1 flex justify-center items-center text-xl font-ogirema my-8">
+      <div className={`${styles.desktop.filter} ${styles.mobile.filter}`}>
         <Filter />
       </div>
       <div className="flex flex-wrap">
@@ -39,7 +51,7 @@ export default function ArtAll({ data, pageContext, location }) {
               title={data.name}
               artist={data.artist}
               id={`img${i + 1}`}
-              width="flex-33 mb-8"
+              width={`${styles.desktop.frame} ${styles.mobile.frame}`}
               canvasType={data.canvasType}
               mediaType={data.mediaType}
             />

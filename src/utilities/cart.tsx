@@ -9,6 +9,8 @@ export function incrementQuantity(cart, itemToIncrement) {
         alt: itemToIncrement.alt,
         quantity: itemToIncrement.quantity + 1,
         artist: itemToIncrement.artist,
+        canvasType: itemToIncrement.canvasType,
+        mediaType: itemToIncrement.mediaType,
       };
     }
     return item;
@@ -26,6 +28,8 @@ export function decrementQuantity(cart, itemToDecrement) {
         alt: itemToDecrement.alt,
         quantity: itemToDecrement.quantity - 1,
         artist: itemToDecrement.artist,
+        canvasType: itemToDecrement.canvasType,
+        mediaType: itemToDecrement.mediaType,
       };
     }
     return item;

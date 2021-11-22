@@ -13,6 +13,14 @@ export default function ThumbnailWrapper({
   canvasType,
   mediaType,
 }) {
+  const styles = {
+    desktop: {
+      h3: "font-ogirema text-2xl text-center md:px-0",
+    },
+    mobile: {
+      h3: "px-2",
+    },
+  };
   return (
     <Link
       to={to}
@@ -24,10 +32,10 @@ export default function ThumbnailWrapper({
         image={img}
         className="shadow-2xl border-[16px] border-white outline-ind"
       />
-      <div className="mt-8 flex flex-col justify-center items-center">
-        <h3 className="font-ogirema text-2xl text-center">{title}</h3>
-        <h4 className="font-poppins">{artist}</h4>
-        <h5 className="font-poppins">
+      <div className="mt-8 flex flex-col justify-center items-center font-poppins">
+        <h3 className={`${styles.desktop.h3} ${styles.mobile.h3}`}>{title}</h3>
+        <h4>{artist}</h4>
+        <h5 className="text text-lg md:text-base">
           {canvasType} | {mediaType}
         </h5>
       </div>

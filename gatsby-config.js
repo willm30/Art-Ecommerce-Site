@@ -4,7 +4,7 @@ require("dotenv").config({ //eslint-disable-line
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.purpleorchard.co.uk",
+    siteUrl: "https://www.purpleorchard.art",
     title: "Purple Orchard",
   },
   plugins: [

@@ -6,7 +6,7 @@ import ScrollTo from "gatsby-plugin-smoothscroll";
 import { Chevron } from "../../icons/chevron";
 import { getDownArrowScrollAnimation } from "../../animations/carousel";
 
-export default function Carousel({ pictures, left, right, clearTimer }) {
+export default function Carousel({ pictures, left, right }) {
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
   const arrowAnimation = useRef(null);
 
@@ -36,7 +36,6 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
       <div className="absolute w-2/12 h-full z-10 group">
         <button
           data-ref="arrow"
-          onMouseEnter={clearTimer}
           onClick={left}
           className="absolute z-10 h-full text-white text-7xl flex justify-center items-center left-0"
         >
@@ -64,7 +63,6 @@ export default function Carousel({ pictures, left, right, clearTimer }) {
       <div className="absolute top-0 right-0 w-2/12 h-full z-10 group">
         <button
           data-ref="arrow"
-          onMouseEnter={clearTimer}
           onClick={right}
           className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
         >

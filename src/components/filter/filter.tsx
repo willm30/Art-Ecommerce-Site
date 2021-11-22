@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { useStaticQuery, graphql, Link, navigate } from "gatsby";
 import { getUnique } from "../../utilities/graphQL";
 import { slugify } from "../../utilities/strings";
-import { useState } from "react";
 import { FilterTypeContext } from "../../context/FilterContext";
 import { FilterSeriesContext } from "../../context/FilterContext";
 
@@ -55,8 +54,14 @@ export default function Filter() {
     document.getElementById("type").value = selectedType;
     document.getElementById("series").value = selectedSeries;
   }, []);
+
+  const styles = {
+    desktop: "md: block font-poppins",
+    mobile: "flex flex-col items-center justify-center",
+  };
+
   return (
-    <form className="font-poppins">
+    <form className={`${styles.desktop} ${styles.mobile}`}>
       <label className="mx-4">
         Type:{" "}
         <select onChange={handleSelectType} id="type" className="font-poppins ">

@@ -13,26 +13,41 @@ export default function PageMissing({ location, data }) {
   useEffect(() => {
     setSeeMore(getRandomImages(featured, 3));
   }, []);
+
+  const styles = {
+    desktop: {
+      h1: "md:text-6xl md:px-0",
+      p: "font-poppins my-4 md:text-4xl md:px-0",
+      seeMore: "flex md:flex-row md:flex-wrap",
+    },
+    mobile: {
+      h1: "text-4xl px-4",
+      p: "text-2xl px-4",
+      seeMore: "flex-col",
+    },
+  };
   return (
     <Layout
       title="Missing Page"
-      childStyles="col-start-2 col-end-6 row-start-2"
+      childStyles="col-start-2 col-end-10 md:col-end-6 row-start-2"
       location={location}
     >
       <div className="font-ogirema my-4">
-        <h1 className="text-6xl">We couldn't find that page!</h1>
-        <p className="font-poppins my-4 text-4xl">
+        <h1 className={`${styles.desktop.h1} ${styles.mobile.h1}`}>
+          We couldn't find that page!
+        </h1>
+        <p className={`${styles.desktop.p} ${styles.mobile.p}`}>
           It's possible the page has moved or the url is incorrect.
         </p>
       </div>
       <br />
       <div>
         <div>
-          <h2 className="font-poppins my-4 text-4xl">
+          <p className={`${styles.desktop.p} ${styles.mobile.p}`}>
             In the meantime, here's some artwork you might like:
-          </h2>
+          </p>
 
-          <div className="flex flex-wrap">
+          <div className={`${styles.desktop.seeMore} ${styles.mobile.seeMore}`}>
             {seeMore?.map((i) => {
               const data = i.node;
               const image = getImage(data.image);
@@ -45,6 +60,8 @@ export default function PageMissing({ location, data }) {
                   artist={data.artist}
                   id={null}
                   width="flex-20 m-8"
+                  canvasType={data.canvasType}
+                  mediaType={data.mediaType}
                 />
               );
             })}
@@ -72,6 +89,8 @@ export const query = graphql`
           slug
           name
           artist
+          canvasType
+          mediaType
         }
       }
     }

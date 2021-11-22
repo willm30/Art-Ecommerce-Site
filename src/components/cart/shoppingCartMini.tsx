@@ -4,36 +4,22 @@ import { CartContext } from "../../context/CartContext";
 import { CartItemShape } from "./cartItem";
 import CartItemMini from "./cartItemMini";
 
-export default function ShoppingCartMini({ cartOpen }) {
+export default function ShoppingCartMini() {
   const [cart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
 
-  const menuRightPosition = cartOpen
-    ? {
-        transform: "translateX(100%)",
-        transitionProperty: "transform",
-        transitionDuration: "700ms",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        willChange: "transform",
-      }
-    : {
-        transform: "translateX(200%)",
-        transitionProperty: "transform",
-        transitionDuration: "700ms",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        willChange: "transform",
-      };
-
+  const styles = {
+    desktop:
+      "absolute right-0 md:top-[4.7rem] overflow-y-auto border-4 border-transparent border-t-gray-100 md:w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]",
+    mobile: "top-[4.1rem] w-screen",
+  };
   return (
-    <div
-      className={`absolute top-[4.7rem] overflow-y-auto border-4 border-transparent border-t-gray-100 w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]`}
-      style={menuRightPosition}
-    >
+    <div id="cart" className={`${styles.desktop} ${styles.mobile}`}>
       <Link
         to="/collection"
         className="hover:underline flex justify-center items-center"
       >
-        <h3 className="my-2 text-2xl font-ogirema">Your Collection</h3>
+        <h3 className="my-2 text-3xl font-ogirema">Your Collection</h3>
       </Link>
       {cart.length ? (
         <ul className="flex flex-col">
@@ -51,7 +37,7 @@ export default function ShoppingCartMini({ cartOpen }) {
           ))}
         </ul>
       ) : (
-        <p className="font-poppins flex justify-center items-center pl-6">
+        <p className="font-poppins flex justify-center items-center pl-6 text-xl">
           <span>
             Your collection is currently empty.{" "}
             <Link to="/art" className="hover:underline">

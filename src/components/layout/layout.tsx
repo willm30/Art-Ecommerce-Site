@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { TouchContext } from "../../context/TouchContext";
+import { touchRegisterService } from "../../services/touchRegister";
 import Seo from "../seo/seo";
 import Header from "./header";
 
@@ -15,6 +17,17 @@ export default function Layout({
   location: any;
   isMobile: boolean;
 }) {
+  const [isTouch, setIsTouch] = useContext(TouchContext);
+
+  useEffect(() => {
+    window.addEventListener("touchstart", handleTouch);
+    return () => window.removeEventListener("touchstart", handleTouch);
+  }, []);
+
+  function handleTouch() {
+    console.log("touch");
+    setIsTouch(true);
+  }
   return (
     <div className="grid sm:grid-cols-10 md:grid-cols-6 grid-rows-feature h-screen">
       <Seo title={title} />
