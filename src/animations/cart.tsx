@@ -2,7 +2,7 @@ import gsap from "gsap";
 
 export function getCartAnimation(cart) {
   return gsap.to(cart, {
-    xPercent: 0,
+    xPercent: -100,
     duration: 0.7,
     paused: true,
   });

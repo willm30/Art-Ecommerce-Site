@@ -10,7 +10,7 @@ export default function ShoppingCartMini() {
 
   const styles = {
     desktop:
-      "absolute right-0 md:top-[4.7rem] overflow-y-auto border-4 border-transparent border-t-gray-100 md:w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]",
+      "absolute translate-x-full right-0 md:top-[4.7rem] overflow-y-auto border-4 border-transparent border-t-gray-100 md:w-1/3 h-[90vh] bg-white z-50 max-h-[90vh]",
     mobile: "top-[4.1rem] w-screen",
   };
   return (

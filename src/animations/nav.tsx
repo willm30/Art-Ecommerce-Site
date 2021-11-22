@@ -2,7 +2,7 @@ import gsap from "gsap";
 
 export function getNavAnimation(nav) {
   return gsap.to(nav, {
-    xPercent: 0,
+    xPercent: 100,
     duration: 0.7,
     paused: true,
   });

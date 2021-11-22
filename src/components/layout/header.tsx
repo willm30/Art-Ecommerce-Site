@@ -26,10 +26,10 @@ export default function Header({ location, isMobile }) {
     const header = document.getElementById("header");
     headerTranslation.current = getHeaderAnimation(header);
     const nav = document.getElementById("nav");
-    setNavInitial(nav);
+    //setNavInitial(nav);
     navAnimation.current = getNavAnimation(nav);
     const cart = document.getElementById("cart");
-    setCartInitial(cart);
+    //setCartInitial(cart);
     cartAnimation.current = getCartAnimation(cart);
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
