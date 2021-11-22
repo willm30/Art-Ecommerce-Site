@@ -121,6 +121,11 @@ export default function IndexPage({ data, location }) {
         id="gallery"
         className={`${styles.desktop.gallery.cont} ${styles.mobile.gallery.cont}`}
       >
+        <div
+          className={`${styles.mobile.gallery.img} ${styles.desktop.gallery.img}`}
+        >
+          Feature image goes here
+        </div>
         <div className="flex flex-col flex-60 h-full border-2 border-black">
           <Link to="/about">
             <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh]">
@@ -134,11 +139,6 @@ export default function IndexPage({ data, location }) {
             belongs to it, why it exists, is it online only, who started it, why
             people should spend money in it...
           </p>
-        </div>
-        <div
-          className={`${styles.mobile.gallery.img} ${styles.desktop.gallery.img}`}
-        >
-          Feature image goes here
         </div>
       </section>
       <div className="h-[85vh] md:h-[138vh]">

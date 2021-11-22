@@ -6,8 +6,8 @@ import NavMenu from "../navigation/nav-menu";
 import ShoppingCartIcon from "../../icons/cartIcon";
 import ShoppingCartMini from "../cart/shoppingCartMini";
 import { getHeaderAnimation } from "../../animations/header";
-import { getNavAnimation, setNavInitial } from "../../animations/nav";
-import { setCartInitial, getCartAnimation } from "../../animations/cart";
+import { getNavAnimation } from "../../animations/nav";
+import { getCartAnimation } from "../../animations/cart";
 
 export default function Header({ location, isMobile }) {
   const [navMenuOpen, setNavMenuOpen] = useState(false);
@@ -43,6 +43,10 @@ export default function Header({ location, isMobile }) {
       headerY.play();
     } else {
       headerY.reverse();
+      navAnimation.current.reverse();
+      cartAnimation.current.reverse();
+      setNavMenuOpen(false);
+      setCartOpen(false);
     }
   }
 
@@ -70,7 +74,7 @@ export default function Header({ location, isMobile }) {
 
   const styles = {
     desktop: {
-      header: `fixed ${translateY} flex flex-100 row-start-1 w-screen min-h-[80px] h-[10vh] justify-evenly z-20 bg-white`,
+      header: `fixed ${translateY} flex flex-100 row-start-1 w-screen min-h-[80px] h-[10vh] justify-evenly z-30 bg-white`,
       hamburger: "flex-5 flex justify-center items-center md:pl-0",
       cart: "flex justify-center items-center flex-5 md:pr-0",
     },
