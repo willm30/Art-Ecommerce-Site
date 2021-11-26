@@ -3,6 +3,7 @@ import { getImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
+import SeeAlso from "../components/frames/seeAlso/seeAlso";
 import Layout from "../components/layout/layout";
 import { getRandomImages } from "../utilities/images";
 
@@ -41,33 +42,11 @@ export default function PageMissing({ location, data }) {
         </p>
       </div>
       <br />
-      <div>
-        <div>
-          <p className={`${styles.desktop.p} ${styles.mobile.p}`}>
-            In the meantime, here's some artwork you might like:
-          </p>
 
-          <div className={`${styles.desktop.seeMore} ${styles.mobile.seeMore}`}>
-            {seeMore?.map((i) => {
-              const data = i.node;
-              const image = getImage(data.image);
-              return (
-                <ThumbnailWrapper
-                  to={`/art/${data.slug}`}
-                  alt={data.alternativeText}
-                  img={image}
-                  title={data.name}
-                  artist={data.artist}
-                  id={null}
-                  width="flex-20 m-8"
-                  canvasType={data.canvasType}
-                  mediaType={data.mediaType}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <SeeAlso
+        images={featured}
+        headingText="In the meantime, you might like some of our featured artwork:"
+      />
     </Layout>
   );
 }
@@ -82,7 +61,7 @@ export const query = graphql`
             gatsbyImageData(
               layout: CONSTRAINED
               placeholder: DOMINANT_COLOR
-              width: 700
+              width: 300
             )
           }
           alternativeText

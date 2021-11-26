@@ -67,7 +67,7 @@ export default function Filter() {
           <select
             onChange={handleSelectType}
             id="type"
-            className="font-poppins "
+            className="font-poppins border border-gray-500"
           >
             <option hidden disabled value="Select an option" id="default">
               Select an option
@@ -86,7 +86,7 @@ export default function Filter() {
           <select
             onChange={handleSelectSeries}
             id="series"
-            className="font-poppins"
+            className="font-poppins border border-gray-500"
           >
             <option hidden disabled value="Select an option" id="default">
               Select an option

@@ -25,7 +25,7 @@ export default function Success({ location }) {
   }, []);
   return (
     <Layout
-      title="Cart"
+      title="Success!"
       location={location}
       childStyles="col-start-2 col-end-10 md:col-end-6 row-start-2"
     >

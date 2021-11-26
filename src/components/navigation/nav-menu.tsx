@@ -27,7 +27,6 @@ export default function NavMenu() {
       {orderNavMenuItems(pages).map((dir) => {
         let to = dir;
         if (dir == "series") to = `art/series`;
-        if (dir == "contact") to = `#contact`;
         const pageName = pathNameToPageName(dir);
         return <ListItem key={dir} text={pageName} to={to} />;
       })}

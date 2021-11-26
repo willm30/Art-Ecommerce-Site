@@ -4,12 +4,12 @@ import SeeAlso from "../../components/frames/seeAlso/seeAlso";
 import Layout from "../../components/layout/layout";
 import { paragraphsToReactComponent } from "../../utilities/contentful";
 
-export default function About({ location, data }) {
-  const galleryCopy =
+export default function Contact({ data }) {
+  const contactCopy =
     data.allContentfulFrontPageCopy.edges[0].node.textEntry.raw;
-  const galleryCopyJSX = paragraphsToReactComponent(
-    galleryCopy,
-    "my-4 text-justify"
+  const contactCopyJSX = paragraphsToReactComponent(
+    contactCopy,
+    "text-justify"
   );
   const featured = data.allContentfulPicture.edges;
 
@@ -25,29 +25,26 @@ export default function About({ location, data }) {
   };
   return (
     <Layout
-      title="About"
+      title="Contact"
       location={location}
       childStyles="col-start-2 col-end-10 md:col-end-6 row-start-2"
     >
       <div className="flex justify-between items-center">
         <h1 className={`${styles.desktop.h1} ${styles.mobile.h1}`}>
-          About Purple Orchard
+          Contact Purple Orchard
         </h1>
       </div>
       <div className={`${styles.desktop.p} ${styles.mobile.p}`}>
-        {galleryCopyJSX}
+        {contactCopyJSX}
       </div>
-      <SeeAlso
-        images={featured}
-        headingText="Here are some of our favourite images:"
-      />
+      <SeeAlso images={featured} headingText="You might also like:" />
     </Layout>
   );
 }
 
 export const query = graphql`
-  query GalleryCopy {
-    allContentfulFrontPageCopy(filter: { title: { eq: "Gallery" } }) {
+  query ContactCopy {
+    allContentfulFrontPageCopy(filter: { title: { eq: "Contact" } }) {
       edges {
         node {
           title

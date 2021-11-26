@@ -8,7 +8,7 @@ export function getDirectories(edges) {
       directories.add(relDir);
     }
   });
-  return [...directories, "art", "series", "contact"].sort();
+  return [...directories, "art", "series"].sort();
 }
 
 export function orderNavMenuItems(edges) {
