@@ -5,7 +5,7 @@ import Copyright from "../../components/layout/copyright";
 import Layout from "../../components/layout/layout";
 import { paragraphsToReactComponent } from "../../utilities/contentful";
 
-export default function Contact({ data }) {
+export default function Contact({ data, location }) {
   const contactCopy =
     data.allContentfulFrontPageCopy.edges[0].node.textEntry.raw;
   const contactCopyJSX = paragraphsToReactComponent(
