@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import SeeAlso from "../components/frames/seeAlso/seeAlso";
+import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
 import { getRandomImages } from "../utilities/images";
 
@@ -47,6 +48,7 @@ export default function PageMissing({ location, data }) {
         images={featured}
         headingText="In the meantime, you might like some of our featured artwork:"
       />
+      <Copyright />
     </Layout>
   );
 }

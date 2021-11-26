@@ -16,7 +16,7 @@ export default function Cart({ setSpanVisZero }) {
     },
   };
   return (
-    <div className="text-sm mt-1.5 font-poppins">
+    <div className="text-sm mt-1.5 font-poppins min-h-[60vh]">
       {cart.length ? (
         <ul className="flex flex-col mb-5">
           {cart?.map((item, i) => (

@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import Cart from "../../components/cart/cart";
 import PayNowBtn from "../../components/frames/buttons/pay-now-btn";
+import Copyright from "../../components/layout/copyright";
 import Layout from "../../components/layout/layout";
 import { CartContext } from "../../context/CartContext";
 import getStripe, { allAllowedCountries } from "../../utilities/stripe";
@@ -141,6 +142,7 @@ export default function ShoppingCart({ location }) {
         </div>
       </div>
       <Cart setSpanVisZero={setSpanVisZero}></Cart>
+      <Copyright />
     </Layout>
   );
 }

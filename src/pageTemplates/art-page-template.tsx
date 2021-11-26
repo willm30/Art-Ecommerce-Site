@@ -4,6 +4,7 @@ import { getImage } from "gatsby-plugin-image";
 import React, { useEffect } from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
+import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
 
 export default function ArtAll({ data, pageContext, location }) {
@@ -59,33 +60,44 @@ export default function ArtAll({ data, pageContext, location }) {
           );
         })}
       </div>
-      <div className="flex justify-center font-poppins text-lg mb-4">
-        {!isFirst && (
-          <Link to={prevPage} rel="prev" className="mx-2 hover:text-indigo-900">
-            ← Previous Page
-          </Link>
-        )}
-        <span>
-          Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
-          {totalPosts}
-        </span>
-        {!isLast && (
-          <Link to={nextPage} rel="next" className="mx-2 hover:text-indigo-900">
-            Next Page →
-          </Link>
-        )}
-      </div>
-      <div className="flex justify-center font-poppins text-lg mb-4">
-        Skip to page:{" "}
-        {allPages.map((p) => (
-          <Link
-            to={`/art${p == 1 ? "" : `/${p}`}`}
-            className="underline mx-2 hover:text-indigo-900"
-          >
-            {p}
-          </Link>
-        ))}
-      </div>
+      <footer>
+        <div className="flex justify-center font-poppins text-lg mb-4">
+          {!isFirst && (
+            <Link
+              to={prevPage}
+              rel="prev"
+              className="mx-2 hover:text-indigo-900"
+            >
+              ← Previous Page
+            </Link>
+          )}
+          <span>
+            Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
+            {totalPosts}
+          </span>
+          {!isLast && (
+            <Link
+              to={nextPage}
+              rel="next"
+              className="mx-2 hover:text-indigo-900"
+            >
+              Next Page →
+            </Link>
+          )}
+        </div>
+        <div className="flex justify-center font-poppins text-lg mb-4">
+          Skip to page:{" "}
+          {allPages.map((p) => (
+            <Link
+              to={`/art${p == 1 ? "" : `/${p}`}`}
+              className="underline mx-2 hover:text-indigo-900"
+            >
+              {p}
+            </Link>
+          ))}
+        </div>
+        <Copyright />
+      </footer>
     </Layout>
   );
 }

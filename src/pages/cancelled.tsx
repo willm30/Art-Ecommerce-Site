@@ -1,12 +1,13 @@
 import { Link } from "gatsby";
 import React from "react";
+import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
 
 export default function Success({ location }) {
   const styles = {
     desktop: {
       h1: "text-5xl font-ogirema my-8 md:text-left",
-      p: "font-poppins text-xl md:px-0",
+      p: "font-poppins text-xl md:px-0 min-h-[70vh]",
     },
     mobile: {
       h1: "text-center",
@@ -31,6 +32,7 @@ export default function Success({ location }) {
           Click here to return to your collection.
         </Link>
       </p>
+      <Copyright />
     </Layout>
   );
 }

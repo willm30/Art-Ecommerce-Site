@@ -1,6 +1,7 @@
 import { graphql } from "gatsby";
 import React from "react";
 import SeeAlso from "../../components/frames/seeAlso/seeAlso";
+import Copyright from "../../components/layout/copyright";
 import Layout from "../../components/layout/layout";
 import { paragraphsToReactComponent } from "../../utilities/contentful";
 
@@ -38,6 +39,7 @@ export default function Contact({ data }) {
         {contactCopyJSX}
       </div>
       <SeeAlso images={featured} headingText="You might also like:" />
+      <Copyright />
     </Layout>
   );
 }

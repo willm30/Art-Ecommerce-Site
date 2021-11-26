@@ -213,9 +213,6 @@ export default function IndexPage({ data, location }) {
           <p className="font-poppins text-3xl p-16">{contactCopyJSX}</p>
         </div>
       </div>
-      <div className="flex justify-center items-center font-sans text-lg">
-        <span>Copyright © Purple Orchard Art. 2021 All Rights Reserved.</span>
-      </div>
     </Layout>
   );
 }

@@ -15,6 +15,7 @@ import { getRandomImages } from "../utilities/images";
 import { capitalizeFirstLetter } from "../utilities/strings";
 import { formatPrice } from "../utilities/stripe";
 import { BLOCKS } from "@contentful/rich-text-types";
+import Copyright from "../components/layout/copyright";
 
 export default function ArtInd({ data, location }) {
   const picture = data.contentfulPicture;
@@ -248,6 +249,7 @@ export default function ArtInd({ data, location }) {
               })}
         </div>
       </div>
+      <Copyright />
     </Layout>
   );
 }

@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React, { useContext, useEffect, useState } from "react";
 import PayNowBtn from "../components/frames/buttons/pay-now-btn";
+import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
 import { CartContext } from "../context/CartContext";
 import getStripe from "../utilities/stripe";
@@ -12,7 +13,7 @@ export default function Success({ location }) {
   const styles = {
     desktop: {
       h1: "text-5xl font-ogirema my-8 md:text-left",
-      p: "font-poppins text-xl md:px-0",
+      p: "font-poppins text-xl md:px-0 min-h-[70vh]",
     },
     mobile: {
       h1: "text-center",
@@ -38,6 +39,7 @@ export default function Success({ location }) {
           Click here to return to the latest artwork.
         </Link>
       </p>
+      <Copyright />
     </Layout>
   );
 }

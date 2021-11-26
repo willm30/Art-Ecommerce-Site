@@ -4,6 +4,7 @@ import { getImage } from "gatsby-plugin-image";
 import React, { useEffect } from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
+import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
 import { slugify } from "../utilities/strings";
 
@@ -95,36 +96,47 @@ export default function AllSeries({ data, pageContext, location }) {
           );
         })}
       </div>
-      <div className="flex justify-center font-poppins text-lg my-4">
-        {!isFirst && (
-          <Link to={prevPage} rel="prev" className="mx-2 hover:text-indigo-900">
-            ← Previous Page
-          </Link>
-        )}
-        <span>
-          Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
-          {totalPosts}
-        </span>
-        {!isLast && (
-          <Link to={nextPage} rel="next" className="mx-2 hover:text-indigo-900">
-            Next Page →
-          </Link>
-        )}
-      </div>
-      {numPages != 1 && (
+      <footer>
         <div className="flex justify-center font-poppins text-lg my-4">
-          Skip to page:{" "}
-          {allPages.map((p) => (
+          {!isFirst && (
             <Link
-              to={`/art/series${p == 1 ? "" : `/${p}`}`}
-              className="underline mx-2 hover:text-indigo-900"
-              key={`link${p}`}
+              to={prevPage}
+              rel="prev"
+              className="mx-2 hover:text-indigo-900"
             >
-              {p}
+              ← Previous Page
             </Link>
-          ))}
+          )}
+          <span>
+            Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
+            {totalPosts}
+          </span>
+          {!isLast && (
+            <Link
+              to={nextPage}
+              rel="next"
+              className="mx-2 hover:text-indigo-900"
+            >
+              Next Page →
+            </Link>
+          )}
         </div>
-      )}
+        {numPages != 1 && (
+          <div className="flex justify-center font-poppins text-lg my-4">
+            Skip to page:{" "}
+            {allPages.map((p) => (
+              <Link
+                to={`/art/series${p == 1 ? "" : `/${p}`}`}
+                className="underline mx-2 hover:text-indigo-900"
+                key={`link${p}`}
+              >
+                {p}
+              </Link>
+            ))}
+          </div>
+        )}
+        <Copyright />
+      </footer>
     </Layout>
   );
 }
