@@ -157,7 +157,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   });
   mediaTypes.forEach((type) => {
     const mediaTypePosts = pictures.filter(
-      (post) => post.node.mediaType == type
+      (post) => post.node.mediaType.trim() == type.trim()
     );
     const postsPerPage = 15;
     const numPages = Math.ceil(mediaTypePosts.length / postsPerPage);
@@ -181,7 +181,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   });
   series.forEach((series) => {
     const seriesPosts = pictures.filter(
-      (post) => post.node.seriesTitle == series
+      (post) => post.node.seriesTitle.trim() == series.trim()
     );
     const postsPerPage = 15;
     const numPages = Math.ceil(seriesPosts.length / postsPerPage);

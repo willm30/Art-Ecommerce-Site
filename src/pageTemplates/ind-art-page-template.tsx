@@ -67,7 +67,6 @@ export default function ArtInd({ data, location }) {
       description,
     };
   });
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   function addToCart(item: CartItemShape) {
     if (!Object.entries(item).length) return;
@@ -83,7 +82,6 @@ export default function ArtInd({ data, location }) {
   }
 
   function handleScroll() {
-    setHasScrolled(true);
     const scrollTop = document.querySelector(".tl-edges").scrollTop;
     const scrollLimit =
       document.getElementById("right").getBoundingClientRect().height - 200;
@@ -136,6 +134,7 @@ export default function ArtInd({ data, location }) {
       footer: "flex flex-col justify-center items-center",
     },
   };
+  console.log("ind art page");
   return (
     <Layout
       title={picture.name}
@@ -195,7 +194,6 @@ export default function ArtInd({ data, location }) {
           products={products}
           addToCart={addToCart}
           productStyles={productStyles}
-          hasScrolled={hasScrolled}
         />
       </div>
       <div

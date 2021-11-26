@@ -35,6 +35,11 @@ export default function ShoppingCartMini() {
               key={`${item.title}${i}`}
             />
           ))}
+          <Link to="/collection">
+            <button className="group bg-white hover:bg-black border-black border p-2 w-48  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900">
+              Review your Purchase
+            </button>
+          </Link>
         </ul>
       ) : (
         <p className="font-poppins flex justify-center items-center pl-6 text-xl">

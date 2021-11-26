@@ -1,5 +1,5 @@
 import { graphql, Link } from "gatsby";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { getImage } from "gatsby-plugin-image";
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
@@ -8,14 +8,13 @@ import { getInitialTransform } from "../utilities/carousel";
 import gsap from "gsap";
 import { invalidateAndRestart, translateCard } from "../animations/carousel";
 import MobileCarousel from "../components/carousel/mobile/mobileCarousel";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import {
   getRaw,
   rawToReactComponent,
   styleParagraphReactComponent,
 } from "../utilities/contentful";
+import Copyright from "../components/layout/copyright";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
@@ -63,7 +62,7 @@ export default function IndexPage({ data, location }) {
   }
 
   function handleChevronClick(direction: "Left" | "Right") {
-    clearTimer(timer.current);
+    clearInterval(timer.current);
     direction == "Left" ? moveLeft() : moveRight();
   }
 
@@ -72,7 +71,10 @@ export default function IndexPage({ data, location }) {
     if (window.innerWidth < 668) {
       setIsMobile(true);
     }
-    return () => clearTimer(timer.current);
+    return () => {
+      console.log("clearing interval");
+      clearInterval(timer.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -85,12 +87,6 @@ export default function IndexPage({ data, location }) {
     });
   }, [isMobile]);
 
-  function clearTimer(timer) {
-    clearInterval(timer);
-  }
-
-  const slice = isMobile ? 2 : 4;
-  const sliceEnd = isMobile ? 4 : featuredPictures.length;
   const styles = {
     desktop: {
       gallery: {
@@ -120,6 +116,7 @@ export default function IndexPage({ data, location }) {
     },
   };
 
+  console.log("index page rerendered");
   return (
     <Layout
       title={title}
@@ -213,6 +210,7 @@ export default function IndexPage({ data, location }) {
           <p className="font-poppins text-3xl p-16">{contactCopyJSX}</p>
         </div>
       </div>
+      <Copyright />
     </Layout>
   );
 }

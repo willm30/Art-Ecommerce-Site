@@ -15,12 +15,10 @@ export default function ProductInput({
   products,
   productStyles,
   addToCart,
-  hasScrolled,
 }: {
   products: CartItemShape[]; // TODO update with interface
   addToCart: (item: CartItemShape) => void;
   productStyles: any;
-  hasScrolled: boolean;
 }) {
   const [spanVis, setSpanVis] = useState("hidden");
   const [selectedProduct, setSelectedProduct] = useState<CartItemShape | null>(
@@ -67,7 +65,7 @@ export default function ProductInput({
           setSpanVis={setSpanVis}
         />
       </div>
-      {products.map((product) => {
+      {products.map((product, i) => {
         const description = paragraphsToReactComponent(
           product.description,
           "my-2"
@@ -75,6 +73,7 @@ export default function ProductInput({
 
         return (
           <div
+            key={`info${i}`}
             data-ref="info"
             className="hidden w-[90%] bg-white border border-black shadow-lg p-4 text-justify font-poppins"
           >

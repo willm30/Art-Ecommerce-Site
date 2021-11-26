@@ -11,7 +11,7 @@ export function rawToReactComponent(raw, renderOptions) {
 }
 
 export function styleParagraphReactComponent(className: string) {
-  const Text = ({ children }) => <p className={className}>{children}</p>;
+  const Text = ({ children }) => <span className={className}>{children}</span>;
 
   const renderOptions = {
     renderNode: {
