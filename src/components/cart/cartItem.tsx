@@ -45,7 +45,7 @@ export default function CartItem({
   return (
     <li className={`${styles.desktop.li} ${styles.mobile.li}`}>
       <ThumbnailWrapper
-        to={`art/${slug}`}
+        to={`/art/${slug}`}
         alt={alt}
         img={image}
         title={null}
