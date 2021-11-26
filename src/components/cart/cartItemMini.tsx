@@ -26,7 +26,7 @@ export default function CartItemMini({
           <span className="text-xl font-bold text-center">{title}</span>
           <span>Quantity: {quantity}</span>
           <span>{type}</span>
-          <span>£{price}</span>
+          <span>£{price.toFixed(2)}</span>
           <span>{`Sub-total: £${subtotal.toFixed(2)}`} </span>
         </span>
       </li>

@@ -1,5 +1,5 @@
 import { graphql, Link } from "gatsby";
-import { getImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
@@ -8,10 +8,35 @@ import { getInitialTransform } from "../utilities/carousel";
 import gsap from "gsap";
 import { invalidateAndRestart, translateCard } from "../animations/carousel";
 import MobileCarousel from "../components/carousel/mobile/mobileCarousel";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
+import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
+import {
+  getRaw,
+  rawToReactComponent,
+  styleParagraphReactComponent,
+} from "../utilities/contentful";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
-  const featuredPictures = data.featured.edges.slice(0, 8);
+  const featuredPictures = data.featured.edges
+    .filter((n) => n.node.name.trim() != "Flowers Joyful")
+    .slice(0, 8);
+  const flowersJoyful = data.featured.edges.filter(
+    (n) => n.node.name.trim() == "Flowers Joyful"
+  )[0].node;
+  const copy = data.copy.edges;
+  const galleryCopy = getRaw(copy, "Gallery");
+  const contactCopy = getRaw(copy, "Contact");
+  galleryCopy.content = galleryCopy.content.slice(0, 2);
+  const galleryCopyJSX = rawToReactComponent(
+    galleryCopy,
+    styleParagraphReactComponent("my-4 px-4 text-justify")
+  );
+  const contactCopyJSX = rawToReactComponent(
+    contactCopy,
+    styleParagraphReactComponent("my-4 px-4 text-justify")
+  );
   const title = "Art";
   const animateRight = useRef(null);
   const animateLeft = useRef(null);
@@ -69,16 +94,15 @@ export default function IndexPage({ data, location }) {
   const styles = {
     desktop: {
       gallery: {
-        cont: "md:static flex md:flex-row h-[90vh] border-2 border-black bg-white",
-        img: "md:block flex-40 h-full border-2 border-black",
-        p: "h-full font-poppins md:text-3xl border-2 border-black md:p-16",
+        cont: "md:static flex justify-center items-center md:flex-row min-h-screen bg-white pt-8 md:px-4",
+        img: "md:block flex-40 h-full ",
+        p: "h-full font-poppins md:text-3xl md:p-0 md:px-4",
       },
       collection: {
-        row1: "flex md:flex-nowrap md:max-h-[64vh] overflow-y-hidden",
-        row2: "flex md:flex-nowrap md:max-h-[64vh] overflow-y-hidden",
+        row1: "flex overflow-y-hidden ",
       },
       contact: {
-        img: "md:block flex-60 h-full border-2 border-black",
+        img: "md:block flex-60 h-full ",
       },
     },
     mobile: {
@@ -88,8 +112,7 @@ export default function IndexPage({ data, location }) {
         p: "p-2 text-xl",
       },
       collection: {
-        row1: "max-h-[37vh] flex-wrap",
-        row2: "max-h-[37vh] flex-wrap",
+        row1: "flex-wrap",
       },
       contact: {
         img: "hidden",
@@ -124,49 +147,47 @@ export default function IndexPage({ data, location }) {
         <div
           className={`${styles.mobile.gallery.img} ${styles.desktop.gallery.img}`}
         >
-          Feature image goes here
+          <ThumbnailWrapper
+            to={`/art/${flowersJoyful.slug}`}
+            alt={flowersJoyful.alternativeText}
+            img={getImage(flowersJoyful.image)}
+          />
         </div>
-        <div className="flex flex-col flex-60 h-full border-2 border-black">
+        <div className="flex flex-col flex-60 h-full ml-4">
           <Link to="/about">
-            <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh]">
+            <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh] my-2">
               The Gallery
             </h2>
           </Link>
-          <p
+          <div
             className={`${styles.desktop.gallery.p} ${styles.mobile.gallery.p}`}
           >
-            Some text about the gallery that describes what the gallery is, who
-            belongs to it, why it exists, is it online only, who started it, why
-            people should spend money in it...
-          </p>
+            {galleryCopyJSX}
+          </div>
+          <div className="flex justify-center items-center">
+            <span className={`${styles.desktop.gallery.p} mt-4`}>
+              <Link to="/art" className="hover:underline">
+                View our collection{" "}
+              </Link>{" "}
+              or
+              <Link to="/about" className="hover:underline">
+                {" "}
+                read more about the gallery.
+              </Link>
+            </span>
+          </div>
         </div>
       </section>
-      <div className="h-[85vh] md:h-[138vh]">
+      <div className="">
         <Link to="/art">
-          <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh]">
+          <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh] my-8">
             The Collection
           </h2>
         </Link>
         <div
           className={`${styles.desktop.collection.row1} ${styles.mobile.collection.row1}`}
         >
-          {featuredPictures.slice(0, slice).map((picture) => {
-            const data = picture.node;
-            const image = getImage(data.image);
-            return (
-              <BetterIndImg
-                key={data.name}
-                data={data}
-                image={image}
-                className="flex-50 md:flex-25"
-              />
-            );
-          })}
-        </div>
-        <div
-          className={`${styles.desktop.collection.row2} ${styles.mobile.collection.row2}`}
-        >
-          {featuredPictures.slice(slice, sliceEnd).map((picture) => {
+          {featuredPictures.slice(0, 8).map((picture) => {
             const data = picture.node;
             const image = getImage(data.image);
             return (
@@ -180,22 +201,21 @@ export default function IndexPage({ data, location }) {
           })}
         </div>
       </div>
-      <div className="relative z-10 bg-white flex h-[90vh] border-2 border-black">
-        <div className="order-1 flex flex-col flex-40 h-full border-2 border-black">
+      <div className="relative z-10 bg-white flex h-[90vh]">
+        <span
+          id="contact"
+          className="block h-20 w-screen absolute -top-20"
+        ></span>
+        <div className="order-1 flex flex-col justify-center items-center h-full">
           <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh]">
             Contact
           </h2>
-          <p className="h-full font-poppins text-3xl border-2 border-black p-16">
-            Some contact form
-          </p>
-        </div>
-        <div
-          className={`${styles.mobile.contact.img} ${styles.desktop.contact.img}`}
-        >
-          Some image goes here
+          <p className="font-poppins text-3xl p-16">{contactCopyJSX}</p>
         </div>
       </div>
-      <div className="flex h-[30vh] border-2 border-black">Footer</div>
+      <div className="flex justify-center items-center font-sans text-lg">
+        <span>Copyright © Purple Orchard Art. 2021 All Rights Reserved.</span>
+      </div>
     </Layout>
   );
 }
@@ -233,6 +253,16 @@ export const query = graphql`
           alternativeText
           slug
           name
+        }
+      }
+    }
+    copy: allContentfulFrontPageCopy {
+      edges {
+        node {
+          title
+          textEntry {
+            raw
+          }
         }
       }
     }

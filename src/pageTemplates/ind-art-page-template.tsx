@@ -1,5 +1,5 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import React, { useState, useContext, useEffect } from "react";
 import { CartItemShape } from "../components/cart/cartItem";
@@ -12,6 +12,9 @@ import { CartContext } from "../context/CartContext";
 import MagnifyingGlass from "../icons/magnifyingGlass";
 import { incrementQuantity } from "../utilities/cart";
 import { getRandomImages } from "../utilities/images";
+import { capitalizeFirstLetter } from "../utilities/strings";
+import { formatPrice } from "../utilities/stripe";
+import { BLOCKS } from "@contentful/rich-text-types";
 
 export default function ArtInd({ data, location }) {
   const picture = data.contentfulPicture;
@@ -19,22 +22,39 @@ export default function ArtInd({ data, location }) {
   const title = picture.name;
   const alt = picture.alternativeText;
   const { slug, canvasType, mediaType } = picture;
-  const des = documentToReactComponents(JSON.parse(picture.description.raw));
+  const Text = ({ children }) => <p className="my-4">{children}</p>;
+  const renderOptions = {
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
+    },
+  };
+  const des = documentToReactComponents(
+    JSON.parse(picture.description.raw),
+    renderOptions
+  );
   const series = picture.seriesImages;
   const artist = picture.artist;
   const [seeAlsoDefault, setSeeAlsoDefault] = useState(undefined);
   const [productStyles, setProductStyles] = useState({});
   const [scrollTop, setScrollTop] = useState(undefined);
   const [isMobile, setIsMobile] = useState(false);
-
+  const prices = data.allStripePrice.edges;
+  const productModels = data.allContentfulProduct.edges;
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
   const quantity = 1;
-
-  const products: CartItemShape[] = [
-    {
-      productName: "Poster",
-      price: 19.99,
+  const products = prices.map((p) => {
+    const prod = p.node;
+    const prodMod = productModels.find(
+      (model) =>
+        model.node.productName.toLowerCase().trim() ==
+        prod.nickname.toLowerCase().trim()
+    );
+    const description = prodMod.node.description.raw;
+    return {
+      productName: capitalizeFirstLetter(prod.nickname),
+      price: formatPrice(prod["unit_amount"]),
+      priceId: prod.id,
       title,
       image,
       alt,
@@ -43,23 +63,12 @@ export default function ArtInd({ data, location }) {
       artist,
       canvasType,
       mediaType,
-    },
-    {
-      productName: "Frame",
-      price: 79.99,
-      title,
-      image,
-      alt,
-      quantity,
-      slug,
-      artist,
-      canvasType,
-      mediaType,
-    },
-  ]; // TODO: Extract from page query
+      description,
+    };
+  });
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   function addToCart(item: CartItemShape) {
-    console.log(item, "item");
     if (!Object.entries(item).length) return;
     const duplicateEntry = cart.find(
       (cartItem) =>
@@ -73,6 +82,7 @@ export default function ArtInd({ data, location }) {
   }
 
   function handleScroll() {
+    setHasScrolled(true);
     const scrollTop = document.querySelector(".tl-edges").scrollTop;
     const scrollLimit =
       document.getElementById("right").getBoundingClientRect().height - 200;
@@ -184,6 +194,7 @@ export default function ArtInd({ data, location }) {
           products={products}
           addToCart={addToCart}
           productStyles={productStyles}
+          hasScrolled={hasScrolled}
         />
       </div>
       <div
@@ -242,7 +253,7 @@ export default function ArtInd({ data, location }) {
 }
 
 export const query = graphql`
-  query IndividualPicture($id: String!, $media: String!) {
+  query IndividualPicture($id: String!, $media: String!, $productId: String!) {
     contentfulPicture(id: { eq: $id }) {
       id
       name
@@ -297,6 +308,29 @@ export const query = graphql`
           slug
           canvasType
           mediaType
+        }
+      }
+    }
+    allStripePrice(filter: { product: { id: { eq: $productId } } }) {
+      edges {
+        node {
+          id
+          product {
+            id
+          }
+          nickname
+          unit_amount
+        }
+      }
+    }
+    allContentfulProduct {
+      edges {
+        node {
+          description {
+            raw
+          }
+          price
+          productName
         }
       }
     }

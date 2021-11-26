@@ -5,14 +5,19 @@ import React, { useEffect } from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
+import { slugify } from "../utilities/strings";
 
 export default function ArtSeries({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
-  const { currentPage, numPages } = pageContext;
+  const { currentPage, numPages, totalPosts, series } = pageContext;
+  const allPages = Array.from({ length: numPages }, (x, i) => i + 1);
   const isFirst = currentPage === 1;
   const isLast = currentPage === numPages;
-  const prevPage = currentPage - 1 === 1 ? "/art" : `/art/${currentPage - 1}`;
-  const nextPage = `/art/${currentPage + 1}`;
+  const prevPage =
+    currentPage - 1 === 1
+      ? `/art/series/${slugify(series)}`
+      : `/art/series/${slugify(series)}/${currentPage - 1}`;
+  const nextPage = `/art/${slugify(series)}/${currentPage + 1}`;
 
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
@@ -64,12 +69,30 @@ export default function ArtSeries({ data, pageContext, location }) {
             ← Previous Page
           </Link>
         )}
+        <span>
+          Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
+          {totalPosts}
+        </span>
         {!isLast && (
           <Link to={nextPage} rel="next" className="mx-2 hover:text-indigo-900">
             Next Page →
           </Link>
         )}
       </div>
+      {numPages != 1 && (
+        <div className="flex justify-center font-poppins text-lg mb-4">
+          Skip to page:{" "}
+          {allPages.map((p) => (
+            <Link
+              to={`/art/series/${slugify(series)}${p == 1 ? "" : `/${p}`}`}
+              className="underline mx-2 hover:text-indigo-900"
+              key={`link${p}`}
+            >
+              {p}
+            </Link>
+          ))}
+        </div>
+      )}
     </Layout>
   );
 }

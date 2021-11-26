@@ -36,7 +36,7 @@ export default function ThumbnailWrapper({
         <h3 className={`${styles.desktop.h3} ${styles.mobile.h3}`}>{title}</h3>
         <h4>{artist}</h4>
         <h5 className="text text-lg md:text-base">
-          {canvasType} | {mediaType}
+          {canvasType && `${canvasType} | ${mediaType}`}
         </h5>
       </div>
     </Link>

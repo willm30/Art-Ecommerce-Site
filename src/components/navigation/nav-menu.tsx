@@ -2,7 +2,7 @@ import React from "react";
 import ListItem from "./list-item";
 import { graphql, useStaticQuery } from "gatsby";
 import { pathNameToPageName } from "../../utilities/strings";
-import { getDirectories } from "../../utilities/graphQL";
+import { getDirectories, orderNavMenuItems } from "../../utilities/graphQL";
 
 export default function NavMenu() {
   const data = useStaticQuery(graphql`
@@ -24,9 +24,10 @@ export default function NavMenu() {
   };
   return (
     <ul id="nav" className={`${styles.desktop} ${styles.mobile}`}>
-      {getDirectories(pages).map((dir) => {
+      {orderNavMenuItems(pages).map((dir) => {
         let to = dir;
         if (dir == "series") to = `art/series`;
+        if (dir == "contact") to = `#contact`;
         const pageName = pathNameToPageName(dir);
         return <ListItem key={dir} text={pageName} to={to} />;
       })}

@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import CartItem, { CartItemShape } from "./cartItem";
 
-export default function Cart() {
+export default function Cart({ setSpanVisZero }) {
   const [cart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
 
@@ -18,7 +18,7 @@ export default function Cart() {
   return (
     <div className="text-sm mt-1.5 font-poppins">
       {cart.length ? (
-        <ul className="flex flex-col">
+        <ul className="flex flex-col mb-5">
           {cart?.map((item, i) => (
             <div key={`${item.title}${i}`}>
               <hr />
@@ -33,6 +33,7 @@ export default function Cart() {
                 slug={item.slug}
                 canvasType={item.canvasType}
                 mediaType={item.mediaType}
+                setSpanVisZero={setSpanVisZero}
               />
               <hr />
             </div>

@@ -1,21 +1,32 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import Info from "../../../icons/info";
+import {
+  paragraphsToReactComponent,
+  rawToReactComponent,
+  styleParagraphReactComponent,
+} from "../../../utilities/contentful";
 import { CartItemShape } from "../../cart/cartItem";
 import AddCartBtn from "../buttons/add-cart-btn";
+import Product from "./product";
 
 export default function ProductInput({
   products,
   productStyles,
   addToCart,
+  hasScrolled,
 }: {
   products: CartItemShape[]; // TODO update with interface
   addToCart: (item: CartItemShape) => void;
   productStyles: any;
+  hasScrolled: boolean;
 }) {
   const [spanVis, setSpanVis] = useState("hidden");
   const [selectedProduct, setSelectedProduct] = useState<CartItemShape | null>(
     null
   );
+
   function handleSelectProduct(product: CartItemShape) {
     setSelectedProduct(product);
     setSpanVis("hidden");
@@ -23,7 +34,7 @@ export default function ProductInput({
 
   const styles = {
     desktop: {
-      cont: "md:mt-8 z-10",
+      cont: "md:mt-8 z-10 flex flex-col justify-center items-center",
       button: "md:my-4",
     },
     mobile: {
@@ -36,21 +47,15 @@ export default function ProductInput({
       style={productStyles}
       className={`${styles.desktop.cont} ${styles.mobile.cont}`}
     >
-      <form className="flex justify-center">
-        {products.map((product) => {
+      <form className="relative flex justify-center">
+        {products.map((product, i) => {
           return (
-            <label
+            <Product
               key={product.productName}
-              className="bg-white hover:bg-gray-50 border border-black p-4 mx-4 flex flex-col justify-center items-center font-poppins"
-            >
-              {product.productName} <br />£{product.price} <br />
-              <input
-                name="product"
-                type="radio"
-                onChange={() => handleSelectProduct(product)}
-                className="mt-2"
-              />
-            </label>
+              product={product}
+              handleSelectProduct={handleSelectProduct}
+              index={i}
+            />
           );
         })}
       </form>
@@ -62,6 +67,21 @@ export default function ProductInput({
           setSpanVis={setSpanVis}
         />
       </div>
+      {products.map((product) => {
+        const description = paragraphsToReactComponent(
+          product.description,
+          "my-2"
+        );
+
+        return (
+          <div
+            data-ref="info"
+            className="hidden w-[90%] bg-white border border-black shadow-lg p-4 text-justify font-poppins"
+          >
+            {description}
+          </div>
+        );
+      })}
     </div>
   );
 }

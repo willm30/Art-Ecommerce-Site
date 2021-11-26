@@ -9,7 +9,8 @@ import { slugify } from "../utilities/strings";
 
 export default function ArtType({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
-  const { currentPage, numPages, media } = pageContext;
+  const { currentPage, numPages, media, totalPosts } = pageContext;
+  const allPages = Array.from({ length: numPages }, (x, i) => i + 1);
   const isFirst = currentPage === 1;
   const isLast = currentPage === numPages;
   const prevPage =
@@ -65,12 +66,30 @@ export default function ArtType({ data, pageContext, location }) {
             ← Previous Page
           </Link>
         )}
+        <span>
+          Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
+          {totalPosts}
+        </span>
         {!isLast && (
           <Link to={nextPage} rel="next" className="mx-2 hover:text-indigo-900">
             Next Page →
           </Link>
         )}
       </div>
+      {numPages != 1 && (
+        <div className="flex justify-center font-poppins text-lg mb-4">
+          Skip to page:{" "}
+          {allPages.map((p) => (
+            <Link
+              to={`/art/${slugify(media)}${p == 1 ? "" : `/${p}`}`}
+              className="underline mx-2 hover:text-indigo-900"
+              key={`link${p}`}
+            >
+              {p}
+            </Link>
+          ))}
+        </div>
+      )}
     </Layout>
   );
 }

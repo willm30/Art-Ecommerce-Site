@@ -3,7 +3,12 @@ import { CartContext } from "../../context/CartContext";
 import { decrementQuantity, incrementQuantity } from "../../utilities/cart";
 import { CartItemShape } from "./cartItem";
 
-export default function QuantityIncrementer({ quantity, title, type }) {
+export default function QuantityIncrementer({
+  quantity,
+  title,
+  type,
+  setSpanVisZero,
+}) {
   const [cart, setCart]: [
     CartItemShape[],
     Dispatch<SetStateAction<CartItemShape[]>>
@@ -15,6 +20,7 @@ export default function QuantityIncrementer({ quantity, title, type }) {
     );
     const newCart = incrementQuantity(cart, item);
     setCart(newCart);
+    if (!quantity) setSpanVisZero("hidden");
   }
 
   function handleDecrement() {
@@ -42,7 +48,9 @@ export default function QuantityIncrementer({ quantity, title, type }) {
         >
           <span>-</span>
         </button>
-        <span className="mx-4">{quantity}</span>
+        <span className={`mx-4 ${quantity ? "" : "text-red-500"}`}>
+          {quantity}
+        </span>
         <button
           className="border rounded-full border-black flex justify-center items-center w-12 h-12 hover:bg-gray-50"
           onClick={handleIncrement}

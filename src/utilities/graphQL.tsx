@@ -8,9 +8,18 @@ export function getDirectories(edges) {
       directories.add(relDir);
     }
   });
-  return [...directories, "art", "series"].sort();
+  return [...directories, "art", "series", "contact"].sort();
 }
 
+export function orderNavMenuItems(edges) {
+  const navItems = getDirectories(edges);
+  return [
+    navItems[navItems.indexOf("art")],
+    navItems[navItems.indexOf("series")],
+    navItems[navItems.indexOf("about")],
+    navItems[navItems.indexOf("contact")],
+  ];
+}
 export function getUnique(edges, param: string) {
   const uniqueEntries: Set<string> = new Set();
   edges.forEach((node) => {

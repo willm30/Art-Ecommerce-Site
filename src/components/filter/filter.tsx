@@ -42,11 +42,9 @@ export default function Filter() {
     e.preventDefault();
     const path = e.target.value;
     document.getElementById("series").value = path;
-    if (path) {
-      navigate(`/art/series/${slugify(path)}`);
-    } else {
-      navigate(`/art`);
-    }
+
+    navigate(`/art/series/${slugify(path)}`);
+
     setSelectedSeries(path);
   }
 
@@ -56,46 +54,53 @@ export default function Filter() {
   }, []);
 
   const styles = {
-    desktop: "md: block font-poppins",
+    desktop: "font-poppins",
     mobile: "flex flex-col items-center justify-center",
   };
 
   return (
     <form className={`${styles.desktop} ${styles.mobile}`}>
-      <label className="mx-4">
-        Type:{" "}
-        <select onChange={handleSelectType} id="type" className="font-poppins ">
-          <option hidden disabled value="Select an option" id="default">
-            Select an option
-          </option>
-
-          {mediaTypes.map((type) => (
-            <option value={type} key={type}>
-              {type}
+      <span className="mb-2">Filter by:</span>
+      <div>
+        <label className="mx-4">
+          Type:{" "}
+          <select
+            onChange={handleSelectType}
+            id="type"
+            className="font-poppins "
+          >
+            <option hidden disabled value="Select an option" id="default">
+              Select an option
             </option>
-          ))}
-          <option value="">All</option>
-        </select>
-      </label>
-      <label className="mx-4">
-        Series:{" "}
-        <select
-          onChange={handleSelectSeries}
-          id="series"
-          className="font-poppins"
-        >
-          <option hidden disabled value="Select an option" id="default">
-            Select an option
-          </option>
 
-          {seriesTitles.map((type) => (
-            <option value={type} key={type}>
-              {type}
+            {mediaTypes.map((type) => (
+              <option value={type} key={type}>
+                {type}
+              </option>
+            ))}
+            <option value="">All</option>
+          </select>
+        </label>
+        <label className="mx-4">
+          Series:{" "}
+          <select
+            onChange={handleSelectSeries}
+            id="series"
+            className="font-poppins"
+          >
+            <option hidden disabled value="Select an option" id="default">
+              Select an option
             </option>
-          ))}
-          <option value="">All</option>
-        </select>
-      </label>
+
+            {seriesTitles.map((type) => (
+              <option value={type} key={type}>
+                {type}
+              </option>
+            ))}
+            <option value="">All</option>
+          </select>
+        </label>
+      </div>
     </form>
   );
 }

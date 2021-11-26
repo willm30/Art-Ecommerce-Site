@@ -1,6 +1,4 @@
-require("dotenv").config({ //eslint-disable-line
-  path: `.env.${process.env.NODE_ENV}`,
-});
+require("dotenv").config(); //eslint-disable-line
 
 module.exports = {
   siteMetadata: {
@@ -29,7 +27,15 @@ module.exports = {
       options: {
         spaceId: "ei7twg2jyh6q",
         // Move to .env
-        accessToken: "8eyDJ5mLcS4-xtbq_JNz-04YL1eXTF2sAGraWoe2L1I",
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
+    {
+      resolve: `gatsby-source-stripe`,
+      options: {
+        objects: ["Price", "Product"],
+        secretKey: process.env.STRIPE_SECRET_KEY,
+        downloadFiles: false,
       },
     },
     "gatsby-plugin-image",
