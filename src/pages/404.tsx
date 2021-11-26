@@ -6,15 +6,9 @@ import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wra
 import SeeAlso from "../components/frames/seeAlso/seeAlso";
 import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
-import { getRandomImages } from "../utilities/images";
 
 export default function PageMissing({ location, data }) {
   const featured = data.allContentfulPicture.edges;
-  const [seeMore, setSeeMore] = useState(undefined);
-
-  useEffect(() => {
-    setSeeMore(getRandomImages(featured, 3));
-  }, []);
 
   const styles = {
     desktop: {

@@ -145,6 +145,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const id = post.node.id;
     const type = post.node.mediaType;
     const productId = product && product.node.id;
+    if (post.node.name == "Come Join Us 6") {
+      console.log(slug, id, type, productId, product);
+    }
+
     createPage({
       path: `/art/${slug}`,
       component: path.resolve("./src/pageTemplates/ind-art-page-template.tsx"),

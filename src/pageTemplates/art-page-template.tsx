@@ -87,8 +87,9 @@ export default function ArtAll({ data, pageContext, location }) {
         </div>
         <div className="flex justify-center font-poppins text-lg mb-4">
           Skip to page:{" "}
-          {allPages.map((p) => (
+          {allPages.map((p, i) => (
             <Link
+              key={`link${i}`}
               to={`/art${p == 1 ? "" : `/${p}`}`}
               className="underline mx-2 hover:text-indigo-900"
             >

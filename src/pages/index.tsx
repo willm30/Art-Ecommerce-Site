@@ -207,7 +207,7 @@ export default function IndexPage({ data, location }) {
           <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh]">
             Contact
           </h2>
-          <p className="font-poppins text-3xl p-16">{contactCopyJSX}</p>
+          <div className="font-poppins text-3xl p-16">{contactCopyJSX}</div>
         </div>
       </div>
       <Copyright />

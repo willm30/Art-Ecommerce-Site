@@ -1,5 +1,4 @@
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import React, { useState, useContext, useEffect } from "react";
 import { CartItemShape } from "../components/cart/cartItem";
@@ -14,8 +13,8 @@ import { incrementQuantity } from "../utilities/cart";
 import { getRandomImages } from "../utilities/images";
 import { capitalizeFirstLetter } from "../utilities/strings";
 import { formatPrice } from "../utilities/stripe";
-import { BLOCKS } from "@contentful/rich-text-types";
 import Copyright from "../components/layout/copyright";
+import { paragraphsToReactComponent } from "../utilities/contentful";
 
 export default function ArtInd({ data, location }) {
   const picture = data.contentfulPicture;
@@ -23,17 +22,12 @@ export default function ArtInd({ data, location }) {
   const title = picture.name;
   const alt = picture.alternativeText;
   const { slug, canvasType, mediaType } = picture;
-  const Text = ({ children }) => <p className="my-4">{children}</p>;
-  const renderOptions = {
-    renderNode: {
-      [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
-    },
-  };
-  const des = documentToReactComponents(
-    JSON.parse(picture.description.raw),
-    renderOptions
+  const des = paragraphsToReactComponent(
+    picture.description.raw,
+    "my-4 text-justify"
   );
   const series = picture.seriesImages;
+  console.log(series);
   const artist = picture.artist;
   const [seeAlsoDefault, setSeeAlsoDefault] = useState(undefined);
   const [productStyles, setProductStyles] = useState({});
@@ -43,6 +37,8 @@ export default function ArtInd({ data, location }) {
   const productModels = data.allContentfulProduct.edges;
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
+  const [seeMoreFromSeries, setSeeMoreFromSeries] = useState(undefined);
+
   const quantity = 1;
   const products = prices.map((p) => {
     const prod = p.node;
@@ -102,6 +98,7 @@ export default function ArtInd({ data, location }) {
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
     setSeeAlsoDefault(getRandomImages(data.allContentfulPicture.edges, 3));
+    if (series) setSeeMoreFromSeries(getRandomImages(series, 3));
     if (window.innerWidth < 668) {
       setIsMobile(true);
     }
@@ -210,7 +207,7 @@ export default function ArtInd({ data, location }) {
           className={`${styles.desktop.seeMore.cont} ${styles.mobile.seeMore.cont}`}
         >
           {series
-            ? series.slice(0, 3).map((img, i) => {
+            ? seeMoreFromSeries?.map((img, i) => {
                 const thumbnail = getImage(img.image);
                 return (
                   <ThumbnailWrapper
