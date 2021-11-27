@@ -10,13 +10,13 @@ export default function About({ location, data }) {
     data.allContentfulFrontPageCopy.edges[0].node.textEntry.raw;
   const galleryCopyJSX = paragraphsToReactComponent(
     galleryCopy,
-    "my-4 text-justify"
+    "my-4 text-justify leading-relaxed"
   );
   const featured = data.allContentfulPicture.edges;
 
   const styles = {
     desktop: {
-      h1: "text-5xl font-ogirema my-8 md:text-left",
+      h1: "text-5xl font-ogirema mt-8 mb-4 md:text-left",
       p: "font-poppins text-2xl md:px-0 mb-8",
     },
     mobile: {

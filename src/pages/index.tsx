@@ -30,11 +30,11 @@ export default function IndexPage({ data, location }) {
   galleryCopy.content = galleryCopy.content.slice(0, 2);
   const galleryCopyJSX = rawToReactComponent(
     galleryCopy,
-    styleParagraphReactComponent("my-4 px-4 text-justify")
+    styleParagraphReactComponent("my-4 px-4 text-justify leading-relaxed")
   );
   const contactCopyJSX = rawToReactComponent(
     contactCopy,
-    styleParagraphReactComponent("my-4 px-4 text-justify")
+    styleParagraphReactComponent("my-4 px-4 text-justify leading-relaxed")
   );
   const title = "Art";
   const animateRight = useRef(null);

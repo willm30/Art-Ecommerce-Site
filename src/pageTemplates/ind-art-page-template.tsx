@@ -140,7 +140,7 @@ export default function ArtInd({ data, location }) {
         id="left"
         className="col-span-1 flex flex-col justify-start items-center mt-8 px-0 md:px-8 text-center"
       >
-        <h1 className="font-ogirema text-5xl mb-8 px-8 md:px-0">{title}</h1>
+        <h1 className="font-ogirema text-5xl mb-2 px-8 md:px-0">{title}</h1>
         {isMobile ? (
           <MagImg
             image={image}
@@ -150,10 +150,10 @@ export default function ArtInd({ data, location }) {
             id={picture.name}
           />
         ) : null}
-        <h2 className="font-poppins text-lg my-4 md:-mt-2">
+        <h2 className="font-poppins text-lg">
           {mediaType} on {canvasType}
         </h2>
-        <div className="font-poppins text-justify text-lg px-4 md:px-0">
+        <div className="font-poppins text-justify text-xl leading-relaxed px-4 md:px-0">
           {des}
         </div>
       </div>

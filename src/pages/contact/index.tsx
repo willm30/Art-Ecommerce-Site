@@ -10,13 +10,13 @@ export default function Contact({ data, location }) {
     data.allContentfulFrontPageCopy.edges[0].node.textEntry.raw;
   const contactCopyJSX = paragraphsToReactComponent(
     contactCopy,
-    "text-justify"
+    "text-justify leading-relaxed my-4"
   );
   const featured = data.allContentfulPicture.edges;
 
   const styles = {
     desktop: {
-      h1: "text-5xl font-ogirema my-8 md:text-left",
+      h1: "text-5xl font-ogirema mt-8 mb-4 md:text-left",
       p: "font-poppins text-2xl md:px-0 mb-8",
     },
     mobile: {
