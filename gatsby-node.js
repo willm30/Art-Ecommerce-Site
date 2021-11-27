@@ -81,7 +81,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   function replaceSpacesWithDashes(string) {
     return string.replace(/ /g, "-");
   }
-  const pictures = result.data.allContentfulPicture.edges;
+  const pictures = result.data.allContentfulPicture.edges.filter(
+    (p) => !p.node.name.includes("_exclude_")
+  );
   const productModels = result.data.allContentfulProduct.edges;
   const postsPerPage = 15;
   const numPages = Math.ceil(pictures.length / postsPerPage);

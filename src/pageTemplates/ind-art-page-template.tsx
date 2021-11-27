@@ -27,7 +27,6 @@ export default function ArtInd({ data, location }) {
     "my-4 text-justify"
   );
   const series = picture.seriesImages;
-  console.log(series);
   const artist = picture.artist;
   const [seeAlsoDefault, setSeeAlsoDefault] = useState(undefined);
   const [productStyles, setProductStyles] = useState({});
