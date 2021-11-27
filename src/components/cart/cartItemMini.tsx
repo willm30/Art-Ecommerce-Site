@@ -14,7 +14,7 @@ export default function CartItemMini({
   const subtotal = price * quantity;
 
   return (
-    <Link to={`/art/${slug}`} className="font-poppins hover:bg-gray-50">
+    <Link to={`/art/${slug}`} className="font-poppins hover:bg-gray-50 w-full">
       <hr />
       <li className="group flex justify-around items-center pl-4 my-4">
         <GatsbyImage

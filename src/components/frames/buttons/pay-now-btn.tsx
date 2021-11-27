@@ -5,12 +5,12 @@ export default function PayNowBtn({ handleSubmit, loading }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center font-poppins"
+      className="flex flex-col items-center font-poppins text-3xl"
     >
       <button
         type="submit"
         disabled={loading}
-        className="group bg-white hover:bg-black border-black border p-2 w-48  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900"
+        className="group bg-white hover:bg-black border-black border p-2 w-72 hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900"
       >
         {loading ? (
           <span className="flex justify-center items-center">

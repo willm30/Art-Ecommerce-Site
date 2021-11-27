@@ -22,7 +22,7 @@ export default function ShoppingCartMini() {
         <h3 className="my-2 text-3xl font-ogirema">Your Collection</h3>
       </Link>
       {cart.length ? (
-        <ul className="flex flex-col">
+        <ul className="flex flex-col items-center">
           {cart?.map((item, i) => (
             <CartItemMini
               title={item.title}
@@ -36,7 +36,7 @@ export default function ShoppingCartMini() {
             />
           ))}
           <Link to="/collection">
-            <button className="group bg-white hover:bg-black border-black border p-2 w-48  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900">
+            <button className="group font-poppins text-xl bg-white hover:bg-black border-black border p-4 w-68  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900 my-4">
               Review your Purchase
             </button>
           </Link>

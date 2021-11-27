@@ -199,7 +199,11 @@ export default function ArtInd({ data, location }) {
           id="see-more"
           className={`${styles.desktop.seeMore.h2} ${styles.mobile.seeMore.h2}`}
         >
-          {series ? "More from this series:" : "You might also like:"}
+          {series
+            ? "More from this series:"
+            : seeAlsoDefault?.length
+            ? "You might also like:"
+            : null}
         </h2>
         <div
           className={`${styles.desktop.seeMore.cont} ${styles.mobile.seeMore.cont}`}
@@ -222,7 +226,8 @@ export default function ArtInd({ data, location }) {
                   />
                 );
               })
-            : seeAlsoDefault?.map((defaultImg, i) => {
+            : seeAlsoDefault?.length
+            ? seeAlsoDefault?.map((defaultImg, i) => {
                 const data = defaultImg.node;
                 const img = getImage(data.image);
                 return (
@@ -239,7 +244,8 @@ export default function ArtInd({ data, location }) {
                     width="my-4 md:my-0 md:flex-33"
                   />
                 );
-              })}
+              })
+            : null}
         </div>
       </div>
       <Copyright />
@@ -286,7 +292,9 @@ export const query = graphql`
         mediaType
       }
     }
-    allContentfulPicture(filter: { mediaType: { eq: $media } }) {
+    allContentfulPicture(
+      filter: { mediaType: { eq: $media }, id: { ne: $id } }
+    ) {
       edges {
         node {
           id
