@@ -17,7 +17,6 @@ import {
 import Copyright from "../components/layout/copyright";
 
 export default function IndexPage({ data, location }) {
-  console.log(data);
   const carouselPictures = data.carousel.edges;
   const featuredPictures = data.featured.edges
     .filter((n) => n.node.name.trim() != "Flowers Joyful")
@@ -38,51 +37,53 @@ export default function IndexPage({ data, location }) {
     styleParagraphReactComponent("my-4 px-4 text-justify")
   );
   const title = "Art";
-  //const animateRight = useRef(null);
-  //const animateLeft = useRef(null);
-  //const timer = useRef(null);
+  const animateRight = useRef(null);
+  const animateLeft = useRef(null);
+  const timer = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  //const cardWidth = isMobile ? 100 : 40;
+  const cardWidth = isMobile ? 100 : 40;
 
   function moveRight() {
-    //const { active, unactive } = animateRight.current;
-    //const activeLeft = animateLeft.current.active;
-    //if (!active.isActive() && !activeLeft.isActive()) {
-    //invalidateAndRestart([active, unactive]);
-    //}
+    const { active, unactive } = animateRight.current;
+    const activeLeft = animateLeft.current.active;
+
+    if (!active.isActive() && !activeLeft.isActive()) {
+      invalidateAndRestart([active, unactive]);
+    }
   }
 
   function moveLeft() {
-    //const { active, unactive } = animateLeft.current;
-    //const activeRight = animateRight.current.active;
-    //if (!active.isActive() && !activeRight.isActive()) {
-    //invalidateAndRestart([active, unactive]);
-    //}
+    const { active, unactive } = animateLeft.current;
+    const activeRight = animateRight.current.active;
+
+    if (!active.isActive() && !activeRight.isActive()) {
+      invalidateAndRestart([active, unactive]);
+    }
   }
 
   function handleChevronClick(direction: "Left" | "Right") {
-    //clearInterval(timer.current);
-    //direction == "Left" ? moveLeft() : moveRight();
+    clearInterval(timer.current);
+    direction == "Left" ? moveLeft() : moveRight();
   }
 
   useEffect(() => {
-    //timer.current = setInterval(moveRight, 2500);
+    timer.current = setInterval(moveRight, 2500);
     if (window.innerWidth < 668) {
-      // setIsMobile(true);
+      setIsMobile(true);
     }
     return () => {
-      //clearInterval(timer.current);
+      clearInterval(timer.current);
     };
   }, []);
 
   useEffect(() => {
-    //const slides = document.querySelectorAll("[data-ref=slide]");
-    //const initialTransform = getInitialTransform(cardWidth, slides.length);
-    //animateRight.current = translateCard(slides, cardWidth, "Right");
-    //animateLeft.current = translateCard(slides, cardWidth, "Left");
-    //gsap.set(slides, {
-    //xPercent: initialTransform,
-    //});
+    const slides = document.querySelectorAll("[data-ref=slide]");
+    const initialTransform = getInitialTransform(cardWidth, slides.length);
+    animateRight.current = translateCard(slides, cardWidth, "Right");
+    animateLeft.current = translateCard(slides, cardWidth, "Left");
+    gsap.set(slides, {
+      xPercent: initialTransform,
+    });
   }, [isMobile]);
 
   const styles = {
@@ -121,7 +122,6 @@ export default function IndexPage({ data, location }) {
       location={location}
       isMobile={isMobile}
     >
-      {/*
       {isMobile ? (
         <MobileCarousel
           pictures={carouselPictures}
@@ -134,7 +134,7 @@ export default function IndexPage({ data, location }) {
           left={() => handleChevronClick("Left")}
           right={() => handleChevronClick("Right")}
         />
-      )}*/}
+      )}
       <section
         id="gallery"
         className={`${styles.desktop.gallery.cont} ${styles.mobile.gallery.cont}`}
@@ -187,7 +187,7 @@ export default function IndexPage({ data, location }) {
             const image = getImage(data.image);
             return (
               <BetterIndImg
-                key={data.id}
+                key={data.name}
                 data={data}
                 image={image}
                 className="flex-50 md:flex-25"
