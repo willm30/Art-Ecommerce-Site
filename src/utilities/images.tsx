@@ -7,11 +7,15 @@ export function getRandomImages(edges, quantity) {
   const randomNumbers = new Set();
   const randomImages = [];
 
-  while (randomNumbers.size < quantity) {
-    randomNumbers.add(randomNumber(edges.length));
+  if (edges.length > quantity) {
+    while (randomNumbers.size < quantity) {
+      randomNumbers.add(randomNumber(edges.length));
+    }
+
+    [...randomNumbers].forEach((n) => randomImages.push(edges[n]));
+
+    return randomImages;
+  } else {
+    return edges;
   }
-
-  [...randomNumbers].forEach((n) => randomImages.push(edges[n]));
-
-  return randomImages;
 }

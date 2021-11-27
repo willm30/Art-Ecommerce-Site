@@ -130,7 +130,6 @@ export default function ArtInd({ data, location }) {
       footer: "flex flex-col justify-center items-center",
     },
   };
-  console.log("ind art page");
   return (
     <Layout
       title={picture.name}
@@ -249,7 +248,7 @@ export default function ArtInd({ data, location }) {
 }
 
 export const query = graphql`
-  query IndividualPicture($id: String!, $media: String!, $productId: String!) {
+  query IndividualPic($id: String!, $media: String!, $productId: String!) {
     contentfulPicture(id: { eq: $id }) {
       id
       name

@@ -1,4 +1,3 @@
-const { getImage } = require("gatsby-plugin-image"); //eslint-disable-line
 const path = require("path"); //eslint-disable-line
 require("dotenv").config({ //eslint-disable-line
   path: `.env.${process.env.NODE_ENV}`,
@@ -81,9 +80,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   function replaceSpacesWithDashes(string) {
     return string.replace(/ /g, "-");
   }
-  const pictures = result.data.allContentfulPicture.edges.filter(
-    (p) => !p.node.name.includes("_exclude_")
-  );
+  const pictures = result.data.allContentfulPicture.edges;
   const productModels = result.data.allContentfulProduct.edges;
   const postsPerPage = 15;
   const numPages = Math.ceil(pictures.length / postsPerPage);
@@ -104,7 +101,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return !pictureIsAlsoAProduct;
   });
 
-  picturesToBeAddedAsProducts.forEach(async (picture, i) => {
+  picturesToBeAddedAsProducts.forEach(async (picture) => {
     const imageUrl = picture.node.image.gatsbyImageData.images.fallback.src;
 
     const newProduct = await stripe.products.create({
@@ -147,9 +144,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const id = post.node.id;
     const type = post.node.mediaType;
     const productId = product && product.node.id;
-    if (post.node.name == "Come Join Us 6") {
-      console.log(slug, id, type, productId, product);
-    }
 
     createPage({
       path: `/art/${slug}`,

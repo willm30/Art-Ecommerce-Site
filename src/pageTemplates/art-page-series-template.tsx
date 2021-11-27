@@ -10,12 +10,7 @@ import { slugify } from "../utilities/strings";
 
 export default function ArtSeries({ data, pageContext, location }) {
   const { currentPage, numPages, totalPosts, series } = pageContext;
-  const pictures =
-    series == "Come Join Us"
-      ? data.allContentfulPicture.edges.filter(
-          (p) => !p.node.name.includes("_exclude_")
-        )
-      : data.allContentfulPicture.edges;
+  const pictures = data.allContentfulPicture.edges;
   const allPages = Array.from({ length: numPages }, (x, i) => i + 1);
   const isFirst = currentPage === 1;
   const isLast = currentPage === numPages;
