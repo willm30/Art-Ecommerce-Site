@@ -68,7 +68,7 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
           <Chevron />
         </span>
       </button>
-      <div
+      {/*<div
         id="to-gallery"
         className="absolute bottom-0 text-5xl flex justify-center items-center w-screen z-10"
       >
@@ -79,7 +79,7 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
         >
           <Chevron />
         </button>
-      </div>
+      </div>*/}
     </div>
   );
 }
