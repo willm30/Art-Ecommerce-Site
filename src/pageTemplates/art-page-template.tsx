@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Copyright from "../components/layout/copyright";

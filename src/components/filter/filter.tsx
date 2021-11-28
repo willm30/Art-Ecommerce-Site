@@ -36,7 +36,7 @@ export default function Filter() {
       navigate(`/art`);
     }
     setSelectedType(path);
-    setSelectedSeries("");
+    setSelectedSeries("Select an option");
   }
 
   function handleSelectSeries(e) {
@@ -46,23 +46,27 @@ export default function Filter() {
 
     navigate(`/art/series/${slugify(path)}`);
 
-    setSelectedType("");
+    setSelectedType("Select an option");
     setSelectedSeries(path);
   }
 
   useEffect(() => {
     document.getElementById("type").value = selectedType;
     document.getElementById("series").value = selectedSeries;
+
+    return () => {
+      setSelectedType("Select an option");
+      setSelectedSeries("Select an option");
+    };
   }, []);
 
   const styles = {
-    desktop: "font-poppins",
-    mobile: "flex flex-col items-center justify-center",
+    desktop: "font-poppins bg-white shadow-xl p-4 border mb-4",
+    mobile: "flex items-center justify-center",
   };
 
   return (
     <form className={`${styles.desktop} ${styles.mobile}`}>
-      <span className="mb-2">Filter by:</span>
       <div>
         <label className="mx-4">
           Type:{" "}

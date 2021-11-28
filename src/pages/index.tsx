@@ -1,6 +1,6 @@
 import { graphql, Link } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import Layout from "../components/layout/layout";
@@ -16,6 +16,10 @@ import {
   styleParagraphReactComponent,
 } from "../utilities/contentful";
 import Copyright from "../components/layout/copyright";
+import {
+  FilterSeriesContext,
+  FilterTypeContext,
+} from "../context/FilterContext";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
