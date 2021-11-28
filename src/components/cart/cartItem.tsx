@@ -74,7 +74,7 @@ export default function CartItem({
         </div>
         <Link to="/sizing" className="hover:underline mt-8">
           <button className="border-black border p-2 w-60 hover:bg-black  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900">
-            Frame sizing guide
+            Frame Sizing Guide
           </button>
         </Link>
       </div>
