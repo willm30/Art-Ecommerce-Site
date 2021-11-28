@@ -37,7 +37,7 @@ export default function ShoppingCartMini() {
           ))}
           <Link to="/collection">
             <button className="group font-poppins text-xl bg-white hover:bg-black border-black border p-4 w-68  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900 my-4">
-              Review your Purchase
+              Review Your Purchase
             </button>
           </Link>
         </ul>
