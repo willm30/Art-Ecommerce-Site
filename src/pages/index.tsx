@@ -196,16 +196,12 @@ export default function IndexPage({ data, location }) {
           })}
         </div>
       </div>
-      <div className="relative z-10 bg-white flex h-[90vh]">
-        <span
-          id="contact"
-          className="block h-20 w-screen absolute -top-20"
-        ></span>
-        <div className="order-1 flex flex-col justify-center items-center h-full">
-          <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh]">
+      <div className="grid grid-cols-contact">
+        <div className="col-start-2 col-end-3 order-1 flex flex-col justify-center items-center z-10 bg-white h-[90vh]">
+          <h2 className="flex justify-center items-center text-6xl font-ogirema">
             Contact
           </h2>
-          <div className="font-poppins text-3xl p-16">{contactCopyJSX}</div>
+          <div className="font-poppins text-3xl p-10">{contactCopyJSX}</div>
         </div>
       </div>
       <Copyright />

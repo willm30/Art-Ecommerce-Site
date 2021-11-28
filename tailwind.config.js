@@ -42,6 +42,7 @@ module.exports = {
         feature: "0.1fr 1fr",
         ind: "0.75fr 1fr 0.5fr",
         collection: "0.17fr 0.66fr 0.17fr",
+        contact: "0.10fr 0.80fr 0.10fr",
         all: "1fr",
       },
       outline: {
