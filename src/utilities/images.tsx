@@ -19,6 +19,7 @@ export function getRandomImages(edges, quantity) {
 }
 
 export function placeOddOrientationInMiddle(edges) {
+  if (!edges) return edges;
   if (edges.length == 3) {
     const images = [...edges];
     const orientation: any[] = edges.map((n) =>
