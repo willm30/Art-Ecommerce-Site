@@ -33,17 +33,15 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
 
   return (
     <div className="relative w-screen h-screen">
-      <div className="absolute w-2/12 h-full z-10 group">
-        <button
-          data-ref="arrow"
-          onClick={left}
-          className="absolute z-10 h-full text-white text-7xl flex justify-center items-center left-0"
-        >
-          <span className="rotate-90">
-            <Chevron />
-          </span>
-        </button>
-      </div>
+      <button
+        data-ref="arrow"
+        onClick={left}
+        className="absolute z-10 h-full text-white text-7xl flex justify-center items-center left-0"
+      >
+        <span className="rotate-90">
+          <Chevron />
+        </span>
+      </button>
       <div className="flex max-h-screen overflow-hidden">
         {oddPictures.map((picture, i) => {
           const data = picture.node;
@@ -61,17 +59,15 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
           );
         })}
       </div>
-      <div className="absolute top-0 right-0 w-2/12 h-full z-10 group">
-        <button
-          data-ref="arrow"
-          onClick={right}
-          className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
-        >
-          <span className="-rotate-90">
-            <Chevron />
-          </span>
-        </button>
-      </div>
+      <button
+        data-ref="arrow"
+        onClick={right}
+        className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
+      >
+        <span className="-rotate-90">
+          <Chevron />
+        </span>
+      </button>
       <div
         id="to-gallery"
         className="absolute bottom-0 text-5xl flex justify-center items-center w-screen z-10"

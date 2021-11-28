@@ -15,7 +15,7 @@ export default function ThumbnailWrapper({
 }) {
   const styles = {
     desktop: {
-      h3: "font-ogirema text-2xl text-center md:px-0",
+      h3: "font-ogirema text-2xl text-center",
     },
     mobile: {
       h3: "px-2",

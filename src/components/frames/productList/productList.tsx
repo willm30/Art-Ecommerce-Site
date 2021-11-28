@@ -1,12 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
-import Info from "../../../icons/info";
-import {
-  paragraphsToReactComponent,
-  rawToReactComponent,
-  styleParagraphReactComponent,
-} from "../../../utilities/contentful";
+import { paragraphsToReactComponent } from "../../../utilities/contentful";
 import { CartItemShape } from "../../cart/cartItem";
 import AddCartBtn from "../buttons/add-cart-btn";
 import Product from "./product";

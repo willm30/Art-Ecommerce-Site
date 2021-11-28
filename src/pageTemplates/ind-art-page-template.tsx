@@ -10,7 +10,10 @@ import Layout from "../components/layout/layout";
 import { CartContext } from "../context/CartContext";
 import MagnifyingGlass from "../icons/magnifyingGlass";
 import { incrementQuantity } from "../utilities/cart";
-import { getRandomImages } from "../utilities/images";
+import {
+  getRandomImages,
+  placeOddOrientationInMiddle,
+} from "../utilities/images";
 import { capitalizeFirstLetter } from "../utilities/strings";
 import { formatPrice } from "../utilities/stripe";
 import Copyright from "../components/layout/copyright";
@@ -37,7 +40,6 @@ export default function ArtInd({ data, location }) {
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
   const [seeMoreFromSeries, setSeeMoreFromSeries] = useState(undefined);
-
   const quantity = 1;
   const products = prices.map((p) => {
     const prod = p.node;
@@ -209,7 +211,7 @@ export default function ArtInd({ data, location }) {
           className={`${styles.desktop.seeMore.cont} ${styles.mobile.seeMore.cont}`}
         >
           {series
-            ? seeMoreFromSeries?.map((img, i) => {
+            ? placeOddOrientationInMiddle(seeMoreFromSeries)?.map((img, i) => {
                 const thumbnail = getImage(img.image);
                 return (
                   <ThumbnailWrapper
@@ -227,24 +229,26 @@ export default function ArtInd({ data, location }) {
                 );
               })
             : seeAlsoDefault?.length
-            ? seeAlsoDefault?.map((defaultImg, i) => {
-                const data = defaultImg.node;
-                const img = getImage(data.image);
-                return (
-                  <ThumbnailWrapper
-                    to={`/art/${data.slug}`}
-                    key={data.name}
-                    alt={data.alternativeText}
-                    img={img}
-                    title={data.name}
-                    artist={data.artist}
-                    canvasType={data.canvasType}
-                    mediaType={data.mediaType}
-                    id={`thumbnail${i + 1}`}
-                    width="my-4 md:my-0 md:flex-33"
-                  />
-                );
-              })
+            ? placeOddOrientationInMiddle(seeAlsoDefault)?.map(
+                (defaultImg, i) => {
+                  const data = defaultImg.node;
+                  const img = getImage(data.image);
+                  return (
+                    <ThumbnailWrapper
+                      to={`/art/${data.slug}`}
+                      key={data.name}
+                      alt={data.alternativeText}
+                      img={img}
+                      title={data.name}
+                      artist={data.artist}
+                      canvasType={data.canvasType}
+                      mediaType={data.mediaType}
+                      id={`thumbnail${i + 1}`}
+                      width="my-4 md:my-0 md:flex-33"
+                    />
+                  );
+                }
+              )
             : null}
         </div>
       </div>
@@ -283,6 +287,14 @@ export const query = graphql`
             placeholder: DOMINANT_COLOR
             width: 300
           )
+          file {
+            details {
+              image {
+                height
+                width
+              }
+            }
+          }
         }
         alternativeText
         artist
@@ -304,6 +316,14 @@ export const query = graphql`
               layout: CONSTRAINED
               width: 300
             )
+            file {
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
           }
           artist
           name

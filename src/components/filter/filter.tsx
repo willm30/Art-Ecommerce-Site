@@ -36,6 +36,7 @@ export default function Filter() {
       navigate(`/art`);
     }
     setSelectedType(path);
+    setSelectedSeries("");
   }
 
   function handleSelectSeries(e) {
@@ -45,6 +46,7 @@ export default function Filter() {
 
     navigate(`/art/series/${slugify(path)}`);
 
+    setSelectedType("");
     setSelectedSeries(path);
   }
 

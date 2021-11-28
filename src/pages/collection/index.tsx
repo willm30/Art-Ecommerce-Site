@@ -39,7 +39,7 @@ export default function ShoppingCart({ location }) {
   }, 0);
   const styles = {
     desktop: {
-      h1: "text-5xl font-ogirema md:text-left",
+      h1: "text-5xl font-ogirema",
     },
     mobile: {
       h1: "text-center",
@@ -127,7 +127,7 @@ export default function ShoppingCart({ location }) {
     >
       <div className="col-start-2 col-end-3">
         <div className="flex justify-between items-end my-8">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-start">
             <h1 className={`${styles.desktop.h1} ${styles.mobile.h1}`}>
               Your collection
             </h1>

@@ -93,8 +93,6 @@ export default function Magnifier({
     if (hasMouseExitedImage()) {
       hideMagnifier();
     }
-    if (isMagnifierAtBottom()) {
-    }
   }
 
   function hasMouseExitedImage() {

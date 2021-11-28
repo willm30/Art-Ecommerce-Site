@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import { IGatsbyImageData, GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
 import ThumbnailWrapper from "../frames/card/individual/thumbnail-wrapper";
@@ -55,21 +56,28 @@ export default function CartItem({
         canvasType={canvasType}
         mediaType={mediaType}
       />
-      <span className="flex-70 flex flex-col justify-center items-center text-xl px-4">
-        <span className="text-2xl text-center my-4 md:mt-0 md:mb-8">
-          <span className="font-bold">{title}</span> <br />
-          <span>by {artist}</span>
-        </span>
-        <span>
-          Quantity:{" "}
-          <span className={`${quantity ? "" : "text-red-500"}`}>
-            {quantity}
+      <div className="flex-70 flex flex-col justify-center items-center text-xl px-4">
+        <div className="flex flex-col justify-center items-center">
+          <span className="text-2xl text-center my-4 md:mt-0 md:mb-8">
+            <span className="font-bold">{title}</span> <br />
+            <span>by {artist}</span>
           </span>
-        </span>
-        <span>Type: {type}</span>
-        <span>Price: £{price.toFixed(2)}</span>
-        <span>{`Sub-total: £${subtotal.toFixed(2)}`} </span>
-      </span>
+          <span>
+            Quantity:{" "}
+            <span className={`${quantity ? "" : "text-red-500"}`}>
+              {quantity}
+            </span>
+          </span>
+          <span>Type: {type}</span>
+          <span>Price: £{price.toFixed(2)}</span>
+          <span>{`Sub-total: £${subtotal.toFixed(2)}`} </span>
+        </div>
+        <Link to="/sizing" className="hover:underline mt-8">
+          <button className="border-black border p-2 w-60 hover:bg-black  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900">
+            Frame sizing guide
+          </button>
+        </Link>
+      </div>
       <QuantityIncrementer
         title={title}
         type={type}
