@@ -21,7 +21,7 @@ export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
   const featuredPictures = data.featured.edges
     .filter((n) => n.node.name.trim() != "Flowers Joyful")
-    .slice(0, 8);
+    .slice(0, 9);
   const flowersJoyful = data.featured.edges.filter(
     (n) => n.node.name.trim() == "Flowers Joyful"
   )[0].node;
@@ -185,7 +185,7 @@ export default function IndexPage({ data, location }) {
         <div
           className={`${styles.desktop.collection.row1} ${styles.mobile.collection.row1}`}
         >
-          {featuredPictures.slice(0, 8).map((picture) => {
+          {featuredPictures.map((picture) => {
             const data = picture.node;
             const image = getImage(data.image);
             return (
@@ -193,7 +193,7 @@ export default function IndexPage({ data, location }) {
                 key={data.name}
                 data={data}
                 image={image}
-                className="flex-50 md:flex-25"
+                className="flex-50 md:flex-30"
               />
             );
           })}

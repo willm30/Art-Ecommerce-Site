@@ -36,7 +36,7 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
       <button
         data-ref="arrow"
         onClick={left}
-        className="absolute z-10 h-full text-white text-7xl flex justify-center items-center left-0"
+        className="absolute top-0 left-0 z-10 h-full text-white text-7xl flex justify-center items-center"
       >
         <span className="rotate-90">
           <Chevron />
@@ -62,7 +62,7 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
       <button
         data-ref="arrow"
         onClick={right}
-        className="absolute text-white transition-all duration-700 right-3 z-10 h-full text-7xl flex justify-center items-center"
+        className="absolute right-3 top-0 text-white transition-all duration-700 z-10 h-full text-7xl flex justify-center items-center"
       >
         <span className="-rotate-90">
           <Chevron />
