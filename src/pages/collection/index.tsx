@@ -160,40 +160,42 @@ export default function ShoppingCart({ location }) {
         <Cart setSpanVisZero={setSpanVisZero}></Cart>
         <Copyright />
       </div>
-      <div
-        id="right"
-        className="col-start-3 col-end-4 flex justify-center items-start"
-      >
-        <form
-          style={shippingStyles}
-          className="font-poppins flex flex-col mt-4 max-w-[80%] border shadow-xl text-center p-4"
+      {cart.length ? (
+        <div
+          id="right"
+          className="col-start-3 col-end-4 flex justify-center items-start"
         >
-          <span className="text-xl">Please select a shipping option:</span>
-          <div className="flex flex-col">
-            <label className="flex flex-col justify-center items-center mx-2 my-4">
-              Within the UK 🇬🇧 (£5.95)
-              <input
-                name="shipping"
-                type="radio"
-                className="mt-2"
-                value={ukShippingID}
-                onChange={handleChange}
-              />
-            </label>
-            <hr />
-            <label className="flex flex-col justify-center items-center mx-2 my-4">
-              Rest of the world 🌎 (£8.95)
-              <input
-                name="shipping"
-                type="radio"
-                className="mt-2"
-                value={rowShippingID}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-        </form>
-      </div>
+          <form
+            style={shippingStyles}
+            className="font-poppins flex flex-col mt-4 max-w-[80%] border shadow-xl text-center p-4"
+          >
+            <span className="text-xl">Please select a shipping option:</span>
+            <div className="flex flex-col">
+              <label className="flex flex-col justify-center items-center mx-2 my-4">
+                Within the UK 🇬🇧 (£5.95)
+                <input
+                  name="shipping"
+                  type="radio"
+                  className="mt-2"
+                  value={ukShippingID}
+                  onChange={handleChange}
+                />
+              </label>
+              <hr />
+              <label className="flex flex-col justify-center items-center mx-2 my-4">
+                Rest of the world 🌎 (£8.95)
+                <input
+                  name="shipping"
+                  type="radio"
+                  className="mt-2"
+                  value={rowShippingID}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+          </form>
+        </div>
+      ) : null}
     </Layout>
   );
 }
