@@ -3,8 +3,12 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import React from "react";
 
 export function paragraphsToReactComponent(rawParagraphs, className: string) {
+  const paragraphs =
+    typeof rawParagraphs == "string"
+      ? JSON.parse(rawParagraphs)
+      : rawParagraphs;
   const renderOptions = styleParagraphReactComponent(className);
-  return rawToReactComponent(JSON.parse(rawParagraphs), renderOptions);
+  return rawToReactComponent(paragraphs, renderOptions);
 }
 export function rawToReactComponent(raw, renderOptions) {
   return documentToReactComponents(raw, renderOptions);

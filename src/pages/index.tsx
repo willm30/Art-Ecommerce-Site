@@ -11,6 +11,7 @@ import MobileCarousel from "../components/carousel/mobile/mobileCarousel";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import {
   getRaw,
+  paragraphsToReactComponent,
   rawToReactComponent,
   styleParagraphReactComponent,
 } from "../utilities/contentful";
@@ -28,19 +29,20 @@ export default function IndexPage({ data, location }) {
   const galleryCopy = getRaw(copy, "Gallery");
   const contactCopy = getRaw(copy, "Contact");
   galleryCopy.content = galleryCopy.content.slice(0, 2);
-  const galleryCopyJSX = rawToReactComponent(
+  const galleryCopyJSX = paragraphsToReactComponent(
     galleryCopy,
-    styleParagraphReactComponent("my-4 px-4 text-justify leading-relaxed")
+    "my-4 px-4 text-justify leading-relaxed"
   );
-  const contactCopyJSX = rawToReactComponent(
+  const contactCopyJSX = paragraphsToReactComponent(
     contactCopy,
-    styleParagraphReactComponent("my-4 px-4 text-justify leading-relaxed")
+    "my-4 px-4 text-justify leading-relaxed"
   );
   const title = "Art";
   const animateRight = useRef(null);
   const animateLeft = useRef(null);
   const timer = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [initialTransform, setInitialTransform] = useState({});
   const cardWidth = isMobile ? 100 : 40;
 
   function moveRight() {
@@ -78,12 +80,11 @@ export default function IndexPage({ data, location }) {
 
   useEffect(() => {
     const slides = document.querySelectorAll("[data-ref=slide]");
-    const initialTransform = getInitialTransform(cardWidth, slides.length);
+    setInitialTransform({
+      transform: `translate(${getInitialTransform(cardWidth, slides.length)}%)`,
+    });
     animateRight.current = translateCard(slides, cardWidth, "Right");
     animateLeft.current = translateCard(slides, cardWidth, "Left");
-    gsap.set(slides, {
-      xPercent: initialTransform,
-    });
   }, [isMobile]);
 
   const styles = {
@@ -127,12 +128,14 @@ export default function IndexPage({ data, location }) {
           pictures={carouselPictures}
           left={() => handleChevronClick("Left")}
           right={() => handleChevronClick("Right")}
+          initialTransform={initialTransform}
         />
       ) : (
         <Carousel
           pictures={carouselPictures}
           left={() => handleChevronClick("Left")}
           right={() => handleChevronClick("Right")}
+          initialTransform={initialTransform}
         />
       )}
       <section

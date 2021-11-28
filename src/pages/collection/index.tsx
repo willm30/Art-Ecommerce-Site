@@ -199,6 +199,3 @@ export default function ShoppingCart({ location }) {
     </Layout>
   );
 }
-function setIsMobile(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}

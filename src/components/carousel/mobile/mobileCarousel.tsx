@@ -4,7 +4,12 @@ import { Chevron } from "../../../icons/chevron";
 import { getOddPictures } from "../../../utilities/carousel";
 import BetterIndImg from "../../frames/card/individual/image-wrapper-improved";
 
-export default function MobileCarousel({ pictures, left, right }) {
+export default function MobileCarousel({
+  pictures,
+  left,
+  right,
+  initialTransform,
+}) {
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
 
   return (
@@ -30,6 +35,7 @@ export default function MobileCarousel({ pictures, left, right }) {
               className="min-w-[100%] shadow-inner"
               key={data.id}
               data-ref="slide"
+              style={initialTransform}
             >
               <BetterIndImg data={data} image={image} className="" />
             </div>

@@ -6,7 +6,7 @@ import ScrollTo from "gatsby-plugin-smoothscroll";
 import { Chevron } from "../../icons/chevron";
 import { getDownArrowScrollAnimation } from "../../animations/carousel";
 
-export default function Carousel({ pictures, left, right }) {
+export default function Carousel({ pictures, left, right, initialTransform }) {
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
   const arrowAnimation = useRef(null);
 
@@ -54,6 +54,7 @@ export default function Carousel({ pictures, left, right }) {
               className="min-w-[40%] shadow-inner"
               key={data.id}
               data-ref="slide"
+              style={initialTransform}
             >
               <BetterIndImg data={data} image={image} className="" />
             </div>
