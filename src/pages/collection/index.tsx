@@ -172,7 +172,10 @@ export default function ShoppingCart({ location }) {
             <span className="text-xl">Please select a shipping option:</span>
             <div className="flex flex-col">
               <label className="flex flex-col justify-center items-center mx-2 my-4">
-                Within the UK 🇬🇧 (£5.95)
+                <span>Within the UK 🇬🇧 </span>
+                <span>3 - 5 business days</span>
+
+                <span>£5.95</span>
                 <input
                   name="shipping"
                   type="radio"
@@ -183,7 +186,9 @@ export default function ShoppingCart({ location }) {
               </label>
               <hr />
               <label className="flex flex-col justify-center items-center mx-2 my-4">
-                Rest of the world 🌎 (£8.95)
+                <span>Rest of the world 🌎 </span>
+                <span>7 - 10 business days</span>
+                <span>£8.95</span>
                 <input
                   name="shipping"
                   type="radio"
