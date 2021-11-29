@@ -128,7 +128,7 @@ export default function ShoppingCart({ location }) {
               Please select a shipping destination.
             </span>
           </div>
-          {isMobile ? (
+          {isMobile && cart.length ? (
             <ShippingForm
               handleShippingChange={handleShippingChange}
               ukShippingID={ukShippingID}
@@ -148,6 +148,7 @@ export default function ShoppingCart({ location }) {
             <ShippingForm
               handleShippingChange={handleShippingChange}
               ukShippingID={ukShippingID}
+              isMobile={isMobile}
             />
           ) : null}
         </div>
