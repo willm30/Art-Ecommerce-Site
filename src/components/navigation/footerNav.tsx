@@ -4,13 +4,14 @@ import Copyright from "../layout/copyright";
 import PageSwitch from "./pageSwitch";
 import SkipTo from "./skipTo";
 
-export default function FooterNav({ pageContext, pictures }) {
+export default function FooterNav({ pageContext, pictures, path }) {
   const { currentPage, numPages, totalPosts } = pageContext;
   const allPages = Array.from({ length: numPages }, (x, i) => i + 1);
   const isFirst = currentPage === 1;
   const isLast = currentPage === numPages;
-  const prevPage = currentPage - 1 === 1 ? "/art" : `/art/${currentPage - 1}`;
-  const nextPage = `/art/${currentPage + 1}`;
+  const prevPage =
+    currentPage - 1 === 1 ? `/art/${path}` : `/art/${path}${currentPage - 1}`;
+  const nextPage = `/art/${path}${currentPage + 1}`;
   return (
     <footer>
       <div className="flex flex-col md:flex-row md:justify-center font-poppins text-lg md:mb-4">
@@ -31,7 +32,7 @@ export default function FooterNav({ pageContext, pictures }) {
           text="Next Page →"
         />
       </div>
-      <SkipTo allPages={allPages} />
+      <SkipTo allPages={allPages} path={path} />
       <Copyright />
     </footer>
   );

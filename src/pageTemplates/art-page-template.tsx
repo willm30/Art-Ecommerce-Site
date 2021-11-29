@@ -53,7 +53,7 @@ export default function ArtAll({ data, pageContext, location }) {
           );
         })}
       </div>
-      <FooterNav pageContext={pageContext} pictures={pictures} />
+      <FooterNav pageContext={pageContext} pictures={pictures} path="" />
     </Layout>
   );
 }

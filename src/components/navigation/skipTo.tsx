@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import React from "react";
 
-export default function SkipTo({ allPages }) {
+export default function SkipTo({ allPages, path }) {
   return (
     allPages.length > 1 && (
       <div className="flex flex-col md:flex-row justify-center items-center font-poppins text-lg mt-2 md:mt-0 mb-4">
@@ -10,7 +10,7 @@ export default function SkipTo({ allPages }) {
           {allPages.map((p, i) => (
             <Link
               key={`link${i}`}
-              to={`/art${p == 1 ? "" : `/${p}`}`}
+              to={`/art/${path}${p == 1 ? "" : `${p}`}`}
               className="underline mx-3 md:mx-2 hover:text-indigo-900"
             >
               {p}

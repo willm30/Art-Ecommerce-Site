@@ -1,11 +1,11 @@
 import { Link } from "gatsby";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
-import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
+import FooterNav from "../components/navigation/footerNav";
 import { placeOddOrientationInMiddle } from "../utilities/images";
 import { slugify } from "../utilities/strings";
 
@@ -17,18 +17,15 @@ export default function AllSeries({ data, pageContext, location }) {
     pageContext.series4,
     pageContext.series5,
   ];
+  const [isMobile, setIsMobile] = useState(false);
+  const imgSlice = isMobile ? 2 : 3;
   const series = Object.values(data);
-  const { currentPage, numPages, totalPosts } = pageContext;
-  const allPages = Array.from({ length: numPages }, (x, i) => i + 1);
-
-  const isFirst = currentPage === 1;
-  const isLast = currentPage === numPages;
-  const prevPage =
-    currentPage - 1 === 1 ? "/art/series" : `/art/series/${currentPage - 1}`;
-  const nextPage = `/art/series/${currentPage + 1}`;
 
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
+    if (window.innerWidth < 668) {
+      setIsMobile(true);
+    }
   });
 
   const styles = {
@@ -58,7 +55,7 @@ export default function AllSeries({ data, pageContext, location }) {
             seriesTitles[index] && (
               <div key={seriesTitles[index]} className="shadow-xl my-4">
                 <hr />
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center">
                   <h1 className="flex justify-center items-center font-ogirema text-4xl my-8">
                     <Link
                       to={`/art/series/${slugify(seriesTitles[index])}`}
@@ -67,8 +64,8 @@ export default function AllSeries({ data, pageContext, location }) {
                       {seriesTitles[index]}
                     </Link>
                   </h1>
-                  <div className="flex">
-                    {placeOddOrientationInMiddle(edges.slice(0, 3)).map(
+                  <div className="flex md:flex-row flex-col md:min-w-full">
+                    {placeOddOrientationInMiddle(edges.slice(0, imgSlice)).map(
                       (node, i) => {
                         const image = getImage(node.image);
                         return (
@@ -88,6 +85,11 @@ export default function AllSeries({ data, pageContext, location }) {
                       }
                     )}
                   </div>
+                  <Link to={`/series/${slugify(seriesTitles[index])}`}>
+                    <button className="font-poppins text-xl bg-white hover:bg-black border-black border p-4 w-68  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900 my-4">
+                      See All
+                    </button>
+                  </Link>
                 </div>
                 <hr />
               </div>
@@ -95,47 +97,7 @@ export default function AllSeries({ data, pageContext, location }) {
           );
         })}
       </div>
-      <footer>
-        <div className="flex justify-center font-poppins text-lg my-4">
-          {!isFirst && (
-            <Link
-              to={prevPage}
-              rel="prev"
-              className="mx-2 hover:text-indigo-900"
-            >
-              ← Previous Page
-            </Link>
-          )}
-          <span>
-            Viewing {isLast ? totalPosts : series.length * currentPage} of{" "}
-            {totalPosts}
-          </span>
-          {!isLast && (
-            <Link
-              to={nextPage}
-              rel="next"
-              className="mx-2 hover:text-indigo-900"
-            >
-              Next Page →
-            </Link>
-          )}
-        </div>
-        {numPages != 1 && (
-          <div className="flex justify-center font-poppins text-lg my-4">
-            Skip to page:{" "}
-            {allPages.map((p) => (
-              <Link
-                to={`/art/series${p == 1 ? "" : `/${p}`}`}
-                className="underline mx-2 hover:text-indigo-900"
-                key={`link${p}`}
-              >
-                {p}
-              </Link>
-            ))}
-          </div>
-        )}
-        <Copyright />
-      </footer>
+      <FooterNav pageContext={pageContext} pictures={series} path="series/" />
     </Layout>
   );
 }
