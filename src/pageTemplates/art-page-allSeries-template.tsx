@@ -6,10 +6,10 @@ import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
+import { placeOddOrientationInMiddle } from "../utilities/images";
 import { slugify } from "../utilities/strings";
 
 export default function AllSeries({ data, pageContext, location }) {
-  console.log(data, "data");
   const seriesTitles = [
     pageContext.series1,
     pageContext.series2,
@@ -17,9 +17,7 @@ export default function AllSeries({ data, pageContext, location }) {
     pageContext.series4,
     pageContext.series5,
   ];
-  console.log(seriesTitles);
-  const pictures = Object.values(data);
-  console.log(pictures, "pictures");
+  const series = Object.values(data);
   const { currentPage, numPages, totalPosts } = pageContext;
   const allPages = Array.from({ length: numPages }, (x, i) => i + 1);
 
@@ -54,11 +52,11 @@ export default function AllSeries({ data, pageContext, location }) {
         <Filter />
       </div>
       <div className="flex flex-col">
-        {pictures.map((pic, index) => {
-          const edges = pic.edges;
+        {series.map((series, index) => {
+          const edges = series.edges;
           return (
             seriesTitles[index] && (
-              <div className="shadow-xl my-4">
+              <div key={seriesTitles[index]} className="shadow-xl my-4">
                 <hr />
                 <div className="flex flex-col">
                   <h1 className="flex justify-center items-center font-ogirema text-4xl my-8">
@@ -70,24 +68,26 @@ export default function AllSeries({ data, pageContext, location }) {
                     </Link>
                   </h1>
                   <div className="flex">
-                    {edges.slice(0, 3).map((series, i) => {
-                      const node = series.node;
-                      const image = getImage(node.image);
-                      return (
-                        <ThumbnailWrapper
-                          key={node.name}
-                          to={`/art/${node.slug}`}
-                          alt={node.alternativeText}
-                          img={image}
-                          title={node.name}
-                          artist={null}
-                          id={`img${i + 1}`}
-                          width={`${styles.desktop.frame} ${styles.mobile.frame}`}
-                          canvasType={null}
-                          mediaType={null}
-                        />
-                      );
-                    })}
+                    {placeOddOrientationInMiddle(edges.slice(0, 3)).map(
+                      (series, i) => {
+                        const node = series.node;
+                        const image = getImage(node.image);
+                        return (
+                          <ThumbnailWrapper
+                            key={node.name}
+                            to={`/art/${node.slug}`}
+                            alt={node.alternativeText}
+                            img={image}
+                            title={node.name}
+                            artist={null}
+                            id={`img${i + 1}`}
+                            width={`${styles.desktop.frame} ${styles.mobile.frame}`}
+                            canvasType={null}
+                            mediaType={null}
+                          />
+                        );
+                      }
+                    )}
                   </div>
                 </div>
                 <hr />
@@ -108,7 +108,7 @@ export default function AllSeries({ data, pageContext, location }) {
             </Link>
           )}
           <span>
-            Viewing {isLast ? totalPosts : pictures.length * currentPage} of{" "}
+            Viewing {isLast ? totalPosts : series.length * currentPage} of{" "}
             {totalPosts}
           </span>
           {!isLast && (
@@ -162,6 +162,14 @@ export const query = graphql`
               layout: CONSTRAINED
               width: 300
             )
+            file {
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
           }
           artist
           name
@@ -185,6 +193,14 @@ export const query = graphql`
               layout: CONSTRAINED
               width: 300
             )
+            file {
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
           }
           artist
           name
@@ -208,6 +224,14 @@ export const query = graphql`
               layout: CONSTRAINED
               width: 300
             )
+            file {
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
           }
           artist
           name
@@ -231,6 +255,14 @@ export const query = graphql`
               layout: CONSTRAINED
               width: 300
             )
+            file {
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
           }
           artist
           name
@@ -254,6 +286,14 @@ export const query = graphql`
               layout: CONSTRAINED
               width: 300
             )
+            file {
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
           }
           artist
           name

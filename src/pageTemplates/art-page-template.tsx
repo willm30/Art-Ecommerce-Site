@@ -40,7 +40,7 @@ export default function ArtAll({ data, pageContext, location }) {
       <div className={`${styles.desktop.filter} ${styles.mobile.filter}`}>
         <Filter />
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap my-8">
         {pictures.map((pic, i) => {
           const data = pic.node;
           const image = getImage(data.image);
