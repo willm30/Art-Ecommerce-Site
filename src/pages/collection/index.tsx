@@ -103,7 +103,7 @@ export default function ShoppingCart({ location }) {
         <div className="flex md:flex-row flex-col items-center md:justify-between md:items-end mt-4 md:my-8">
           <div className="flex flex-col md:items-start">
             <h1 className={`${styles.desktop.h1} ${styles.mobile.h1}`}>
-              Your collection
+              Your Collection
             </h1>
             <span className="font-poppins text-2xl md:mr-6 text-center">
               Total (excl. shipping): £{grandTotal.toFixed(2)}
