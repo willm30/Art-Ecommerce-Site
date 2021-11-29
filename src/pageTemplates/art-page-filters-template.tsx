@@ -9,7 +9,7 @@ import { slugify } from "../utilities/strings";
 
 export default function ArtType({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
-  const { media } = pageContext;
+  const { filterCondition } = pageContext;
   const styles = {
     desktop: {
       filter:
@@ -24,7 +24,7 @@ export default function ArtType({ data, pageContext, location }) {
 
   return (
     <Layout
-      title="Art"
+      title={`${filterCondition}`}
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
       location={location}
     >
@@ -54,16 +54,20 @@ export default function ArtType({ data, pageContext, location }) {
       <FooterNav
         pageContext={pageContext}
         pictures={pictures}
-        path={`${slugify(media)}/`}
+        path={`${slugify(filterCondition)}/`}
       />
     </Layout>
   );
 }
 
 export const query = graphql`
-  query Picture($skip: Int!, $limit: Int!, $media: String!) {
+  query Picture(
+    $skip: Int!
+    $limit: Int!
+    $filter: ContentfulPictureFilterInput!
+  ) {
     allContentfulPicture(
-      filter: { mediaType: { eq: $media } }
+      filter: $filter
       limit: $limit
       skip: $skip
       sort: { fields: name, order: ASC }

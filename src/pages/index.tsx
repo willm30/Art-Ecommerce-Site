@@ -1,25 +1,16 @@
 import { graphql, Link } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel/carousel";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import Layout from "../components/layout/layout";
 import { getInitialTransform } from "../utilities/carousel";
-import gsap from "gsap";
 import { invalidateAndRestart, translateCard } from "../animations/carousel";
 import MobileCarousel from "../components/carousel/mobile/mobileCarousel";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
-import {
-  getRaw,
-  paragraphsToReactComponent,
-  rawToReactComponent,
-  styleParagraphReactComponent,
-} from "../utilities/contentful";
+import { getRaw, paragraphsToReactComponent } from "../utilities/contentful";
 import Copyright from "../components/layout/copyright";
-import {
-  FilterSeriesContext,
-  FilterTypeContext,
-} from "../context/FilterContext";
+import StandardButton from "../components/frames/buttons/standard-btn";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
@@ -48,7 +39,7 @@ export default function IndexPage({ data, location }) {
   const [isMobile, setIsMobile] = useState(false);
   const [initialTransform, setInitialTransform] = useState({});
   const cardWidth = isMobile ? 100 : 40;
-
+  const imgSlice = isMobile ? 8 : 9;
   function moveRight() {
     const { active, unactive } = animateRight.current;
     const activeLeft = animateLeft.current.active;
@@ -94,12 +85,12 @@ export default function IndexPage({ data, location }) {
   const styles = {
     desktop: {
       gallery: {
-        cont: "md:static flex justify-center items-center md:flex-row min-h-screen bg-white pt-8 md:px-4",
+        cont: "md:flex-row min-h-screen bg-white pt-8 md:px-4",
         img: "md:block flex-40 h-full ",
         p: "h-full font-poppins md:text-3xl md:p-0 md:px-4",
       },
       collection: {
-        row1: "flex overflow-y-hidden ",
+        row1: "flex overflow-y-hidden w-screen",
       },
       contact: {
         img: "md:block flex-60 h-full ",
@@ -107,7 +98,7 @@ export default function IndexPage({ data, location }) {
     },
     mobile: {
       gallery: {
-        cont: "relative flex-col z-10",
+        cont: "relative w-screen flex flex-col justify-center items-center z-10",
         img: "hidden",
         p: "p-2 text-xl",
       },
@@ -125,7 +116,6 @@ export default function IndexPage({ data, location }) {
       title={title}
       childStyles="relative col-span-full"
       location={location}
-      isMobile={isMobile}
     >
       {isMobile ? (
         <MobileCarousel
@@ -155,7 +145,7 @@ export default function IndexPage({ data, location }) {
             img={getImage(flowersJoyful.image)}
           />
         </div>
-        <div className="flex flex-col flex-60 h-full ml-4">
+        <div className="flex flex-col flex-60 h-full md:ml-4">
           <Link to="/about">
             <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh] my-2">
               The Gallery
@@ -166,30 +156,21 @@ export default function IndexPage({ data, location }) {
           >
             {galleryCopyJSX}
           </div>
-          <div className="flex justify-center items-center">
-            <span className={`${styles.desktop.gallery.p} mt-4`}>
-              <Link to="/art" className="hover:underline">
-                View our collection{" "}
-              </Link>{" "}
-              or
-              <Link to="/about" className="hover:underline">
-                {" "}
-                read more about the gallery.
-              </Link>
-            </span>
+          <div className="flex justify-center items-center md:mt-8">
+            <StandardButton to="/about" text="Read More" />
           </div>
         </div>
       </section>
       <div className="">
         <Link to="/art">
-          <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh] my-8">
+          <h2 className="flex w-screen justify-center items-center text-6xl font-ogirema h-[10vh] my-8">
             The Collection
           </h2>
         </Link>
         <div
           className={`${styles.desktop.collection.row1} ${styles.mobile.collection.row1}`}
         >
-          {featuredPictures.map((picture) => {
+          {featuredPictures.slice(0, imgSlice).map((picture) => {
             const data = picture.node;
             const image = getImage(data.image);
             return (
@@ -203,12 +184,14 @@ export default function IndexPage({ data, location }) {
           })}
         </div>
       </div>
-      <div className="grid grid-cols-contact">
-        <div className="col-start-2 col-end-3 order-1 flex flex-col justify-center items-center z-10 bg-white h-[90vh]">
-          <h2 className="flex justify-center items-center text-6xl font-ogirema">
+      <div className="md:grid grid-cols-contact md:h-[90vh] w-screen">
+        <div className="col-start-2 col-end-3 order-1 flex flex-col justify-center items-center z-10 bg-white">
+          <h2 className="flex justify-center items-center text-6xl font-ogirema my-4 md:my-0">
             Contact
           </h2>
-          <div className="font-poppins text-3xl p-10">{contactCopyJSX}</div>
+          <div className="font-poppins md:text-3xl text-xl md:p-10 p-2 w-full">
+            {contactCopyJSX}
+          </div>
         </div>
       </div>
       <Copyright />

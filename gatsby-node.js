@@ -171,7 +171,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         context: {
           limit: postsPerPage,
           skip: i * postsPerPage,
-          media: type,
+          filter: { mediaType: { eq: type } },
+          filterCondition: type,
           numPages,
           currentPage: i + 1,
           totalPosts: mediaTypePosts.length,
@@ -192,12 +193,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             ? `/art/series/${slugify(series)}`
             : `/art/series/${slugify(series)}/${i + 1}`,
         component: path.resolve(
-          "./src/pageTemplates/art-page-series-template.tsx"
+          "./src/pageTemplates/art-page-filters-template.tsx"
         ),
         context: {
           limit: postsPerPage,
           skip: i * postsPerPage,
-          series,
+          filter: { seriesTitle: { eq: series } },
+          filterCondition: series,
           numPages,
           currentPage: i + 1,
           totalPosts: seriesPosts.length,

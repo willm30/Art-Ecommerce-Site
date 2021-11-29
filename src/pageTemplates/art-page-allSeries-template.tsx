@@ -1,13 +1,9 @@
-import { Link } from "gatsby";
 import { graphql } from "gatsby";
-import { getImage } from "gatsby-plugin-image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Filter from "../components/filter/filter";
-import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
 import FooterNav from "../components/navigation/footerNav";
-import { placeOddOrientationInMiddle } from "../utilities/images";
-import { slugify } from "../utilities/strings";
+import SeriesCard from "../components/series/seriesCard";
 
 export default function AllSeries({ data, pageContext, location }) {
   const seriesTitles = [
@@ -17,26 +13,20 @@ export default function AllSeries({ data, pageContext, location }) {
     pageContext.series4,
     pageContext.series5,
   ];
-  const [isMobile, setIsMobile] = useState(false);
-  const imgSlice = isMobile ? 2 : 3;
+
   const series = Object.values(data);
 
   useEffect(() => {
     document.querySelector(".tl-edges").scrollTop = 0;
-    if (window.innerWidth < 668) {
-      setIsMobile(true);
-    }
   });
 
   const styles = {
     desktop: {
       filter:
         "row-span-1 flex justify-center items-center md:text-xl font-ogirema my-8",
-      frame: "md:flex-33 mb-8",
     },
     mobile: {
       filter: "text-md",
-      frame: "flex-100",
     },
   };
   return (
@@ -51,50 +41,7 @@ export default function AllSeries({ data, pageContext, location }) {
       <div className="flex flex-col">
         {series.map((series, index) => {
           const edges = series.edges.map((n) => n.node);
-          return (
-            seriesTitles[index] && (
-              <div key={seriesTitles[index]} className="shadow-xl my-4">
-                <hr />
-                <div className="flex flex-col items-center">
-                  <h1 className="flex justify-center items-center font-ogirema text-4xl my-8">
-                    <Link
-                      to={`/art/series/${slugify(seriesTitles[index])}`}
-                      className="hover:underline"
-                    >
-                      {seriesTitles[index]}
-                    </Link>
-                  </h1>
-                  <div className="flex md:flex-row flex-col md:min-w-full">
-                    {placeOddOrientationInMiddle(edges.slice(0, imgSlice)).map(
-                      (node, i) => {
-                        const image = getImage(node.image);
-                        return (
-                          <ThumbnailWrapper
-                            key={node.name}
-                            to={`/art/${node.slug}`}
-                            alt={node.alternativeText}
-                            img={image}
-                            title={node.name}
-                            artist={null}
-                            id={`img${i + 1}`}
-                            width={`${styles.desktop.frame} ${styles.mobile.frame}`}
-                            canvasType={null}
-                            mediaType={null}
-                          />
-                        );
-                      }
-                    )}
-                  </div>
-                  <Link to={`/series/${slugify(seriesTitles[index])}`}>
-                    <button className="font-poppins text-xl bg-white hover:bg-black border-black border p-4 w-68  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900 my-4">
-                      See All
-                    </button>
-                  </Link>
-                </div>
-                <hr />
-              </div>
-            )
-          );
+          return <SeriesCard title={seriesTitles[index]} edges={edges} />;
         })}
       </div>
       <FooterNav pageContext={pageContext} pictures={series} path="series/" />

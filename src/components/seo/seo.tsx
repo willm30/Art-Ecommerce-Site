@@ -18,7 +18,7 @@ export default function Seo(props) {
   const defaults = data?.site?.siteMetadata;
 
   const title = props.title
-    ? `${defaults.title} || ${props.title}`
+    ? `${props.title} || ${defaults.title} `
     : defaults.title;
   const description = props.description || defaults.description;
   const image = new URL(props.image || defaults.image, defaults.siteUrl);

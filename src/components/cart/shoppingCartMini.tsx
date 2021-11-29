@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import StandardButton from "../frames/buttons/standard-btn";
 import { CartItemShape } from "./cartItem";
 import CartItemMini from "./cartItemMini";
 
@@ -35,11 +36,7 @@ export default function ShoppingCartMini() {
               key={`${item.title}${i}`}
             />
           ))}
-          <Link to="/collection">
-            <button className="group font-poppins text-xl bg-white hover:bg-black border-black border p-4 w-68  hover:text-white active:bg-indigo-900 active:text-white visited:bg-indigo-900 my-4">
-              Review Your Purchase
-            </button>
-          </Link>
+          <StandardButton to="/collection" text="Review Your Purchase" />
         </ul>
       ) : (
         <p className="font-poppins flex justify-center items-center pl-6 text-xl">
