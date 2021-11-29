@@ -15,10 +15,12 @@ export default function ArtType({ data, pageContext, location }) {
       filter:
         "row-span-1 flex justify-center items-center md:text-xl font-ogirema my-8",
       frame: "md:flex-33 mb-8",
+      title: "font-ogirema md:text-5xl mt-8 text-center",
     },
     mobile: {
       filter: "text-md",
       frame: "flex-100",
+      title: "text-4xl",
     },
   };
 
@@ -28,6 +30,9 @@ export default function ArtType({ data, pageContext, location }) {
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
       location={location}
     >
+      <h1 className={`${styles.desktop.title} ${styles.mobile.title}`}>
+        {filterCondition}
+      </h1>
       <div className={`${styles.desktop.filter} ${styles.mobile.filter}`}>
         <Filter />
       </div>

@@ -40,8 +40,7 @@ export default function ArtInd({ data, location }) {
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
   const [seeMoreFromSeries, setSeeMoreFromSeries] = useState(undefined);
-  const [maxHeight, setMaxHeight] = useState("max-h-[50vh]");
-  const [hasOverflowed, setHasOverflowed] = useState(false);
+
   const descriptionCont = useRef(null);
   const quantity = 1;
   const products = prices.map((p) => {
@@ -102,7 +101,6 @@ export default function ArtInd({ data, location }) {
   useEffect(() => {
     descriptionCont.current = document.getElementById("desc-cont");
     document.querySelector(".tl-edges").scrollTop = 0;
-    checkHasOverflowed(descriptionCont.current);
     setSeeAlsoDefault(getRandomImages(data.allContentfulPicture.edges, 3));
     if (window.innerWidth < 668) {
       setIsMobile(true);
@@ -119,29 +117,12 @@ export default function ArtInd({ data, location }) {
     };
   }, [isMobile]);
 
-  function checkHasOverflowed(el: HTMLElement) {
-    if (!el) return el;
-    if (el.scrollHeight > el.clientHeight || el.scrollWidth > el.clientWidth)
-      setHasOverflowed(true);
-  }
-
-  function handleReadMore() {
-    if (hasOverflowed) {
-      setMaxHeight("");
-      setHasOverflowed(false);
-    } else {
-      setMaxHeight("max-h-[50vh]");
-      setHasOverflowed(true);
-      descriptionCont.current.scrollIntoView();
-    }
-  }
-
   const styles = {
     desktop: {
       layout: "col-span-full row-start-2 md:grid grid-cols-ind",
       title: "font-ogirema md:text-5xl md:mb-2 px-8 md:px-0",
       caption: "font-poppins text-lg md:my-0",
-      description: "md:px-0 md:max-h-[none] md:overflow-auto",
+      description: "md:px-0 md:max-h-[none] md:overflow-auto ",
       seeMore: {
         cont: "mt-6 col-span-full flex md:flex-row justify-center items-center",
         h2: "col-span-2 row-span-1 font-ogirema text-4xl flex md:justify-start items-center md:ml-8 py-4",
@@ -152,7 +133,7 @@ export default function ArtInd({ data, location }) {
       layout: "flex flex-col",
       title: "mb-6 text-4xl",
       caption: "my-4",
-      description: `${maxHeight} overflow-hidden`,
+      description: "max-h-[50vh] overflow-y-scroll",
       seeMore: {
         cont: "flex-col",
         h2: "justify-center",
@@ -192,11 +173,6 @@ export default function ArtInd({ data, location }) {
           >
             {des}
           </div>
-          {isMobile && (
-            <button className="my-2" onClick={handleReadMore}>
-              {hasOverflowed ? "Read more..." : "Read less"}
-            </button>
-          )}
         </div>
       </div>
       {!isMobile ? (

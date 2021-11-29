@@ -63,11 +63,11 @@ export default function Filter() {
 
   const styles = {
     desktop: {
-      form: "font-poppins bg-white shadow-xl p-4 border mb-4",
+      form: "font-poppins bg-white shadow-xl p-4 border md:mb-8",
       labelWrapper: "md:flex-row",
     },
     mobile: {
-      form: "flex items-center justify-center",
+      form: "flex items-center justify-center mb-4",
       labelWrapper: "flex flex-col items-center justify-center",
     },
   };
