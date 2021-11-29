@@ -7,6 +7,7 @@ import { getRaw, paragraphsToReactComponent } from "../utilities/contentful";
 
 export default function Cancelled({ data, location }) {
   const copy = data.allContentfulPageCopy.edges;
+  const { pathname } = location;
   const description = paragraphsToReactComponent(
     getRaw(copy, "Cancelled"),
     "my-4"
@@ -18,7 +19,11 @@ export default function Cancelled({ data, location }) {
       location={location}
       childStyles="col-start-2 col-end-10 md:col-end-6 row-start-2"
     >
-      <PaymentResolution description={description} title="Payment cancelled" />
+      <PaymentResolution
+        description={description}
+        title="Payment cancelled"
+        pathname={pathname}
+      />
       <Copyright />
     </Layout>
   );

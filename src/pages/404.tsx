@@ -1,9 +1,5 @@
 import { graphql } from "gatsby";
-import { getImage } from "gatsby-plugin-image";
-import React, { useEffect, useState } from "react";
-import StandardButton from "../components/frames/buttons/standard-btn";
-import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
-import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
+import React from "react";
 import SeeAlso from "../components/frames/seeAlso/seeAlso";
 import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
