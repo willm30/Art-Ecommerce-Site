@@ -1,5 +1,5 @@
 import { graphql } from "gatsby";
-import React from "react";
+import React, { useEffect } from "react";
 import SeeAlso from "../../components/frames/seeAlso/seeAlso";
 import Copyright from "../../components/layout/copyright";
 import Layout from "../../components/layout/layout";
@@ -23,6 +23,11 @@ export default function Contact({ data, location }) {
       p: "px-4",
     },
   };
+
+  useEffect(() => {
+    document.querySelector(".tl-edges").scrollTop = 0;
+  }, []);
+
   return (
     <Layout
       title="Contact"
