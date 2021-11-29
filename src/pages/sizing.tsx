@@ -1,9 +1,9 @@
-import { graphql, Link } from "gatsby";
-import React from "react";
+import { graphql } from "gatsby";
+import React, { useEffect } from "react";
 import StandardButton from "../components/frames/buttons/standard-btn";
 import Copyright from "../components/layout/copyright";
 import Layout from "../components/layout/layout";
-import { getRaw, paragraphsToReactComponent } from "../utilities/contentful";
+import { paragraphsToReactComponent } from "../utilities/contentful";
 
 export default function SizingGuide({ data, location }) {
   const products = data.allContentfulProduct.edges;
@@ -17,6 +17,10 @@ export default function SizingGuide({ data, location }) {
       h2: "",
     },
   };
+
+  useEffect(() => {
+    document.querySelector(".tl-edges").scrollTop = 0;
+  }, []);
 
   return (
     <Layout

@@ -2,6 +2,13 @@ export function capitalizeFirstLetter(string: string) {
   return string.slice(0, 1).toUpperCase().concat(string.slice(1));
 }
 
+export function capitaliseFirstLetterOfEachWord(string: string) {
+  const arr = string.split(" ");
+  const capitalized = [];
+  arr.forEach((word) => capitalized.push(capitalizeFirstLetter(word)));
+  return capitalized.join(" ");
+}
+
 function getWords(string: string): string[] {
   return string.split(" ");
 }

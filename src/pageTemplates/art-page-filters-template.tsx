@@ -5,7 +5,7 @@ import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
 import FooterNav from "../components/navigation/footerNav";
-import { slugify } from "../utilities/strings";
+import { capitaliseFirstLetterOfEachWord, slugify } from "../utilities/strings";
 
 export default function ArtType({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
@@ -26,12 +26,12 @@ export default function ArtType({ data, pageContext, location }) {
 
   return (
     <Layout
-      title={`${filterCondition}`}
+      title={`${capitaliseFirstLetterOfEachWord(filterCondition)}`}
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
       location={location}
     >
       <h1 className={`${styles.desktop.title} ${styles.mobile.title}`}>
-        {filterCondition}
+        {capitaliseFirstLetterOfEachWord(filterCondition)}
       </h1>
       <div className={`${styles.desktop.filter} ${styles.mobile.filter}`}>
         <Filter />
