@@ -1,6 +1,7 @@
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
+import StandardButton from "../components/frames/buttons/standard-btn";
 import BetterIndImg from "../components/frames/card/individual/image-wrapper-improved";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import SeeAlso from "../components/frames/seeAlso/seeAlso";
@@ -25,10 +26,10 @@ export default function PageMissing({ location, data }) {
   return (
     <Layout
       title="Missing Page"
-      childStyles="col-start-2 col-end-10 md:col-end-6 row-start-2"
+      childStyles="col-start-2 col-end-10 md:col-end-6 row-start-2 flex flex-col items-start"
       location={location}
     >
-      <div className="font-ogirema my-4">
+      <div className="font-ogirema my-4 text-center md:text-left">
         <h1 className={`${styles.desktop.h1} ${styles.mobile.h1}`}>
           We couldn't find that page!
         </h1>
@@ -36,12 +37,13 @@ export default function PageMissing({ location, data }) {
           It's possible the page has moved or the url is incorrect.
         </p>
       </div>
-      <br />
-
       <SeeAlso
         images={featured}
         headingText="In the meantime, you might like some of our featured artwork:"
       />
+      <div className="self-center">
+        <StandardButton to="/art" text="View All Artwork" />
+      </div>
       <Copyright />
     </Layout>
   );

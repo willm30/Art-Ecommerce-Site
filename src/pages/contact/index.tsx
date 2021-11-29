@@ -6,7 +6,8 @@ import Layout from "../../components/layout/layout";
 import { paragraphsToReactComponent } from "../../utilities/contentful";
 
 export default function Contact({ data, location }) {
-  const contactCopy = data.allContentfulPageCopy.edges[0].node.textEntry.raw;
+  const contactCopy =
+    data.allContentfulFrontPageCopy.edges[0].node.textEntry.raw;
   const contactCopyJSX = paragraphsToReactComponent(
     contactCopy,
     "text-justify leading-relaxed my-4"
@@ -45,7 +46,7 @@ export default function Contact({ data, location }) {
 
 export const query = graphql`
   query ContactCopy {
-    allContentfulPageCopy(filter: { title: { eq: "Contact" } }) {
+    allContentfulFrontPageCopy(filter: { title: { eq: "Contact" } }) {
       edges {
         node {
           title

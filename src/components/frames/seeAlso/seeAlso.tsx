@@ -12,13 +12,11 @@ export default function SeeAlso({ images, headingText }) {
 
   const styles = {
     desktop: {
-      h1: "md:text-6xl md:px-0",
-      p: "font-poppins my-4 md:text-4xl md:px-0",
+      p: "font-poppins my-4 md:text-4xl md:px-0 md:text-left",
       seeMore: "flex md:flex-row md:flex-wrap",
     },
     mobile: {
-      h1: "text-4xl px-4",
-      p: "text-2xl px-4",
+      p: "text-2xl px-4 text-center",
       seeMore: "flex-col",
     },
   };
@@ -41,6 +39,7 @@ export default function SeeAlso({ images, headingText }) {
               width="flex-20 m-8"
               canvasType={data.canvasType}
               mediaType={data.mediaType}
+              key={data.name}
             />
           );
         })}
