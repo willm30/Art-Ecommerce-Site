@@ -53,7 +53,7 @@ export default function AllSeries({ data, pageContext, location }) {
       </div>
       <div className="flex flex-col">
         {series.map((series, index) => {
-          const edges = series.edges;
+          const edges = series.edges.map((n) => n.node);
           return (
             seriesTitles[index] && (
               <div key={seriesTitles[index]} className="shadow-xl my-4">
@@ -69,8 +69,7 @@ export default function AllSeries({ data, pageContext, location }) {
                   </h1>
                   <div className="flex">
                     {placeOddOrientationInMiddle(edges.slice(0, 3)).map(
-                      (series, i) => {
-                        const node = series.node;
+                      (node, i) => {
                         const image = getImage(node.image);
                         return (
                           <ThumbnailWrapper
