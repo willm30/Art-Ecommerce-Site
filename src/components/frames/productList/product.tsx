@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Info from "../../../icons/info";
-import { paragraphsToReactComponent } from "../../../utilities/contentful";
 
 export default function Product({ product, handleSelectProduct, index }) {
   const [infoPopUps, setInfoPopUps] = useState(null);

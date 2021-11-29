@@ -69,7 +69,7 @@ export default function ProductInput({
           <div
             key={`info${i}`}
             data-ref="info"
-            className="hidden w-[90%] bg-white border border-black shadow-lg p-4 text-justify font-poppins"
+            className="hidden w-[90%] bg-white border border-black shadow-lg p-4 text-justify font-poppins my-4 md:my-0"
           >
             {description}
           </div>
