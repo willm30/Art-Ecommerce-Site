@@ -8,13 +8,11 @@ export default function Layout({
   childStyles,
   title,
   location,
-  isMobile,
 }: {
   children: React.ReactElement | React.ReactElement[];
   childStyles: string;
   title: string;
   location: any;
-  isMobile: boolean;
 }) {
   const [isTouch, setIsTouch] = useContext(TouchContext);
 
@@ -29,7 +27,7 @@ export default function Layout({
   return (
     <div className="grid sm:grid-cols-10 md:grid-cols-6 grid-rows-feature h-screen">
       <Seo title={title} />
-      <Header location={location} isMobile={isMobile}></Header>
+      <Header location={location}></Header>
       <div className={`${childStyles}`}>{children}</div>
     </div>
   );

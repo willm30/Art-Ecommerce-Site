@@ -10,9 +10,10 @@ import { getNavAnimation } from "../../animations/nav";
 import { getCartAnimation } from "../../animations/cart";
 import AllPictures from "../../icons/all-pictures";
 
-export default function Header({ location, isMobile }) {
+export default function Header({ location }) {
   const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const translateY = isMobile
     ? ""
     : location.pathname == "/"
@@ -24,13 +25,14 @@ export default function Header({ location, isMobile }) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, true);
+    if (window.innerWidth < 668) {
+      setIsMobile(true);
+    }
     const header = document.getElementById("header");
     headerTranslation.current = getHeaderAnimation(header);
     const nav = document.getElementById("nav");
-    //setNavInitial(nav);
     navAnimation.current = getNavAnimation(nav);
     const cart = document.getElementById("cart");
-    //setCartInitial(cart);
     cartAnimation.current = getCartAnimation(cart);
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
@@ -80,6 +82,7 @@ export default function Header({ location, isMobile }) {
       header: `fixed ${translateY} flex flex-100 row-start-1 w-screen min-h-[80px] h-[10vh] justify-evenly z-30 bg-white`,
       hamburger: "flex-5 flex justify-center items-center md:pl-0 md:mr-4",
       cart: "flex justify-center items-center flex-5 md:pr-0",
+      allPics: "flex justify-center items-center",
     },
     mobile: {
       hamburger: "pl-2",
@@ -95,9 +98,11 @@ export default function Header({ location, isMobile }) {
       >
         {navMenuOpen ? <Cross /> : <Hamburger />}
       </button>
-      <Link to="/art" className="flex justify-center items-center">
-        <AllPictures className="" />
-      </Link>
+      {!isMobile && (
+        <Link to="/art" className={`${styles.desktop.allPics}`}>
+          <AllPictures />
+        </Link>
+      )}
       <Link
         to="/"
         className="font-copperplate text-2xl md:text-4xl flex-90 flex justify-center items-center"

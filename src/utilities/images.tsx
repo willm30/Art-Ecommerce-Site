@@ -23,8 +23,7 @@ export function placeOddOrientationInMiddle(edges) {
   if (edges.length == 3) {
     const images = [...edges];
     const orientation: any[] = edges.map((n) =>
-      n.node.image.file.details.image.height >
-      n.node.image.file.details.image.width
+      n.image.file.details.image.height > n.image.file.details.image.width
         ? "Portrait"
         : "Landscape"
     );

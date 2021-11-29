@@ -4,6 +4,7 @@ import { getUnique } from "../../utilities/graphQL";
 import { slugify } from "../../utilities/strings";
 import { FilterTypeContext } from "../../context/FilterContext";
 import { FilterSeriesContext } from "../../context/FilterContext";
+import FilterOption from "./filterOption";
 
 export default function Filter() {
   const [selectedType, setSelectedType] = useContext(FilterTypeContext);
@@ -61,51 +62,33 @@ export default function Filter() {
   }, []);
 
   const styles = {
-    desktop: "font-poppins bg-white shadow-xl p-4 border mb-4",
-    mobile: "flex items-center justify-center",
+    desktop: {
+      form: "font-poppins bg-white shadow-xl p-4 border mb-4",
+      labelWrapper: "md:flex-row",
+    },
+    mobile: {
+      form: "flex items-center justify-center",
+      labelWrapper: "flex flex-col items-center justify-center",
+    },
   };
 
   return (
-    <form className={`${styles.desktop} ${styles.mobile}`}>
-      <div>
-        <label className="mx-4">
-          Type:{" "}
-          <select
-            onChange={handleSelectType}
-            id="type"
-            className="font-poppins border border-gray-500"
-          >
-            <option hidden disabled value="Select an option" id="default">
-              Select an option
-            </option>
-
-            {mediaTypes.map((type) => (
-              <option value={type} key={type}>
-                {type}
-              </option>
-            ))}
-            <option value="">All</option>
-          </select>
-        </label>
-        <label className="mx-4">
-          Series:{" "}
-          <select
-            onChange={handleSelectSeries}
-            id="series"
-            className="font-poppins border border-gray-500"
-          >
-            <option hidden disabled value="Select an option" id="default">
-              Select an option
-            </option>
-
-            {seriesTitles.map((type) => (
-              <option value={type} key={type}>
-                {type}
-              </option>
-            ))}
-            <option value="">All</option>
-          </select>
-        </label>
+    <form className={`${styles.desktop.form} ${styles.mobile.form}`}>
+      <div
+        className={`${styles.desktop.labelWrapper} ${styles.mobile.labelWrapper}`}
+      >
+        <FilterOption
+          labelText="Type"
+          handleSelect={handleSelectType}
+          id="type"
+          options={mediaTypes}
+        />
+        <FilterOption
+          labelText="Series"
+          handleSelect={handleSelectSeries}
+          id="series"
+          options={seriesTitles}
+        />
       </div>
     </form>
   );

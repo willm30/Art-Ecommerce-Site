@@ -1,6 +1,6 @@
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { CartItemShape } from "../components/cart/cartItem";
 import MagImg from "../components/frames/card/individual/magnified-wrapper";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
@@ -40,6 +40,9 @@ export default function ArtInd({ data, location }) {
   const [cart, setCart]: [CartItemShape[], (newCart: CartItemShape[]) => void] =
     useContext(CartContext);
   const [seeMoreFromSeries, setSeeMoreFromSeries] = useState(undefined);
+  const [maxHeight, setMaxHeight] = useState("max-h-[50vh]");
+  const [hasOverflowed, setHasOverflowed] = useState(false);
+  const descriptionCont = useRef(null);
   const quantity = 1;
   const products = prices.map((p) => {
     const prod = p.node;
@@ -97,12 +100,14 @@ export default function ArtInd({ data, location }) {
   }
 
   useEffect(() => {
+    descriptionCont.current = document.getElementById("desc-cont");
     document.querySelector(".tl-edges").scrollTop = 0;
+    checkHasOverflowed(descriptionCont.current);
     setSeeAlsoDefault(getRandomImages(data.allContentfulPicture.edges, 3));
-    if (series) setSeeMoreFromSeries(getRandomImages(series, 3));
     if (window.innerWidth < 668) {
       setIsMobile(true);
     }
+    if (series) setSeeMoreFromSeries(getRandomImages(series, 3));
   }, []);
 
   useEffect(() => {
@@ -114,9 +119,29 @@ export default function ArtInd({ data, location }) {
     };
   }, [isMobile]);
 
+  function checkHasOverflowed(el: HTMLElement) {
+    if (!el) return el;
+    if (el.scrollHeight > el.clientHeight || el.scrollWidth > el.clientWidth)
+      setHasOverflowed(true);
+  }
+
+  function handleReadMore() {
+    if (hasOverflowed) {
+      setMaxHeight("");
+      setHasOverflowed(false);
+    } else {
+      setMaxHeight("max-h-[50vh]");
+      setHasOverflowed(true);
+      descriptionCont.current.scrollIntoView();
+    }
+  }
+
   const styles = {
     desktop: {
       layout: "col-span-full row-start-2 md:grid grid-cols-ind",
+      title: "font-ogirema md:text-5xl md:mb-2 px-8 md:px-0",
+      caption: "font-poppins text-lg md:my-0",
+      description: "md:px-0 md:max-h-[none] md:overflow-auto",
       seeMore: {
         cont: "mt-6 col-span-full flex md:flex-row justify-center items-center",
         h2: "col-span-2 row-span-1 font-ogirema text-4xl flex md:justify-start items-center md:ml-8 py-4",
@@ -125,6 +150,9 @@ export default function ArtInd({ data, location }) {
     },
     mobile: {
       layout: "flex flex-col",
+      title: "mb-6 text-4xl",
+      caption: "my-4",
+      description: `${maxHeight} overflow-hidden`,
       seeMore: {
         cont: "flex-col",
         h2: "justify-center",
@@ -142,7 +170,9 @@ export default function ArtInd({ data, location }) {
         id="left"
         className="col-span-1 flex flex-col justify-start items-center mt-8 px-0 md:px-8 text-center"
       >
-        <h1 className="font-ogirema text-5xl mb-2 px-8 md:px-0">{title}</h1>
+        <h1 className={`${styles.desktop.title} ${styles.mobile.title}`}>
+          {title}
+        </h1>
         {isMobile ? (
           <MagImg
             image={image}
@@ -152,11 +182,21 @@ export default function ArtInd({ data, location }) {
             id={picture.name}
           />
         ) : null}
-        <h2 className="font-poppins text-lg">
+        <h2 className={`${styles.desktop.caption} ${styles.mobile.caption}`}>
           {mediaType} on {canvasType}
         </h2>
-        <div className="font-poppins text-justify text-xl leading-relaxed px-4 md:px-0">
-          {des}
+        <div className="font-poppins text-justify text-xl leading-relaxed px-4">
+          <div
+            id="desc-cont"
+            className={`${styles.desktop.description} ${styles.mobile.description}`}
+          >
+            {des}
+          </div>
+          {isMobile && (
+            <button className="my-2" onClick={handleReadMore}>
+              {hasOverflowed ? "Read more..." : "Read less"}
+            </button>
+          )}
         </div>
       </div>
       {!isMobile ? (
@@ -229,26 +269,25 @@ export default function ArtInd({ data, location }) {
                 );
               })
             : seeAlsoDefault?.length
-            ? placeOddOrientationInMiddle(seeAlsoDefault)?.map(
-                (defaultImg, i) => {
-                  const data = defaultImg.node;
-                  const img = getImage(data.image);
-                  return (
-                    <ThumbnailWrapper
-                      to={`/art/${data.slug}`}
-                      key={data.name}
-                      alt={data.alternativeText}
-                      img={img}
-                      title={data.name}
-                      artist={data.artist}
-                      canvasType={data.canvasType}
-                      mediaType={data.mediaType}
-                      id={`thumbnail${i + 1}`}
-                      width="my-4 md:my-0 md:flex-33"
-                    />
-                  );
-                }
-              )
+            ? placeOddOrientationInMiddle(
+                seeAlsoDefault.map((n) => n.node)
+              )?.map((data, i) => {
+                const img = getImage(data.image);
+                return (
+                  <ThumbnailWrapper
+                    to={`/art/${data.slug}`}
+                    key={data.name}
+                    alt={data.alternativeText}
+                    img={img}
+                    title={data.name}
+                    artist={data.artist}
+                    canvasType={data.canvasType}
+                    mediaType={data.mediaType}
+                    id={`thumbnail${i + 1}`}
+                    width="my-4 md:my-0 md:flex-33"
+                  />
+                );
+              })
             : null}
         </div>
       </div>
