@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import StandardButton from "../frames/buttons/standard-btn";
 import CartItem, { CartItemShape } from "./cartItem";
 
 export default function Cart({ setSpanVisZero }) {
@@ -9,14 +10,14 @@ export default function Cart({ setSpanVisZero }) {
 
   const styles = {
     desktop: {
-      p: "font-poppins text-xl md:px-0",
+      p: "font-poppins text-xl md:px-0 md:text-left",
     },
     mobile: {
-      p: "px-4",
+      p: "px-4 text-center",
     },
   };
   return (
-    <div className="text-sm mt-1.5 font-poppins min-h-[65vh]">
+    <div className="text-sm md:mt-1.5 font-poppins min-h-[55vh] md:min-h-[65vh]">
       {cart.length ? (
         <ul className="flex flex-col mb-5">
           {cart?.map((item, i) => (
@@ -40,12 +41,12 @@ export default function Cart({ setSpanVisZero }) {
           ))}
         </ul>
       ) : (
-        <p className={`${styles.desktop.p} ${styles.mobile.p}`}>
-          Your collection is currently empty.{" "}
-          <Link to="/art" className="hover:underline">
-            Click here to view the latest artwork.
-          </Link>
-        </p>
+        <div className="flex flex-col justify-center items-center md:items-start">
+          <p className={`${styles.desktop.p} ${styles.mobile.p}`}>
+            Your collection is currently empty.{" "}
+          </p>
+          <StandardButton to="/art" text="View All Artwork" />
+        </div>
       )}
     </div>
   );

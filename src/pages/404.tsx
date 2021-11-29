@@ -41,9 +41,6 @@ export default function PageMissing({ location, data }) {
         images={featured}
         headingText="In the meantime, you might like some of our featured artwork:"
       />
-      <div className="self-center">
-        <StandardButton to="/art" text="View All Artwork" />
-      </div>
       <Copyright />
     </Layout>
   );

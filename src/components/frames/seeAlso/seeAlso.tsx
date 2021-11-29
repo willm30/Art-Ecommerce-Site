@@ -1,6 +1,7 @@
 import { getImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
 import { getRandomImages } from "../../../utilities/images";
+import StandardButton from "../buttons/standard-btn";
 import ThumbnailWrapper from "../card/individual/thumbnail-wrapper";
 
 export default function SeeAlso({ images, headingText }) {
@@ -21,9 +22,8 @@ export default function SeeAlso({ images, headingText }) {
     },
   };
   return (
-    <div>
+    <div className="flex flex-col">
       <p className={`${styles.desktop.p} ${styles.mobile.p}`}>{headingText}</p>
-
       <div className={`${styles.desktop.seeMore} ${styles.mobile.seeMore}`}>
         {seeMore?.map((i) => {
           const data = i.node;
@@ -43,6 +43,9 @@ export default function SeeAlso({ images, headingText }) {
             />
           );
         })}
+      </div>
+      <div className="self-center">
+        <StandardButton to="/art" text="View All Artwork" />
       </div>
     </div>
   );

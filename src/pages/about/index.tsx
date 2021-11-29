@@ -17,11 +17,11 @@ export default function About({ location, data }) {
   const styles = {
     desktop: {
       h1: "text-5xl font-ogirema mt-8 mb-4 md:text-left",
-      p: "font-poppins text-2xl md:px-0 mb-8",
+      p: "font-poppins md:text-2xl md:px-0 mb-8",
     },
     mobile: {
       h1: "text-center",
-      p: "px-4",
+      p: "px-4 text-lg",
     },
   };
   return (
