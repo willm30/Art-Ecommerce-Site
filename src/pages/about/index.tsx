@@ -6,8 +6,7 @@ import Layout from "../../components/layout/layout";
 import { paragraphsToReactComponent } from "../../utilities/contentful";
 
 export default function About({ location, data }) {
-  const galleryCopy =
-    data.allContentfulFrontPageCopy.edges[0].node.textEntry.raw;
+  const galleryCopy = data.allContentfulPageCopy.edges[0].node.textEntry.raw;
   const galleryCopyJSX = paragraphsToReactComponent(
     galleryCopy,
     "my-4 text-justify leading-relaxed"
@@ -49,7 +48,7 @@ export default function About({ location, data }) {
 
 export const query = graphql`
   query GalleryCopy {
-    allContentfulFrontPageCopy(filter: { title: { eq: "Gallery" } }) {
+    allContentfulPageCopy(filter: { title: { eq: "Gallery" } }) {
       edges {
         node {
           title

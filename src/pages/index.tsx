@@ -235,7 +235,7 @@ export const query = graphql`
         }
       }
     }
-    copy: allContentfulFrontPageCopy {
+    copy: allContentfulPageCopy {
       edges {
         node {
           title
