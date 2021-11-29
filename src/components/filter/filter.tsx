@@ -63,7 +63,7 @@ export default function Filter() {
 
   const styles = {
     desktop: {
-      form: "font-poppins bg-white shadow-xl p-4 border md:mb-8",
+      form: "font-poppins bg-white shadow-xl p-4 border md:mb-0",
       labelWrapper: "md:flex-row",
     },
     mobile: {

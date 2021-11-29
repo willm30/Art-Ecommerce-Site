@@ -24,9 +24,11 @@ export default function AllSeries({ data, pageContext, location }) {
     desktop: {
       filter:
         "row-span-1 flex justify-center items-center md:text-xl font-ogirema my-8",
+      title: "font-ogirema md:text-5xl mt-8 text-center",
     },
     mobile: {
       filter: "text-md",
+      title: "text-4xl",
     },
   };
   return (
@@ -35,6 +37,9 @@ export default function AllSeries({ data, pageContext, location }) {
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
       location={location}
     >
+      <h1 className={`${styles.desktop.title} ${styles.mobile.title}`}>
+        All Series
+      </h1>
       <div className={`${styles.desktop.filter} ${styles.mobile.filter}`}>
         <Filter />
       </div>

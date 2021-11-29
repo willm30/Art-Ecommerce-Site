@@ -5,6 +5,7 @@ import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
 import FooterNav from "../components/navigation/footerNav";
+import { capitaliseFirstLetterOfEachWord } from "../utilities/strings";
 
 export default function ArtAll({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
@@ -18,10 +19,12 @@ export default function ArtAll({ data, pageContext, location }) {
       filter:
         "row-span-1 flex justify-center items-center md:text-xl font-ogirema my-8",
       frame: "md:flex-33 mb-8",
+      title: "font-ogirema md:text-5xl mt-8 text-center",
     },
     mobile: {
       filter: "text-md",
       frame: "flex-100",
+      title: "text-4xl",
     },
   };
   return (
@@ -30,6 +33,9 @@ export default function ArtAll({ data, pageContext, location }) {
       childStyles="col-span-full row-start-2 grid grid-cols-all grid-rows-all"
       location={location}
     >
+      <h1 className={`${styles.desktop.title} ${styles.mobile.title}`}>
+        The Collection
+      </h1>
       <div className={`${styles.desktop.filter} ${styles.mobile.filter}`}>
         <Filter />
       </div>
