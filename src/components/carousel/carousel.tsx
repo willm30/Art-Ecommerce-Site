@@ -68,18 +68,18 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
           <Chevron />
         </span>
       </button>
-      {/*<div
+      <div
         id="to-gallery"
         className="absolute bottom-0 text-5xl flex justify-center items-center w-screen z-10"
       >
         <button
           data-ref="arrow"
           className="text-black w-12 h-12 rounded-full flex justify-center items-center"
-          onClick={() => ScrollTo("#gallery", "end")}
+          onClick={() => ScrollTo("#gallery", "start")}
         >
           <Chevron />
         </button>
-      </div>*/}
+      </div>
     </div>
   );
 }
