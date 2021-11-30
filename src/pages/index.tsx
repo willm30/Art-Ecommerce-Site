@@ -86,8 +86,8 @@ export default function IndexPage({ data, location }) {
     desktop: {
       gallery: {
         cont: "md:min-h-screen bg-white md:flex-row",
-        img: "md:block flex-40 h-full m-4",
-        p: "h-full font-poppins md:text-3xl md:px-4",
+        img: "md:block flex-40 m-6",
+        p: "font-poppins md:text-3xl md:px-4",
       },
       collection: {
         row1: "flex overflow-y-hidden",
@@ -117,90 +117,86 @@ export default function IndexPage({ data, location }) {
       childStyles="col-span-full row-start-2 md:grid grid-cols-all"
       location={location}
     >
-      <div style={{ transform: "translateY(-4.7rem)" }}>
-        {isMobile ? (
-          <MobileCarousel
-            pictures={carouselPictures}
-            left={() => handleChevronClick("Left")}
-            right={() => handleChevronClick("Right")}
-            initialTransform={initialTransform}
-          />
-        ) : (
-          <Carousel
-            pictures={carouselPictures}
-            left={() => handleChevronClick("Left")}
-            right={() => handleChevronClick("Right")}
-            initialTransform={initialTransform}
-          />
-        )}
+      {isMobile ? (
+        <MobileCarousel
+          pictures={carouselPictures}
+          left={() => handleChevronClick("Left")}
+          right={() => handleChevronClick("Right")}
+          initialTransform={initialTransform}
+        />
+      ) : (
+        <Carousel
+          pictures={carouselPictures}
+          left={() => handleChevronClick("Left")}
+          right={() => handleChevronClick("Right")}
+          initialTransform={initialTransform}
+        />
+      )}
 
-        <section
-          id="gallery"
-          className={`${styles.desktop.gallery.cont} ${styles.mobile.gallery.cont}`}
+      <section
+        id="gallery"
+        className={`${styles.desktop.gallery.cont} ${styles.mobile.gallery.cont}`}
+      >
+        <div
+          className={`${styles.mobile.gallery.img} ${styles.desktop.gallery.img}`}
         >
-          <div
-            className={`${styles.mobile.gallery.img} ${styles.desktop.gallery.img}`}
-          >
-            <ThumbnailWrapper
-              to={`/art/${flowersJoyful.slug}`}
-              alt={flowersJoyful.alternativeText}
-              img={getImage(flowersJoyful.image)}
-            />
-          </div>
-          <div className="flex flex-col flex-60 h-full">
-            <Link to="/about">
-              <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh] my-2">
-                The Gallery
-              </h2>
-            </Link>
-            <div
-              className={`${styles.desktop.gallery.p} ${styles.mobile.gallery.p}`}
-            >
-              {galleryCopyJSX}
-            </div>
-            <div className="flex justify-center items-center md:mt-8">
-              <StandardButton to="/about" text="Read More" />
-            </div>
-          </div>
-        </section>
-
-        <div className="">
-          <Link to="/art">
-            <h2 className="flex w-full justify-center items-center text-6xl font-ogirema h-[10vh] my-8">
-              The Collection
+          <ThumbnailWrapper
+            to={`/art/${flowersJoyful.slug}`}
+            alt={flowersJoyful.alternativeText}
+            img={getImage(flowersJoyful.image)}
+          />
+        </div>
+        <div className="flex flex-col justify-center flex-60 h-full">
+          <Link to="/about">
+            <h2 className="flex justify-center items-center text-6xl font-ogirema h-[10vh] my-2">
+              The Gallery
             </h2>
           </Link>
           <div
-            className={`${styles.desktop.collection.row1} ${styles.mobile.collection.row1}`}
+            className={`${styles.desktop.gallery.p} ${styles.mobile.gallery.p}`}
           >
-            {featuredPictures.slice(0, imgSlice).map((picture) => {
-              const data = picture.node;
-              const image = getImage(data.image);
-              return (
-                <BetterIndImg
-                  key={data.name}
-                  data={data}
-                  image={image}
-                  className="flex-50 md:flex-30"
-                />
-              );
-            })}
+            {galleryCopyJSX}
+          </div>
+          <div className="flex justify-center items-center md:mt-8">
+            <StandardButton to="/about" text="Read More" />
           </div>
         </div>
-        <div className="md:grid grid-cols-contact md:h-[85vh]">
-          <div className="col-start-2 col-end-3 order-1 flex flex-col justify-center items-center z-10 bg-white">
-            <h2 className="flex justify-center items-center text-6xl font-ogirema my-4 md:my-0">
-              Contact
-            </h2>
-            <div className="font-poppins md:text-3xl text-xl md:p-10 p-2 w-full">
-              {contactCopyJSX}
-            </div>
-          </div>
-        </div>
-        <div style={{ transform: "translateY(4.7rem)" }}>
-          <Copyright />
+      </section>
+
+      <div className="">
+        <Link to="/art">
+          <h2 className="flex w-full justify-center items-center text-6xl font-ogirema h-[10vh] my-8">
+            The Collection
+          </h2>
+        </Link>
+        <div
+          className={`${styles.desktop.collection.row1} ${styles.mobile.collection.row1}`}
+        >
+          {featuredPictures.slice(0, imgSlice).map((picture) => {
+            const data = picture.node;
+            const image = getImage(data.image);
+            return (
+              <BetterIndImg
+                key={data.name}
+                data={data}
+                image={image}
+                className="flex-50 md:flex-30"
+              />
+            );
+          })}
         </div>
       </div>
+      <div className="md:grid grid-cols-contact md:h-[90vh]">
+        <div className="col-start-2 col-end-3 order-1 flex flex-col justify-center items-center z-10 bg-white">
+          <h2 className="flex justify-center items-center text-6xl font-ogirema my-4 md:my-0">
+            Contact
+          </h2>
+          <div className="font-poppins md:text-3xl text-xl md:p-10 p-2 w-full">
+            {contactCopyJSX}
+          </div>
+        </div>
+      </div>
+      <Copyright />
     </Layout>
   );
 }

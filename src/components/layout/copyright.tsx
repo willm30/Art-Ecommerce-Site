@@ -3,7 +3,7 @@ import React from "react";
 export default function Copyright() {
   const styles = {
     desktop:
-      "col-span-full row-start-3 flex justify-center items-center font-poppins md:text-lg w-full",
+      "col-span-full flex justify-center items-center font-poppins md:text-lg w-full",
     mobile: "text-xs",
   };
   return (

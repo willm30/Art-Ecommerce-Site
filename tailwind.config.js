@@ -37,6 +37,7 @@ module.exports = {
       gridTemplateRows: {
         feature: "10vh 1fr",
         all: "10vh, 1fr, 10vh",
+        index: "1fr",
       },
       gridTemplateColumns: {
         feature: "0.1fr 1fr",
