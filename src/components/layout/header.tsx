@@ -24,9 +24,10 @@ export default function Header({ location }) {
   const cartAnimation = useRef(null);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, true);
     if (window.innerWidth < 668) {
       setIsMobile(true);
+    } else {
+      window.addEventListener("scroll", handleScroll, true);
     }
     const header = document.getElementById("header");
     headerTranslation.current = getHeaderAnimation(header);
@@ -40,6 +41,7 @@ export default function Header({ location }) {
   }, []);
 
   function handleScroll() {
+    console.log("NOT RUNNING");
     if (location.pathname == "/") {
       const scrollTop = window.scrollY;
       const headerY = headerTranslation.current;
