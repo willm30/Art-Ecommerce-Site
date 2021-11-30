@@ -30,7 +30,7 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
   }, []);
 
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative w-full h-screen">
       <button
         data-ref="arrow"
         onClick={left}
@@ -68,7 +68,7 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
       </button>
       <div
         id="to-gallery"
-        className="absolute bottom-0 text-5xl flex justify-center items-center w-screen z-10"
+        className="absolute bottom-0 text-5xl flex justify-center items-center w-full z-10"
       >
         <button
           data-ref="arrow"

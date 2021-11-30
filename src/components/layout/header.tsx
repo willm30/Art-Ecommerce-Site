@@ -11,13 +11,13 @@ import { getCartAnimation } from "../../animations/cart";
 import AllPictures from "../../icons/all-pictures";
 
 export default function Header({ location }) {
-  const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const translateY = isMobile
     ? ""
     : location.pathname == "/"
-    ? "-translate-y-20"
+    ? "-translate-y-full"
     : "";
   const headerTranslation = useRef(null);
   const navAnimation = useRef(null);

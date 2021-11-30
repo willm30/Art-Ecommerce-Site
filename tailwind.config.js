@@ -43,6 +43,7 @@ module.exports = {
         ind: "0.75fr 1fr 0.5fr",
         collection: "0.17fr 0.66fr 0.17fr",
         contact: "0.10fr 0.80fr 0.10fr",
+        gallery: "0.4fr 0.6fr",
         all: "1fr",
       },
       outline: {
@@ -66,6 +67,9 @@ module.exports = {
       transitionProperty: {
         left: "left",
         w: "width",
+      },
+      translate: {
+        carousel: "4.7rem",
       },
     },
   },

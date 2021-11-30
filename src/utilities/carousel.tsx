@@ -10,14 +10,14 @@ export function isInViewport(element, offset) {
 export function isFirstOffRight(element, offset) {
   const rect = element.getBoundingClientRect();
   return (
-    Math.floor(rect.left) + Math.ceil(offset) ==
-    (window.innerWidth || document.documentElement.clientWidth)
+    Math.floor(rect.left) + Math.floor(offset) ==
+    document.documentElement.clientWidth
   );
 }
 
 export function isFirstOffLeft(element, offset) {
   const rect = element.getBoundingClientRect();
-  return Math.floor(rect.right - offset) == 0;
+  return Math.floor(rect.right) - Math.floor(offset) == 0;
 }
 
 export function getMinX(slides) {

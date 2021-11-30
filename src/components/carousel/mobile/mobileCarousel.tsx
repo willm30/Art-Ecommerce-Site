@@ -13,7 +13,7 @@ export default function MobileCarousel({
   const oddPictures: any[] = getOddPictures(pictures); // must be an odd length for this to work.
 
   return (
-    <div className="relative w-screen h-[83vh] top-[10vh] z-0">
+    <div className="relative w-screen h-[73vh] top-[10vh] z-0">
       <div className="absolute w-2/12 h-full group z-10">
         <button
           data-ref="arrow"
