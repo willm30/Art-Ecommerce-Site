@@ -90,7 +90,7 @@ export default function Header({ location }) {
 
   const styles = {
     desktop: {
-      header: `fixed ${translateY} flex flex-100 row-start-1 w-screen min-h-[80px] h-[10vh] justify-evenly z-30 bg-white`,
+      header: `fixed ${translateY} flex flex-100 row-start-1 w-screen min-h-[80px] h-[10vh] justify-evenly z-30 bg-white shadow-lg`,
       hamburger: "flex-5 flex justify-center items-center md:pl-0 md:mr-4",
       cart: "flex justify-center items-center flex-5",
       allPics: "flex justify-center items-center",
