@@ -11,6 +11,7 @@ import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wra
 import { getRaw, paragraphsToReactComponent } from "../utilities/contentful";
 import Copyright from "../components/layout/copyright";
 import StandardButton from "../components/frames/buttons/standard-btn";
+import gsap from "gsap";
 
 export default function IndexPage({ data, location }) {
   const carouselPictures = data.carousel.edges;
@@ -37,7 +38,6 @@ export default function IndexPage({ data, location }) {
   const animateLeft = useRef(null);
   const timer = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [initialTransform, setInitialTransform] = useState({});
   const cardWidth = isMobile ? 100 : 40;
   const imgSlice = isMobile ? 8 : 9;
   function moveRight() {
@@ -75,8 +75,9 @@ export default function IndexPage({ data, location }) {
 
   useEffect(() => {
     const slides = document.querySelectorAll("[data-ref=slide]");
-    setInitialTransform({
-      transform: `translate(${getInitialTransform(cardWidth, slides.length)}%)`,
+    const initialTransform = getInitialTransform(cardWidth, slides.length);
+    gsap.set(slides, {
+      xPercent: initialTransform,
     });
     animateRight.current = translateCard(slides, cardWidth, "Right");
     animateLeft.current = translateCard(slides, cardWidth, "Left");
@@ -122,14 +123,12 @@ export default function IndexPage({ data, location }) {
           pictures={carouselPictures}
           left={() => handleChevronClick("Left")}
           right={() => handleChevronClick("Right")}
-          initialTransform={initialTransform}
         />
       ) : (
         <Carousel
           pictures={carouselPictures}
           left={() => handleChevronClick("Left")}
           right={() => handleChevronClick("Right")}
-          initialTransform={initialTransform}
         />
       )}
 
