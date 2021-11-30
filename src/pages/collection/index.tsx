@@ -47,7 +47,6 @@ export default function ShoppingCart({ location }) {
   };
 
   useEffect(() => {
-    document.querySelector(".tl-edges").scrollTop = 0;
     if (window.innerWidth < 668) {
       setIsMobile(true);
     }

@@ -16,10 +16,6 @@ export default function AllSeries({ data, pageContext, location }) {
 
   const series = Object.values(data);
 
-  useEffect(() => {
-    document.querySelector(".tl-edges").scrollTop = 0;
-  });
-
   const styles = {
     desktop: {
       filter:

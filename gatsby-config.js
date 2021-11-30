@@ -26,7 +26,6 @@ module.exports = {
       resolve: "gatsby-source-contentful",
       options: {
         spaceId: "ei7twg2jyh6q",
-        // Move to .env
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
@@ -41,7 +40,6 @@ module.exports = {
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-    "gatsby-plugin-transition-link",
     "gatsby-plugin-smoothscroll",
   ],
 };

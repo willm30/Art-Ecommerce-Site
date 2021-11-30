@@ -81,7 +81,7 @@ export default function ArtInd({ data, location }) {
   }
 
   function handleScroll() {
-    const scrollTop = document.querySelector(".tl-edges").scrollTop;
+    const scrollTop = window.scrollY;
     const scrollLimit =
       document.getElementById("right").getBoundingClientRect().height - 200;
 
@@ -100,7 +100,7 @@ export default function ArtInd({ data, location }) {
 
   useEffect(() => {
     descriptionCont.current = document.getElementById("desc-cont");
-    document.querySelector(".tl-edges").scrollTop = 0;
+    // document.querySelector(".tl-edges").scrollTop = 0;
     setSeeAlsoDefault(getRandomImages(data.allContentfulPicture.edges, 3));
     if (window.innerWidth < 668) {
       setIsMobile(true);

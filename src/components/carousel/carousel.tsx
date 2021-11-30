@@ -11,14 +11,12 @@ export default function Carousel({ pictures, left, right, initialTransform }) {
   const arrowAnimation = useRef(null);
 
   function handleScroll() {
-    if (typeof document != "undefined") {
-      const scrollTop = document.querySelector(".tl-edges").scrollTop;
-      const fade = arrowAnimation.current;
-      if (scrollTop > 150) {
-        fade.play();
-      } else {
-        fade.reverse();
-      }
+    const scrollTop = window.scrollY;
+    const fade = arrowAnimation.current;
+    if (scrollTop > 150) {
+      fade.play();
+    } else {
+      fade.reverse();
     }
   }
 

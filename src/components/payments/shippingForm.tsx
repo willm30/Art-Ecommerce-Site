@@ -12,7 +12,7 @@ export default function ShippingForm({
   const [shippingStyles, setShippingStyles] = useState({});
 
   function handleScroll() {
-    const scrollTop = document.querySelector(".tl-edges").scrollTop;
+    const scrollTop = window.scrollY;
     const scrollLimit =
       document.getElementById("right").getBoundingClientRect().height - 200;
 

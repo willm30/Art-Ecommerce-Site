@@ -24,10 +24,6 @@ export default function Contact({ data, location }) {
     },
   };
 
-  useEffect(() => {
-    document.querySelector(".tl-edges").scrollTop = 0;
-  }, []);
-
   return (
     <Layout
       title="Contact"

@@ -1,18 +1,13 @@
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import React, { useEffect } from "react";
+import React from "react";
 import Filter from "../components/filter/filter";
 import ThumbnailWrapper from "../components/frames/card/individual/thumbnail-wrapper";
 import Layout from "../components/layout/layout";
 import FooterNav from "../components/navigation/footerNav";
-import { capitaliseFirstLetterOfEachWord } from "../utilities/strings";
 
 export default function ArtAll({ data, pageContext, location }) {
   const pictures = data.allContentfulPicture.edges;
-
-  useEffect(() => {
-    document.querySelector(".tl-edges").scrollTop = 0;
-  }, []);
 
   const styles = {
     desktop: {

@@ -18,10 +18,6 @@ export default function SizingGuide({ data, location }) {
     },
   };
 
-  useEffect(() => {
-    document.querySelector(".tl-edges").scrollTop = 0;
-  }, []);
-
   return (
     <Layout
       title="Sizing Guide"

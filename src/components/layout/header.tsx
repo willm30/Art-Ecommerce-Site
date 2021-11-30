@@ -41,7 +41,7 @@ export default function Header({ location }) {
 
   function handleScroll() {
     if (location.pathname == "/") {
-      const scrollTop = document.querySelector(".tl-edges").scrollTop;
+      const scrollTop = window.scrollY;
       const headerY = headerTranslation.current;
       if (scrollTop > 150) {
         headerY.play();
