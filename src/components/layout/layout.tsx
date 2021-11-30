@@ -25,7 +25,7 @@ export default function Layout({
     setIsTouch(true);
   }
   return (
-    <div className="grid sm:grid-cols-10 md:grid-cols-6 grid-rows-feature h-screen">
+    <div className="grid sm:grid-cols-10 md:grid-cols-6 grid-rows-feature h-screen overflow-x-hidden">
       <Seo title={title} />
       <Header location={location}></Header>
       <div className={`${childStyles}`}>{children}</div>
