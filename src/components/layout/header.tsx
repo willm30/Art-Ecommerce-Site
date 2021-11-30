@@ -13,6 +13,7 @@ import AllPictures from "../../icons/all-pictures";
 export default function Header({ location }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [navMenuOpen, setNavMenuOpen] = useState(false);
+  const [display, setDisplay] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const translateY = isMobile
     ? ""
@@ -26,6 +27,7 @@ export default function Header({ location }) {
   useEffect(() => {
     if (window.innerWidth < 668) {
       setIsMobile(true);
+      //window.addEventListener("scroll", handleMobileScroll, true);
     } else {
       window.addEventListener("scroll", handleScroll, true);
     }
@@ -37,11 +39,11 @@ export default function Header({ location }) {
     cartAnimation.current = getCartAnimation(cart);
     return () => {
       window.removeEventListener("scroll", handleScroll, true);
+      window.removeEventListener("scroll", handleMobileScroll, true);
     };
   }, []);
 
   function handleScroll() {
-    console.log("NOT RUNNING");
     if (location.pathname == "/") {
       const scrollTop = window.scrollY;
       const headerY = headerTranslation.current;
@@ -54,6 +56,13 @@ export default function Header({ location }) {
         setNavMenuOpen(false);
         setCartOpen(false);
       }
+    }
+  }
+
+  function handleMobileScroll() {
+    if (!display) {
+      console.log("fixing display");
+      setDisplay("fixed");
     }
   }
 
@@ -87,13 +96,17 @@ export default function Header({ location }) {
       allPics: "flex justify-center items-center",
     },
     mobile: {
+      header: `${display}`,
       hamburger: "pl-2",
       cart: "pr-4",
     },
   };
 
   return (
-    <header id="header" className={styles.desktop.header}>
+    <header
+      id="header"
+      className={`${styles.desktop.header} ${styles.mobile.header}`}
+    >
       <button
         onClick={toggleNav}
         className={`${styles.desktop.hamburger} ${styles.mobile.hamburger}`}
