@@ -10,6 +10,7 @@ export default function Seo(props) {
           title
           description
           siteUrl
+          image
         }
       }
     }
@@ -21,9 +22,8 @@ export default function Seo(props) {
     ? `${props.title} || ${defaults.title} `
     : defaults.title;
   const description = props.description || defaults.description;
-  const image = new URL(props.image || defaults.image, defaults.siteUrl);
+  const image = new URL(props.image || defaults.image);
   const url = new URL(props.path || "/", defaults.siteUrl);
-
   return (
     <Helmet>
       <title>{title}</title>
