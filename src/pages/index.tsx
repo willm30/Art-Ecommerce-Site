@@ -114,7 +114,7 @@ export default function IndexPage({ data, location }) {
 
   return (
     <Layout
-      title={title}
+      title=""
       childStyles="col-span-full md:grid grid-cols-all"
       location={location}
     >
