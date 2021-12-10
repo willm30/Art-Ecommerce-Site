@@ -3,6 +3,8 @@ require("dotenv").config({ //eslint-disable-line
   path: `.env.${process.env.NODE_ENV}`,
 });
 
+const _ = require("lodash"); //eslint-disable-line
+
 // Set your secret key. Remember to switch to your live secret key in production.
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); //eslint-disable-line
 
@@ -53,6 +55,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        allStripePrice {
+          edges {
+            node {
+              active
+              unit_amount
+              id
+              nickname
+            }
+          }
+        }
       }
     `
   );
@@ -93,6 +105,67 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     "seriesTitle"
   );
   const products = result.data.allStripeProduct.edges;
+  const stripePrices = result.data.allStripePrice.edges;
+  /*
+  const inactivePrices = stripePrices.filter((p) => {
+    const data = p.node;
+    const isStripePricePresentInProductModels = productModels.some((model) => {
+      return model.node.price * 100 == data["unit_amount"];
+    });
+    return !isStripePricePresentInProductModels;
+  });
+*/
+  // handle inactive prices
+  /*
+  inactivePrices.forEach(async (p) => {
+    const data = p.node;
+    await stripe.prices.update(data.id, {
+      active: false,
+    });
+  });
+*/
+  /*
+  const pricesToAdd = productModels.forEach((model) => {
+    const data = model.node;
+
+    const currentPricesInStripe = stripePrices.filter(
+      (p) => p.node["unit_amount"] == data.price * 100
+    );
+    console.log(
+      currentPricesInStripe.length,
+      "current prices length",
+      pictures.length,
+      "pictures length"
+    );
+    if (currentPricesInStripe.length < pictures.length) {
+      console.log(currentPricesInStripe, "currentPricesInStripe");
+      const productsAlreadyUpdated = products.filter((prod) =>
+        currentPricesInStripe.some((currentPrice) => {
+          return prod.node.id == currentPrice.node.product;
+        })
+      );
+      console.log(productsAlreadyUpdated, "productsYetToBeUpdated");
+      /*
+        if (!hasProductAlreadyBeenAdded) {
+          const price = await stripe.prices.create({
+            product: product.node.id,
+            unit_amount: data.price * 100,
+            currency: "gbp",
+            nickname: data.productName,
+          });
+        }
+    }
+  });
+  */
+
+  // add the pricesToBeAdded call
+  /*
+  stripePrices.forEach(async (p) => {
+    if (p["unit_amount"] == 6900)
+      await stripe.prices.update(p.id, { unit_amount: 14500 });
+    else if (p["unit_amount"] == 13500)
+      await stripe.prices.update(p.id, { unit_amount: 26500 });
+  });*/
 
   const picturesToBeAddedAsProducts = pictures.filter((picture) => {
     const pictureIsAlsoAProduct = products.find(
@@ -117,9 +190,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         currency: "gbp",
         nickname: productData.productName,
       });
+      console.log(`Adding new price to ${picture.node.name}`, price);
     });
 
-    console.log(`Created new product for ${picture.node.name}`);
+    console.log(`Created new product for ${picture.node.name}`, newProduct);
   });
 
   Array.from({ length: numPages }).forEach((_, i) => {
