@@ -43,29 +43,31 @@ export default function ArtInd({ data, location }) {
 
   const descriptionCont = useRef(null);
   const quantity = 1;
-  const products = prices.map((p) => {
-    const prod = p.node;
-    const prodMod = productModels.find(
-      (model) =>
-        model.node.productName.toLowerCase().trim() ==
-        prod.nickname.toLowerCase().trim()
-    );
-    const description = prodMod.node.description.raw;
-    return {
-      productName: capitalizeFirstLetter(prod.nickname),
-      price: formatPrice(prod["unit_amount"]),
-      priceId: prod.id,
-      title,
-      image,
-      alt,
-      quantity,
-      slug,
-      artist,
-      canvasType,
-      mediaType,
-      description,
-    };
-  });
+  const products = prices
+    .filter((p) => p.node.active)
+    .map((p) => {
+      const prod = p.node;
+      const prodMod = productModels.find(
+        (model) =>
+          model.node.productName.toLowerCase().trim() ==
+          prod.nickname.toLowerCase().trim()
+      );
+      const description = prodMod.node.description.raw;
+      return {
+        productName: capitalizeFirstLetter(prod.nickname),
+        price: formatPrice(prod["unit_amount"]),
+        priceId: prod.id,
+        title,
+        image,
+        alt,
+        quantity,
+        slug,
+        artist,
+        canvasType,
+        mediaType,
+        description,
+      };
+    });
 
   function addToCart(item: CartItemShape) {
     if (!Object.entries(item).length) return;
@@ -353,6 +355,7 @@ export const query = graphql`
       edges {
         node {
           id
+          active
           product {
             id
           }

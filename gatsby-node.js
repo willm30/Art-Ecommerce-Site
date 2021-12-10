@@ -62,6 +62,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               unit_amount
               id
               nickname
+              product {
+                id
+              }
             }
           }
         }
@@ -106,57 +109,54 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   );
   const products = result.data.allStripeProduct.edges;
   const stripePrices = result.data.allStripePrice.edges;
-  /*
-  const inactivePrices = stripePrices.filter((p) => {
-    const data = p.node;
-    const isStripePricePresentInProductModels = productModels.some((model) => {
-      return model.node.price * 100 == data["unit_amount"];
-    });
-    return !isStripePricePresentInProductModels;
-  });
-*/
-  // handle inactive prices
-  /*
-  inactivePrices.forEach(async (p) => {
+
+  const inactivePricesStillFlaggedAsActive = stripePrices
+    .filter((p) => {
+      const data = p.node;
+      const isStripePricePresentInProductModels = productModels.some(
+        (model) => {
+          return model.node.price * 100 == data["unit_amount"];
+        }
+      );
+      return !isStripePricePresentInProductModels;
+    })
+    .filter((p) => p.node.active)
+    .filter(
+      (p) => p.node["unit_amount"] != 595 && p.node["unit_amount"] != 895
+    );
+
+  inactivePricesStillFlaggedAsActive.forEach(async (p) => {
     const data = p.node;
     await stripe.prices.update(data.id, {
       active: false,
     });
   });
-*/
-  /*
-  const pricesToAdd = productModels.forEach((model) => {
+
+  productModels.forEach((model) => {
     const data = model.node;
 
     const currentPricesInStripe = stripePrices.filter(
       (p) => p.node["unit_amount"] == data.price * 100
     );
-    console.log(
-      currentPricesInStripe.length,
-      "current prices length",
-      pictures.length,
-      "pictures length"
-    );
+
     if (currentPricesInStripe.length < pictures.length) {
-      console.log(currentPricesInStripe, "currentPricesInStripe");
-      const productsAlreadyUpdated = products.filter((prod) =>
-        currentPricesInStripe.some((currentPrice) => {
-          return prod.node.id == currentPrice.node.product;
-        })
+      const productsYetToBeUpdated = products.filter(
+        (prod) =>
+          !currentPricesInStripe.some((currentPrice) => {
+            return prod.node.id == currentPrice.node.product.id;
+          })
       );
-      console.log(productsAlreadyUpdated, "productsYetToBeUpdated");
-      /*
-        if (!hasProductAlreadyBeenAdded) {
-          const price = await stripe.prices.create({
-            product: product.node.id,
-            unit_amount: data.price * 100,
-            currency: "gbp",
-            nickname: data.productName,
-          });
-        }
+
+      productsYetToBeUpdated.forEach(async (product) => {
+        const price = await stripe.prices.create({
+          product: product.node.id,
+          unit_amount: data.price * 100,
+          currency: "gbp",
+          nickname: data.productName,
+        });
+      });
     }
   });
-  */
 
   // add the pricesToBeAdded call
   /*
